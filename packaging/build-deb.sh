@@ -20,22 +20,33 @@ ARCH="$(dpkg --print-architecture)"
 
 echo "==> [1/5] 安装编译依赖"
 export DEBIAN_FRONTEND=noninteractive
-if [ "$(id -u)" = "0" ]; then APT="apt-get"; else APT="sudo apt-get"; fi
-$APT update -qq
-$APT install -y --no-install-recommends \
+if [ "$(id -u)" = "0" ]; then APT="apt-get"; SUDO=""; else APT="apt-get"; SUDO="sudo"; fi
+
+# Debian 11 (bullseye) 已 EOL，官方镜像不再提供，改用 archive.debian.org 归档源
+APT_OPTS=""
+if [ -f /etc/os-release ] && grep -q 'VERSION_ID="11"' /etc/os-release; then
+    echo "检测到 Debian 11，切换到 archive.debian.org 归档源"
+    $SUDO tee /etc/apt/sources.list >/dev/null <<'EOS'
+deb [check-valid-until=no] http://archive.debian.org/debian bullseye main
+deb [check-valid-until=no] http://archive.debian.org/debian-security bullseye-security main
+EOS
+    APT_OPTS="-o Acquire::Check-Valid-Until=false"
+fi
+$SUDO $APT $APT_OPTS update -qq
+$SUDO $APT $APT_OPTS install -y --no-install-recommends \
     build-essential cmake pkg-config patchelf file ca-certificates \
     libasound2-dev libjack-jackd2-dev libsndfile1-dev liblo-dev \
     libx11-dev libxft-dev libxrender-dev libxpm-dev \
     libfreetype-dev libfontconfig1-dev zlib1g-dev \
     libzita-resampler-dev libsamplerate-dev || \
-$APT install -y --no-install-recommends \
+$SUDO $APT $APT_OPTS install -y --no-install-recommends \
     build-essential cmake pkg-config patchelf file ca-certificates \
     libasound2-dev libjack-jackd2-dev libsndfile1-dev liblo-dev \
     libx11-dev libxft-dev libxrender-dev libxpm-dev \
     libfreetype-dev libfontconfig1-dev zlib1g-dev
 # FLTK 1.3 (Debian 11/Ubuntu) 或 1.4 (Debian 13+)
-$APT install -y --no-install-recommends libfltk1.3-dev || \
-    $APT install -y --no-install-recommends libfltk1.4-dev || true
+$SUDO $APT $APT_OPTS install -y --no-install-recommends libfltk1.3-dev || \
+    $SUDO $APT $APT_OPTS install -y --no-install-recommends libfltk1.4-dev || true
 
 echo "==> [2/5] 编译 rakarrack-plus"
 rm -rf build dist stage
