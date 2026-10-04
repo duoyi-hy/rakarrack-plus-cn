@@ -34,13 +34,13 @@ EOS
 fi
 $SUDO $APT $APT_OPTS update -qq
 $SUDO $APT $APT_OPTS install -y --no-install-recommends \
-    build-essential cmake pkg-config patchelf file ca-certificates \
+    build-essential cmake pkg-config patchelf file ca-certificates fluid \
     libasound2-dev libjack-jackd2-dev libsndfile1-dev liblo-dev \
     libx11-dev libxft-dev libxrender-dev libxpm-dev \
     libfreetype-dev libfontconfig1-dev zlib1g-dev \
     libzita-resampler-dev libsamplerate-dev || \
 $SUDO $APT $APT_OPTS install -y --no-install-recommends \
-    build-essential cmake pkg-config patchelf file ca-certificates \
+    build-essential cmake pkg-config patchelf file ca-certificates fluid \
     libasound2-dev libjack-jackd2-dev libsndfile1-dev liblo-dev \
     libx11-dev libxft-dev libxrender-dev libxpm-dev \
     libfreetype-dev libfontconfig1-dev zlib1g-dev
