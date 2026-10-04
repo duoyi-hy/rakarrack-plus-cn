@@ -1,0 +1,300 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0304
+header_name {.h}
+code_name {.cxx}
+decl {\#include "RKR_Light_Button.h"} {public global
+}
+
+decl {\#include "RKR_Check_Button.h"} {public global
+}
+
+decl {\#include "RKR_Choice.h"} {public global
+}
+
+decl {\#include "RKR_GUI_Effect.h"} {public global
+}
+
+widget_class {\#include "common_gui_menu.h"} DistBandGui {open selected
+  xywh {1550 57 155 180} type Double box UP_BOX color 0 selection_color 0 align 112
+  code0 {\#include "RKR_Slider.h"}
+  code1 {\#include "../process.h"}
+  code2 {\#include "rakarrack.h"}
+  code3 {\#include "common_gui_menu.h"}
+  class RKR_Gui_Effect visible position_relative
+} {
+  Fl_Light_Button distband_activar {
+    label 开
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Multi_On_Off);
+ o->value(m_process->EFX_Active[EFX_DISTBAND]);
+ return;
+}
+m_process->EFX_Active[EFX_DISTBAND]=(int)o->value();
+if((int) o->value()==0)
+m_process->Rack_Effects[EFX_DISTBAND]->cleanup();
+m_parent->findpos(EFX_DISTBAND,(int)o->value(),o);}
+    xywh {5 4 34 18} shortcut 0x33 color 62 selection_color 1 labelsize 10 align 84 when 1
+    code0 {activate_effect = o;}
+    class RKR_Light_Button
+  }
+  Fl_Choice distband_preset {
+    label 预置
+    user_data UD_PRESET_DISTBAND
+    callback {long long ud= (long long) v;
+if((ud==0)||(ud==UD_PRESET_DISTBAND))
+    m_process->Rack_Effects[EFX_DISTBAND]->setpreset((int)o->value());
+
+for (int i = 0; i < m_process->EFX_Param_Size[EFX_DISTBAND]; i++)
+{
+    parameter_refresh(i);
+};}
+    xywh {77 4 76 18} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 when 6 textsize 10 textcolor 7
+    code0 {preset_choice = o;}
+    class RKR_Choice
+  } {
+    MenuItem {} {
+      label 饱和
+      xywh {0 0 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {失真 1}
+      xywh {42 42 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 柔和
+      xywh {42 42 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 已调制
+      xywh {52 52 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 碎音
+      xywh {42 42 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {失真 2}
+      xywh {0 0 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {失真 3}
+      xywh {0 0 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {失真 4}
+      xywh {0 0 36 21} labelsize 10
+    }
+  }
+  Fl_Value_Slider distband_WD {
+    label {干湿比}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DistBand_DryWet);
+ return;
+} 
+m_process->Rack_Effects[EFX_DISTBAND]->changepar(DistBand_DryWet,Dry_Wet((int)(o->value())));}
+    xywh {56 26 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider distband_LRc {
+    label {左右交叉}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DistBand_LR_Cross);
+ return;
+} 
+m_process->Rack_Effects[EFX_DISTBAND]->changepar(DistBand_LR_Cross,(int)(o->value()));}
+    xywh {56 38 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider distband_drive {
+    label 驱动
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DistBand_Drive);
+ return;
+} 
+m_process->Rack_Effects[EFX_DISTBAND]->changepar(DistBand_Drive,(int)o->value());}
+    xywh {56 50 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider distband_level {
+    label 电平
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DistBand_Level);
+ return;
+} 
+m_process->Rack_Effects[EFX_DISTBAND]->changepar(DistBand_Level,(int)o->value());}
+    xywh {56 62 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider distband_volL {
+    label {低增益}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DistBand_Gain_Low);
+ return;
+} 
+m_process->Rack_Effects[EFX_DISTBAND]->changepar(DistBand_Gain_Low,(int)o->value());}
+    tooltip {低增益} xywh {56 76 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 100 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider distband_volM {
+    label {中增益}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DistBand_Gain_Mid);
+ return;
+} 
+m_process->Rack_Effects[EFX_DISTBAND]->changepar(DistBand_Gain_Mid,(int)o->value());}
+    tooltip {中频增益} xywh {56 89 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 100 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider distband_volH {
+    label {高增益}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DistBand_Gain_Hi);
+ return;
+} 
+m_process->Rack_Effects[EFX_DISTBAND]->changepar(DistBand_Gain_Hi,(int)o->value());}
+    tooltip {高增益} xywh {56 102 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 100 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider distband_cross1 {
+    label {交叉 1}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DistBand_Cross_1);
+ return;
+} 
+m_process->Rack_Effects[EFX_DISTBAND]->changepar(DistBand_Cross_1,(int)o->value());}
+    xywh {56 115 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 20 maximum 1000 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider distband_cross2 {
+    label {交叉 2}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DistBand_Cross_2);
+ return;
+} 
+m_process->Rack_Effects[EFX_DISTBAND]->changepar(DistBand_Cross_2,(int)o->value());}
+    xywh {56 127 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 800 maximum 12000 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Choice distband_tipoL {
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DistBand_Type_Low);
+ return;
+} 
+
+m_process->Rack_Effects[EFX_DISTBAND]->changepar(DistBand_Type_Low,(int)o->value());} open
+    tooltip {失真类型（低）} xywh {3 139 50 16} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 textsize 10 textcolor 7
+    code0 {o->menu(m_dist_menu->get_distortion_type());}
+    class RKR_Choice
+  } {}
+  Fl_Choice distband_tipoM {
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DistBand_Type_Mid);
+ return;
+} 
+
+m_process->Rack_Effects[EFX_DISTBAND]->changepar(DistBand_Type_Mid,(int)o->value());} open
+    tooltip {失真类型（中）} xywh {54 139 50 16} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 textsize 10 textcolor 7
+    code0 {o->menu(m_dist_menu->get_distortion_type());}
+    class RKR_Choice
+  } {}
+  Fl_Choice distband_tipoH {
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DistBand_Type_Hi);
+ return;
+} 
+
+m_process->Rack_Effects[EFX_DISTBAND]->changepar(DistBand_Type_Hi,(int)o->value());} open
+    tooltip {失真类型（高）} xywh {105 139 50 16} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 textsize 10 textcolor 7
+    code0 {o->menu(m_dist_menu->get_distortion_type());}
+    class RKR_Choice
+  } {}
+  Fl_Value_Slider distband_pan {
+    label 声像
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DistBand_Pan);
+ return;
+} 
+m_process->Rack_Effects[EFX_DISTBAND]->changepar(DistBand_Pan,(int)(o->value()+64));}
+    xywh {56 158 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -64 maximum 63 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Check_Button distband_st {
+    label 立体声
+    callback {m_process->Rack_Effects[EFX_DISTBAND]->changepar(DistBand_Stereo,(int)o->value());}
+    xywh {32 168 54 15} down_box BORDER_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  Fl_Check_Button distband_neg {
+    label {负}
+    callback {m_process->Rack_Effects[EFX_DISTBAND]->changepar(DistBand_Negate,(int)o->value());}
+    xywh {101 167 44 15} down_box BORDER_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  decl {CommonGuiMenu *m_dist_menu;} {private local
+  }
+  Function {parameter_refresh(int index)} {return_type void
+  } {
+    code {switch (index)
+    {
+    case DistBand_DryWet:
+        distband_WD->value(Dry_Wet(m_process->Rack_Effects[EFX_DISTBAND]->getpar(DistBand_DryWet)));
+        break;
+    case DistBand_Pan:
+        distband_pan->value(m_process->Rack_Effects[EFX_DISTBAND]->getpar(DistBand_Pan)-64);
+        break;
+    case DistBand_LR_Cross:
+        distband_LRc->value(m_process->Rack_Effects[EFX_DISTBAND]->getpar(DistBand_LR_Cross));
+        break;
+    case DistBand_Drive:
+        distband_drive->value(m_process->Rack_Effects[EFX_DISTBAND]->getpar(DistBand_Drive));
+        break;
+    case DistBand_Level:
+        distband_level->value(m_process->Rack_Effects[EFX_DISTBAND]->getpar(DistBand_Level));
+        break;
+    case DistBand_Type_Low:
+        distband_tipoL->value(m_process->Rack_Effects[EFX_DISTBAND]->getpar(DistBand_Type_Low));
+        break;
+    case DistBand_Type_Mid:
+        distband_tipoM->value(m_process->Rack_Effects[EFX_DISTBAND]->getpar(DistBand_Type_Mid));
+        break;
+    case DistBand_Type_Hi:
+        distband_tipoH->value(m_process->Rack_Effects[EFX_DISTBAND]->getpar(DistBand_Type_Hi));
+        break;
+    case DistBand_Gain_Low:
+        distband_volL->value(m_process->Rack_Effects[EFX_DISTBAND]->getpar(DistBand_Gain_Low));
+        break;
+    case DistBand_Gain_Mid:
+        distband_volM->value(m_process->Rack_Effects[EFX_DISTBAND]->getpar(DistBand_Gain_Mid));
+        break;
+    case DistBand_Gain_Hi:
+        distband_volH->value(m_process->Rack_Effects[EFX_DISTBAND]->getpar(DistBand_Gain_Hi));
+        break;
+    case DistBand_Negate:
+        distband_neg->value(m_process->Rack_Effects[EFX_DISTBAND]->getpar(DistBand_Negate));
+        break;
+    case DistBand_Cross_1:
+        distband_cross1->value(m_process->Rack_Effects[EFX_DISTBAND]->getpar(DistBand_Cross_1));
+        break;
+    case DistBand_Cross_2:
+        distband_cross2->value(m_process->Rack_Effects[EFX_DISTBAND]->getpar(DistBand_Cross_2));
+        break;
+    case DistBand_Stereo:
+        distband_st->value(m_process->Rack_Effects[EFX_DISTBAND]->getpar(DistBand_Stereo));
+        break;
+    }} {}
+  }
+}

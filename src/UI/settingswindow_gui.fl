@@ -1,0 +1,2160 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0404
+header_name {.h}
+code_name {.cxx}
+decl {\#include "RKR_Box.h"} {public global
+}
+
+decl {\#include "RKR_Button.h"} {public global
+}
+
+decl {\#include "RKR_Browser.h"} {public global
+}
+
+decl {\#include "RKR_Check_Button.h"} {public global
+}
+
+decl {\#include "RKR_Choice.h"} {public global
+}
+
+decl {\#include "RKR_Counter.h"} {public global
+}
+
+decl {\#include "RKR_Input.h"} {public global
+}
+
+decl {\#include "RKR_File_Input.h"} {public global
+}
+
+decl {\#include "RKR_Group.h"} {public global
+}
+
+decl {\#include "RKR_Scroll.h"} {public global
+}
+
+decl {\#include "RKR_Tabs.h"} {public global
+}
+
+decl {\#include "RKR_Fl_Slider.h"} {public global
+}
+
+decl {\#include "../strlcpy.h"} {private global
+}
+
+widget_class {this->m_parent = NULL;} SettingsWindowGui {open selected
+  xywh {482 234 530 580}
+  code0 {\#include "rakarrack.h"}
+  code1 {this->m_process = NULL;}
+  code2 {this->m_parent = NULL;}
+  class Fl_Double_Window size_range {740 554 0 0} visible
+} {
+  Function {initialize(RKR *_rkr,RKRGUI *_rgui )} {open C return_type void
+  } {
+    code {m_process = _rkr;
+m_parent= _rgui;} {}
+  }
+  Fl_Box Fondo2 {
+    xywh {1 1 525 575}
+  }
+  Fl_Tabs STabs {open
+    xywh {0 0 530 580}
+    class RKR_Tabs
+  } {
+    Fl_Group Look {
+      label 外观
+      xywh {5 26 518 554} box DOWN_FRAME labelfont 1 labelcolor 7 align 4
+    } {
+      Fl_Box Fondo6 {
+        xywh {5 26 518 554}
+      }
+      Fl_Choice scheme_ch {
+        label 方案
+        callback {\#ifndef NTK_SUPPORT
+switch ((int)o->value())
+
+{
+
+  case 0:
+
+Fl::scheme("");
+Fl::redraw();
+break;
+
+  case 1:
+
+Fl::scheme("none");
+Fl::redraw();
+break;
+
+  case 2:
+
+Fl::scheme("gtk+");
+Fl::redraw();
+break;
+
+  case 3:
+
+Fl::scheme("plastic");
+Fl::redraw();
+break;
+
+  case 4:
+
+Fl::scheme("gleam");
+Fl::redraw();
+break;
+
+
+}
+\#endif}
+        xywh {30 59 88 20} down_box BORDER_BOX labelsize 13 labelcolor 7 align 5 textsize 12 textcolor 7
+        code0 {o->set_label_offset(3);}
+        code1 {o->set_text_offset(2);}
+        class RKR_Choice
+      } {
+        MenuItem {} {
+          label X11
+          xywh {30 30 45 26} labelsize 12
+        }
+        MenuItem {} {
+          label fltk
+          xywh {30 30 45 26} labelsize 12
+        }
+        MenuItem {} {
+          label {gtk+}
+          xywh {40 40 45 26} labelsize 12
+        }
+        MenuItem {} {
+          label plastic
+          xywh {50 50 45 26} labelsize 12
+        }
+        MenuItem {} {
+          label gleam
+          xywh {60 60 45 26} labelsize 12
+        }
+      }
+      Fl_Browser Font_Bro {
+        label 字体
+        callback {int font_type = (int)o->value()-1;
+m_parent->font_type_change(font_type);}
+        xywh {30 100 400 225} type Hold labelcolor 7 align 1
+        code0 {o->set_browser_type(FONT_BROWSER);}
+        class RKR_Browser
+      }
+      Fl_Box FSLabel {
+        label {字体大小}
+        xywh {30 333 60 17} labelsize 13 labelcolor 7 align 20
+        code0 {o->set_label_offset(3);}
+        class RKR_Box
+      }
+      Fl_Button FSless {
+        label {-}
+        callback {m_parent->font_size_change(global_font_size - 1);}
+        xywh {95 330 30 20}
+        code0 {o->set_label_offset(4);}
+        class RKR_Button
+      }
+      Fl_Button FSplus {
+        label {+}
+        callback {m_parent->font_size_change(global_font_size + 1);}
+        xywh {130 330 30 20}
+        code0 {o->set_label_offset(4);}
+        class RKR_Button
+      }
+      Fl_Button FSReset {
+        label 重置
+        callback {scheme_ch->value(2);
+    scheme_ch->do_callback();
+    Enable_DeacHide->value(0);
+    Enable_DeacHide->do_callback();
+    Enable_Back->value(0);
+    Enable_Back->do_callback();
+    Enable_Scale->value(0);
+    Enable_Scale->do_callback();
+    
+    // Background image
+    char filename[256];
+    snprintf(filename, sizeof(filename), "%s/blackbg.png", DATADIR);
+    BackFiname->value(filename);
+    RKRP::strlcpy(m_process->Config.BackgroundImage,filename, sizeof(m_process->Config.BackgroundImage));
+    
+    m_process->Config.EnableBackgroundImage = 0;
+    m_parent->PutBackground();
+    
+    m_parent->back_color_change(RKR_background_color);      // FL_BLACK
+    m_parent->leds_color_change(RKR_leds_color);            // FL_DARK_YELLOW
+    m_parent->buttons_color_change(RKR_buttons_color);      // FL_DARK3 - Buttons
+    m_parent->label_color_change(RKR_labels_color);         // FL_WHITE
+    m_parent->font_size_change(C_DEFAULT_FONT_SIZE);
+    m_parent->font_type_change(0);
+    
+    //m_parent->Principal->resize(m_parent->Principal->x(), m_parent->Principal->y(), 960, 540);
+
+    m_parent->save_current_state(3);
+    Fl::redraw();}
+        tooltip {将外观设置恢复为程序默认} xywh {30 547 57 20}
+        code0 {o->set_label_offset(4);}
+        class RKR_Button
+      }
+      Fl_Box CLLabel {
+        label 颜色
+        xywh {30 358 40 19} labelsize 13 labelcolor 7 align 20
+        code0 {o->set_label_offset(3);}
+        class RKR_Box
+      }
+      Fl_Button B_C {
+        label 按钮
+        callback {uchar r,g,b;
+
+Fl::get_color(global_fore_color,r,g,b);
+if (!fl_color_chooser("rakarrak buttons color:",r,g,b))
+   return;
+
+Fl_Color fore_color = fl_rgb_color(r,g,b);
+m_parent->buttons_color_change(fore_color);}
+        xywh {30 380 90 25}
+        code0 {o->set_label_offset(4);}
+        class RKR_Button
+      }
+      Fl_Button A_C {
+        label 标签
+        callback {uchar r,g,b;
+
+Fl::get_color(global_label_color,r,g,b);
+if (!fl_color_chooser("rakarrack label color:",r,g,b))
+   return;
+   
+Fl_Color label_color = fl_rgb_color(r,g,b);
+m_parent->label_color_change(label_color);}
+        xywh {130 380 90 25}
+        code0 {o->set_label_offset(4);}
+        class RKR_Button
+      }
+      Fl_Button L_C {
+        label 指示灯
+        callback {uchar r,g,b;
+
+Fl::get_color(global_leds_color,r,g,b);
+if (!fl_color_chooser("rakarrack leds color:",r,g,b))
+   return;
+
+Fl_Color leds_color = fl_rgb_color(r,g,b);
+m_parent->leds_color_change(leds_color);}
+        xywh {230 380 90 25}
+        code0 {o->set_label_offset(4);}
+        class RKR_Button
+      }
+      Fl_Button K_C {
+        label 背景
+        callback {uchar r,g,b;
+
+Fl::get_color(global_back_color,r,g,b);
+if (!fl_color_chooser("rakarrack back color:",r,g,b))
+   return;
+
+Fl_Color back_color = fl_rgb_color(r,g,b);
+m_parent->back_color_change(back_color);}
+        xywh {330 380 90 25}
+        code0 {o->set_label_offset(4);}
+        class RKR_Button
+      }
+      Fl_Check_Button Enable_Back {
+        label {启用背景图片}
+        callback {m_process->Config.EnableBackgroundImage=(int) o->value();
+m_parent->PutBackground();}
+        xywh {30 415 182 16} down_box DOWN_BOX labelsize 12 labelcolor 7
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+      Fl_File_Input BackFiname {
+        label {背景图片}
+        xywh {30 455 390 40} labelsize 12 labelcolor 7 align 5 textcolor 7
+        code0 {o->set_label_offset(2);}
+        code1 {o->set_text_offset(4);}
+        class RKR_File_Input
+      }
+      Fl_Button BI_Browser {
+        label 浏览
+        callback {m_process->Shut_Off_Below_Mouse = 1;
+char *filename=fl_file_chooser("Browse:","(*.png)",DATADIR,0);
+m_process->Shut_Off_Below_Mouse = 0;
+
+if (filename==NULL) return;
+filename=fl_filename_setext(filename,".png");
+BackFiname->value(filename);
+RKRP::strlcpy(m_process->Config.BackgroundImage,filename, sizeof(m_process->Config.BackgroundImage));
+m_parent->PutBackground();}
+        xywh {427 470 65 20}
+        code0 {o->set_label_offset(4);}
+        class RKR_Button
+      }
+      Fl_Check_Button Enable_DeacHide {
+        label {隐藏未使用的效果器}
+        callback {m_process->Config.deachide=(int) o->value();
+  m_parent->reordena();}
+        xywh {30 500 192 16} down_box DOWN_BOX labelsize 12 labelcolor 7
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+      Fl_Check_Button Enable_Scale {
+        label {主窗口可缩放}
+        callback {m_process->Config.scalable=(int) o->value();
+m_process->change_scale = 1; // true}
+        xywh {30 525 181 16} down_box DOWN_BOX labelsize 12 labelcolor 7
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+    }
+    Fl_Group AUDIO_SET {
+      label 音频
+      xywh {5 26 518 554} box DOWN_FRAME labelfont 1 labelcolor 7 align 4 hide
+    } {
+      Fl_Box Fondo7 {
+        xywh {5 26 518 554}
+      }
+      Fl_Check_Button INSTATE {
+        label {启动时开启 FX}
+        callback {m_process->Config.init_state=(int) o->value();}
+        xywh {30 40 124 16} down_box DOWN_BOX labelsize 12 labelcolor 7
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+      Fl_Check_Button Filter_DC {
+        label {滤波器输入直流偏移}
+        callback {m_process->Config.DC_Offset=(int) o->value();}
+        xywh {30 64 152 16} down_box DOWN_BOX labelsize 12 labelcolor 7
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+      Fl_Check_Button Pre_Serve {
+        label {切换预置时保持增益/主音量}
+        callback {m_process->Config.preserve_master=(int) o->value();}
+        xywh {30 87 275 16} down_box DOWN_BOX labelsize 12 labelcolor 7
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+      Fl_Check_Button Update_TAP {
+        label {切换预置时更新敲击速度}
+        callback {m_process->Config.Tap_Updated = (int) o->value();}
+        xywh {30 108 264 16} down_box DOWN_BOX labelsize 12 labelcolor 7
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+      Fl_Box loop_Label {
+        label {循环录音时长（秒）}
+        xywh {30 211 136 18} labelsize 12 align 20 when 0
+        code0 {o->set_label_offset(2);}
+        class RKR_Box
+      }
+      Fl_Counter L_SIZE {
+        callback {m_process->Config.looper_size=o->value();
+if(!m_process->m_displayed)
+{
+m_parent->Show_Next_Time();
+m_process->m_displayed=1;
+}}
+        xywh {165 210 47 18} type Simple labelsize 10 labelcolor 7 align 4 when 4 minimum 0.5 maximum 30 step 0.5 value 0.5 textsize 10
+        class RKR_Counter
+      }
+      Fl_Box loop_metro_Label {
+        label {循环录音节拍器音量}
+        xywh {30 237 136 18} labelsize 12 align 20 when 0
+        code0 {o->set_label_offset(2);}
+        class RKR_Box
+      }
+      Fl_Counter LM_Volume {
+        callback {m_process->Config.Metro_Vol=(int)o->value();
+Looper *Efx_Looper = static_cast <Looper*> (m_process->Rack_Effects[EFX_LOOPER]);
+Efx_Looper->setmvol(m_process->Config.Metro_Vol);}
+        tooltip {循环录音节拍器音量} xywh {165 237 47 18} type Simple labelsize 12 labelcolor 7 align 8 when 4 minimum 0 maximum 100 step 1 value 50 textsize 10
+        code0 {o->set_label_offset(2);}
+        class RKR_Counter
+      }
+      Fl_Check_Button FLPosition {
+        label {输出音量前限幅}
+        callback {m_process->flpos=(int)o->value();}
+        xywh {30 130 203 16} down_box DOWN_BOX labelsize 12 labelcolor 7
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+      Fl_Check_Button DB6B {
+        label {+6dB Final Limiter }
+        callback {m_process->db6booster=(int)o->value();}
+        xywh {30 152 140 16} down_box DOWN_BOX labelsize 12 labelcolor 7
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+      Fl_Box Calibration_Label {
+        label {调音器 A4 校准}
+        xywh {30 283 136 18} labelsize 12 align 20 when 0
+        code0 {o->set_label_offset(2);}
+        class RKR_Box
+      }
+      Fl_Counter Calibration {
+        callback {m_process->Config.aFreq=o->value();
+m_process->HarmRecNote->update_freqs(m_process->Config.aFreq);
+m_process->StHarmRecNote->update_freqs(m_process->Config.aFreq);
+m_process->RingRecNote->update_freqs(m_process->Config.aFreq);}
+        xywh {170 280 116 21} labelsize 10 labelcolor 7 align 4 minimum 420 maximum 460 value 440 textsize 10
+        class RKR_Counter
+      }
+      Fl_Counter RTrigger {
+        callback {m_process->Config.rtrig = o->value();
+m_process->HarmRecNote->trigfact = o->value();
+m_process->StHarmRecNote->trigfact = o->value();
+m_process->RingRecNote->trigfact = o->value();}
+        tooltip {识别音符触发} xywh {170 310 116 21} labelsize 12 labelcolor 7 align 8 minimum 0.01 maximum 0.99 step 0.01 value 0.6 textsize 10
+        code0 {o->lstep(0.1);}
+        code1 {o->set_label_offset(2);}
+        class RKR_Counter
+      }
+      Fl_Check_Button UPSAMPLE_C {
+        label {主升采样}
+        callback {m_process->Config.upsample=(int)o->value();
+m_parent->Show_Reset_Window();}
+        tooltip {勾选以启用主升采样} xywh {30 175 141 16} down_box DOWN_BOX labelsize 12 labelcolor 7 when 1
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+      Fl_Choice Upr_Amo {
+        label 数量
+        callback {m_process->Config.UpAmo =(int) o->value();
+
+if(m_process->Config.upsample)
+{
+  m_parent->Show_Reset_Window();
+}}
+        xywh {241 175 47 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->set_label_offset(1);}
+        class RKR_Choice
+      } {
+        MenuItem {} {
+          label x2
+          xywh {75 75 45 26} labelsize 10
+        }
+        MenuItem {} {
+          label x3
+          xywh {75 75 45 26} labelsize 10
+        }
+        MenuItem {} {
+          label x4
+          xywh {65 65 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label x5
+          xywh {55 55 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label x6
+          xywh {55 55 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label x7
+          xywh {35 35 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label x8
+          xywh {35 35 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label x9
+          xywh {35 35 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label x10
+          xywh {35 35 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label x11
+          xywh {35 35 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label x12
+          xywh {35 35 36 21} labelsize 10
+        }
+      }
+      Fl_Choice Upr_Qual {
+        label 上
+        callback {m_process->Config.UpQual =(int) o->value();
+
+if(m_process->Config.upsample)
+{
+  m_parent->Show_Reset_Window();
+}}
+        xywh {313 175 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->set_label_offset(1);}
+        class RKR_Choice
+      } {
+        MenuItem {} {
+          label 最佳
+          xywh {65 65 45 26} labelsize 10
+        }
+        MenuItem {} {
+          label 中等
+          xywh {65 65 45 26} labelsize 10
+        }
+        MenuItem {} {
+          label 最快
+          xywh {55 55 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label {零阶保持}
+          xywh {45 45 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label 线性
+          xywh {45 45 36 21} labelsize 10
+        }
+      }
+      Fl_Choice Downr_Qual {
+        label 下
+        callback {m_process->Config.DownQual =(int) o->value();
+
+if(m_process->Config.upsample)
+{
+  m_parent->Show_Reset_Window();
+}}
+        xywh {425 175 73 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Upr_Qual);}
+        code1 {o->set_label_offset(1);}
+        class RKR_Choice
+      } {}
+      Fl_Box note_trig_Label {
+        label {音符触发}
+        xywh {30 312 136 18} labelsize 12 align 20 when 0
+        code0 {o->set_label_offset(2);}
+        class RKR_Box
+      }
+      Fl_Box Recognize_Label {
+        label {音符识别优化}
+        xywh {30 360 176 18} labelsize 12 align 20 when 0
+        code0 {o->set_label_offset(2);}
+        class RKR_Box
+      }
+      Fl_Choice RC_Harm_Opti {
+        label 和声器
+        callback {m_process->Config.RCOpti_Harm =(int) o->value();
+
+switch(m_process->Config.RCOpti_Harm)
+  {
+  
+  
+    case 0:
+    	m_process->HarmRecNote->setlpf(5500);
+    	m_process->HarmRecNote->sethpf(80);
+    	break;
+    	
+
+    case 1:
+    	m_process->HarmRecNote->setlpf(4500);
+    	m_process->HarmRecNote->sethpf(80);
+    	break;
+    	
+    case 2:
+    	m_process->HarmRecNote->setlpf(3000);
+    	m_process->HarmRecNote->sethpf(300);
+    	break;
+
+}}
+        xywh {216 360 72 18} down_box BORDER_BOX labelsize 10 labelcolor 7 align 1 textsize 10 textcolor 7
+        class RKR_Choice
+      } {
+        MenuItem {} {
+          label 标准
+          xywh {30 360 45 26} labelsize 10
+        }
+        MenuItem {} {
+          label 吉他
+          xywh {30 360 45 26} labelsize 10
+        }
+        MenuItem {} {
+          label 人声
+          xywh {30 360 36 21} labelsize 10
+        }
+      }
+      Fl_Choice RC_St_Harm_Opti {
+        label {立体声和声器}
+        callback {m_process->Config.RCOpti_Stereo =(int) o->value();
+
+switch(m_process->Config.RCOpti_Stereo)
+  {
+  
+  
+    case 0:
+    	m_process->StHarmRecNote->setlpf(5500);
+    	m_process->StHarmRecNote->sethpf(80);
+    	break;
+    	
+
+    case 1:
+    	m_process->StHarmRecNote->setlpf(4500);
+    	m_process->StHarmRecNote->sethpf(80);
+    	break;
+    	
+    case 2:
+    	m_process->StHarmRecNote->setlpf(3000);
+    	m_process->StHarmRecNote->sethpf(300);
+    	break;
+
+}}
+        xywh {312 360 72 18} down_box BORDER_BOX labelsize 10 labelcolor 7 align 1 textsize 10 textcolor 7
+        code0 {o->menu(menu_RC_Harm_Opti);}
+        class RKR_Choice
+      } {}
+      Fl_Choice RC_Ring_Opti {
+        label 环形调制
+        callback {m_process->Config.RCOpti_Ring =(int) o->value();
+
+switch(m_process->Config.RCOpti_Ring)
+  {
+  
+  
+    case 0:
+    	m_process->RingRecNote->setlpf(5500);
+    	m_process->RingRecNote->sethpf(80);
+    	break;
+    	
+
+    case 1:
+    	m_process->RingRecNote->setlpf(4500);
+    	m_process->RingRecNote->sethpf(80);
+    	break;
+    	
+    case 2:
+    	m_process->RingRecNote->setlpf(3000);
+    	m_process->RingRecNote->sethpf(300);
+    	break;
+
+}}
+        xywh {408 360 72 18} down_box BORDER_BOX labelsize 10 labelcolor 7 align 1 textsize 10 textcolor 7
+        code0 {o->menu(menu_RC_Harm_Opti);}
+        class RKR_Choice
+      } {}
+    }
+    Fl_Group QUALITY_SET {
+      label 质量
+      xywh {5 26 518 554} box DOWN_FRAME labelfont 1 labelcolor 7 align 4 hide
+    } {
+      Fl_Box Fondo12 {
+        xywh {5 26 518 554}
+      }
+      Fl_Box Har_Q_Label {
+        label {和声器质量}
+        xywh {30 49 136 18} labelsize 12 align 20 when 0
+        code0 {o->set_label_offset(2);}
+        class RKR_Box
+      }
+      Fl_Choice Har_Qual {
+        callback {int i = (int) o->value();
+
+switch(i)
+{
+     case 0:
+       m_process->Config.HarQual=4;
+       break;
+     case 1:
+       m_process->Config.HarQual=8;
+       break;
+     case 2:
+       m_process->Config.HarQual=16;	
+	break;
+     case 3:
+       m_process->Config.HarQual=32;	
+	break;	
+}
+
+update_harmonizer_quality();}
+        xywh {156 49 47 18} down_box BORDER_BOX labelsize 10 labelcolor 7 align 8 textsize 10 textcolor 7
+        class RKR_Choice
+      } {
+        MenuItem {} {
+          label 4
+          xywh {50 49 45 26} labelsize 10
+        }
+        MenuItem {} {
+          label 8
+          xywh {50 49 45 26} labelsize 10
+        }
+        MenuItem {} {
+          label 16
+          xywh {40 49 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label 32
+          xywh {40 49 36 21} labelsize 10
+        }
+      }
+      Fl_Choice Seq_Qual {
+        label {序列质量}
+        callback {int i = (int) o->value();
+
+switch(i)
+{
+     case 0:
+       m_process->Config.SeqQual=4;
+       break;
+     case 1:
+       m_process->Config.SeqQual=8;
+       break;
+     case 2:
+       m_process->Config.SeqQual=16;	
+	break;
+     case 3:
+       m_process->Config.SeqQual=32;	
+	break;	
+}
+
+update_sequence_quality();} open
+        xywh {230 49 47 18} down_box BORDER_BOX labelsize 12 labelcolor 7 align 8 textsize 10 textcolor 7
+        code0 {o->set_label_offset(2);}
+        code1 {o->menu(menu_Har_Qual);}
+        class RKR_Choice
+      } {}
+      Fl_Box Sharm_Q_Label {
+        label {立体声和质量}
+        xywh {30 76 136 18} labelsize 12 align 20 when 0
+        code0 {o->set_label_offset(2);}
+        class RKR_Box
+      }
+      Fl_Choice Ste_Qual {
+        callback {int i = (int) o->value();
+
+switch(i)
+{
+     case 0:
+       m_process->Config.SteQual=4;
+       break;
+     case 1:
+       m_process->Config.SteQual=8;
+       break;
+     case 2:
+       m_process->Config.SteQual=16;	
+	break;
+     case 3:
+       m_process->Config.SteQual=32;	
+	break;	
+}
+
+update_stereoharm_quality();} open
+        xywh {156 76 47 18} down_box BORDER_BOX labelsize 12 labelcolor 7 align 8 textsize 10 textcolor 7
+        code0 {o->set_label_offset(2);}
+        code1 {o->menu(menu_Har_Qual);}
+        class RKR_Choice
+      } {}
+      Fl_Choice Shi_Qual {
+        label {移调器质量}
+        callback {int i = (int) o->value();
+
+switch(i)
+{
+     case 0:
+       m_process->Config.ShiQual=4;
+       break;
+     case 1:
+       m_process->Config.ShiQual=8;
+       break;
+     case 2:
+       m_process->Config.ShiQual=16;	
+	break;
+     case 3:
+       m_process->Config.ShiQual=32;	
+	break;	
+}
+
+update_shifter_quality();} open
+        xywh {230 76 47 18} down_box BORDER_BOX labelsize 12 labelcolor 7 align 8 textsize 10 textcolor 7
+        code0 {o->set_label_offset(2);}
+        code1 {o->menu(menu_Har_Qual);}
+        class RKR_Choice
+      } {}
+      Fl_Box Voc_Band_Label {
+        label {声码器频段}
+        xywh {30 104 136 18} labelsize 12 align 20 when 0
+        code0 {o->set_label_offset(2);}
+        class RKR_Box
+      }
+      Fl_Choice Voc_Bands {
+        callback {switch((int)o->value())
+{
+  case 0:
+  m_process->Config.VocBands = 16;
+  break;
+
+  case 1:
+  m_process->Config.VocBands = 32;
+  break;
+
+  case 2:
+  m_process->Config.VocBands = 64;
+  break;
+
+  case 3:
+  m_process->Config.VocBands = 128;
+  break;
+
+  case 4:
+  m_process->Config.VocBands = 256;
+  break;
+
+}
+
+update_vocoder_quality();}
+        xywh {156 104 47 18} down_box BORDER_BOX labelsize 10 labelcolor 7 align 8 textsize 10 textcolor 7
+        class RKR_Choice
+      } {
+        MenuItem {} {
+          label 16
+          xywh {80 80 45 26} labelsize 10
+        }
+        MenuItem {} {
+          label 32
+          xywh {80 80 45 26} labelsize 10
+        }
+        MenuItem {} {
+          label 64
+          xywh {70 70 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label 128
+          xywh {60 60 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label 256
+          xywh {60 60 36 21} labelsize 10
+        }
+      }
+      Fl_Box Harm_Label {
+        label {和声器降采样}
+        xywh {30 140 156 18} labelsize 12 align 20 when 0
+        code0 {o->set_label_offset(2);}
+        class RKR_Box
+      }
+      Fl_Choice Har_Downsample {
+        callback {m_process->Config.Har_Down=(int)o->value();
+
+update_harmonizer_quality();}
+        xywh {205 140 70 18} down_box BORDER_BOX labelsize 10 labelcolor 7 textsize 10 textcolor 7
+        class RKR_Choice
+      } {
+        MenuItem {} {
+          label 标准
+          xywh {60 140 45 26} labelsize 10
+        }
+        MenuItem {} {
+          label 96000
+          xywh {60 140 45 26} labelsize 10
+        }
+        MenuItem {} {
+          label 48000
+          xywh {50 140 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label 44100
+          xywh {50 140 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label 32000
+          xywh {30 140 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label 22050
+          xywh {30 140 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label 16000
+          xywh {30 140 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label 12000
+          xywh {30 140 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label 8000
+          xywh {30 140 36 21} labelsize 10
+        }
+        MenuItem {} {
+          label 4000
+          xywh {30 140 36 21} labelsize 10
+        }
+      }
+      Fl_Choice Har_Down_Qua {
+        label 下
+        callback {m_process->Config.Har_D_Q=(int)o->value();
+
+update_harmonizer_quality();} open
+        xywh {315 140 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Upr_Qual);}
+        code1 {o->set_label_offset(1);}
+        class RKR_Choice
+      } {}
+      Fl_Choice Har_Up_Qua {
+        label 上
+        callback {m_process->Config.Har_U_Q=(int)o->value();
+
+update_harmonizer_quality();} open
+        xywh {415 140 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Upr_Qual);}
+        code1 {o->set_label_offset(1);}
+        class RKR_Choice
+      } {}
+      Fl_Box Rev_Label {
+        label {混响矩阵降采样}
+        xywh {30 170 156 18} labelsize 12 align 20 when 0
+        code0 {o->set_label_offset(2);}
+        class RKR_Box
+      }
+      Fl_Choice Rev_Downsample {
+        callback {m_process->Config.Rev_Down=(int)o->value();
+
+update_revtron_quality();} open
+        xywh {205 170 70 18} down_box BORDER_BOX labelsize 10 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Har_Downsample);}
+        class RKR_Choice
+      } {}
+      Fl_Choice Rev_Down_Qua {
+        label 下
+        callback {m_process->Config.Rev_D_Q=(int)o->value();
+
+update_revtron_quality();}
+        xywh {315 170 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Upr_Qual);}
+        code1 {o->set_label_offset(1);}
+        class RKR_Choice
+      } {}
+      Fl_Choice Rev_Up_Qua {
+        label 上
+        callback {m_process->Config.Rev_U_Q=(int)o->value();
+
+update_revtron_quality();} open
+        xywh {415 170 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Upr_Qual);}
+        code1 {o->set_label_offset(1);}
+        class RKR_Choice
+      } {}
+      Fl_Box con_Label {
+        label {卷积混响降采样}
+        xywh {30 200 156 18} labelsize 12 align 20 when 0
+        code0 {o->set_label_offset(2);}
+        class RKR_Box
+      }
+      Fl_Choice Con_Downsample {
+        callback {m_process->Config.Con_Down=(int)o->value();
+
+update_convo_quality();} open
+        xywh {205 200 70 18} down_box BORDER_BOX labelsize 10 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Har_Downsample);}
+        class RKR_Choice
+      } {}
+      Fl_Choice Con_Down_Qua {
+        label 下
+        callback {m_process->Config.Con_D_Q=(int)o->value();
+
+update_convo_quality();} open
+        xywh {315 200 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Upr_Qual);}
+        code1 {o->set_label_offset(1);}
+        class RKR_Choice
+      } {}
+      Fl_Choice Con_Up_Qua {
+        label 上
+        callback {m_process->Config.Con_U_Q=(int)o->value();
+
+update_convo_quality();} open
+        xywh {415 200 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Upr_Qual);}
+        code1 {o->set_label_offset(1);}
+        class RKR_Choice
+      } {}
+      Fl_Box seq_Label {
+        label {序列降采样}
+        xywh {30 230 156 18} labelsize 12 align 20 when 0
+        code0 {o->set_label_offset(2);}
+        class RKR_Box
+      }
+      Fl_Choice Seq_Downsample {
+        callback {m_process->Config.Seq_Down=(int)o->value();
+update_sequence_quality();} open
+        xywh {205 230 70 18} down_box BORDER_BOX labelsize 10 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Har_Downsample);}
+        class RKR_Choice
+      } {}
+      Fl_Choice Seq_Down_Qua {
+        label 下
+        callback {m_process->Config.Seq_D_Q=(int)o->value();
+update_sequence_quality();} open
+        xywh {315 230 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Upr_Qual);}
+        code1 {o->set_label_offset(1);}
+        class RKR_Choice
+      } {}
+      Fl_Choice Seq_Up_Qua {
+        label 上
+        callback {m_process->Config.Seq_U_Q=(int)o->value();
+update_sequence_quality();} open
+        xywh {415 230 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Upr_Qual);}
+        code1 {o->set_label_offset(1);}
+        class RKR_Choice
+      } {}
+      Fl_Box shi_Label {
+        label {移调器降采样}
+        xywh {30 260 156 18} labelsize 12 align 20 when 0
+        code0 {o->set_label_offset(2);}
+        class RKR_Box
+      }
+      Fl_Choice Shi_Downsample {
+        callback {m_process->Config.Shi_Down=(int)o->value();
+update_shifter_quality();} open
+        xywh {205 260 70 18} down_box BORDER_BOX labelsize 10 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Har_Downsample);}
+        class RKR_Choice
+      } {}
+      Fl_Choice Shi_Down_Qua {
+        label 下
+        callback {m_process->Config.Shi_D_Q=(int)o->value();
+update_shifter_quality();} open
+        xywh {315 260 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Upr_Qual);}
+        code1 {o->set_label_offset(1);}
+        class RKR_Choice
+      } {}
+      Fl_Choice Shi_Up_Qua {
+        label 上
+        callback {m_process->Config.Shi_U_Q=(int)o->value();
+update_shifter_quality();} open
+        xywh {415 260 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Upr_Qual);}
+        code1 {o->set_label_offset(1);}
+        class RKR_Choice
+      } {}
+      Fl_Box Voc_Label {
+        label {声码器降采样}
+        xywh {30 290 156 18} labelsize 12 align 20 when 0
+        code0 {o->set_label_offset(2);}
+        class RKR_Box
+      }
+      Fl_Choice Voc_Downsample {
+        callback {m_process->Config.Voc_Down=(int)o->value();
+update_vocoder_quality();} open
+        xywh {205 290 70 18} down_box BORDER_BOX labelsize 10 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Har_Downsample);}
+        class RKR_Choice
+      } {}
+      Fl_Choice Voc_Down_Qua {
+        label 下
+        callback {m_process->Config.Voc_D_Q=(int)o->value();
+update_vocoder_quality();} open
+        xywh {315 290 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Upr_Qual);}
+        code1 {o->set_label_offset(1);}
+        class RKR_Choice
+      } {}
+      Fl_Choice Voc_Up_Qua {
+        label 上
+        callback {m_process->Config.Voc_U_Q=(int)o->value();
+update_vocoder_quality();} open
+        xywh {415 290 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Upr_Qual);}
+        code1 {o->set_label_offset(1);}
+        class RKR_Choice
+      } {}
+      Fl_Box Ste_Label {
+        label {立体声和声降采样}
+        xywh {30 320 156 18} labelsize 12 align 20 when 0
+        code0 {o->set_label_offset(2);}
+        class RKR_Box
+      }
+      Fl_Choice Ste_Downsample {
+        callback {m_process->Config.Ste_Down=(int)o->value();
+
+update_stereoharm_quality();} open
+        xywh {205 320 70 18} down_box BORDER_BOX labelsize 10 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Har_Downsample);}
+        class RKR_Choice
+      } {}
+      Fl_Choice Ste_Down_Qua {
+        label 下
+        callback {m_process->Config.Ste_D_Q=(int)o->value();
+
+update_stereoharm_quality();} open
+        xywh {315 320 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Upr_Qual);}
+        code1 {o->set_label_offset(1);}
+        class RKR_Choice
+      } {}
+      Fl_Choice Ste_Up_Qua {
+        label 上
+        callback {m_process->Config.Ste_U_Q=(int)o->value();
+
+update_stereoharm_quality();} open
+        xywh {415 320 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+        code0 {o->menu(menu_Upr_Qual);}
+        code1 {o->set_label_offset(1);}
+        class RKR_Choice
+      } {}
+      Fl_Group Wave_Resample {
+        label {波形整形重采样} open
+        xywh {30 370 470 164} box DOWN_FRAME labelcolor 7 align 17
+        code0 {o->set_label_offset(4);}
+        class RKR_Group
+      } {
+        Fl_Box Dist_Label {
+          label {失真重采样}
+          xywh {45 400 156 18} labelsize 12 labelcolor 7 align 20 when 0
+          code0 {o->set_label_offset(2);}
+          class RKR_Box
+        }
+        Fl_Choice Dist_Amo {
+          callback {m_process->Config.Dist_res_amount=(int)o->value();
+update_distortion_quality();}
+          xywh {195 400 70 18} down_box BORDER_BOX selection_color 137 labelsize 10 labelcolor 7 textsize 10 textcolor 7
+          class RKR_Choice
+        } {
+          MenuItem {} {
+            label 标准
+            xywh {90 400 45 26} labelsize 10
+          }
+          MenuItem {} {
+            label x2
+            xywh {90 400 45 26} labelsize 10
+          }
+          MenuItem {} {
+            label x4
+            xywh {80 400 36 21} labelsize 10
+          }
+          MenuItem {} {
+            label x8
+            xywh {70 400 36 21} labelsize 10
+          }
+          MenuItem {} {
+            label x12
+            xywh {70 400 36 21} labelsize 10
+          }
+        }
+        Fl_Choice Dist_Down_Qua {
+          label 下
+          callback {m_process->Config.Dist_down_q=(int)o->value();
+update_distortion_quality();}
+          xywh {305 400 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+          code0 {o->menu(menu_Upr_Qual);}
+          code1 {o->set_label_offset(1);}
+          class RKR_Choice
+        } {}
+        Fl_Choice Dist_Up_Qua {
+          label 上
+          callback {m_process->Config.Dist_up_q=(int)o->value();
+update_distortion_quality();}
+          xywh {405 400 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+          code0 {o->menu(menu_Upr_Qual);}
+          code1 {o->set_label_offset(1);}
+          class RKR_Choice
+        } {}
+        Fl_Box Ovrd_Label {
+          label {过载重采样}
+          xywh {45 425 156 18} labelsize 12 labelcolor 7 align 20 when 0
+          code0 {o->set_label_offset(2);}
+          class RKR_Box
+        }
+        Fl_Choice Ovrd_Amo {
+          callback {m_process->Config.Ovrd_res_amount=(int)o->value();
+update_overdrive_quality();}
+          xywh {195 425 70 18} down_box BORDER_BOX labelsize 10 labelcolor 7 textsize 10 textcolor 7
+          code0 {o->menu(menu_Dist_Amo);}
+          class RKR_Choice
+        } {}
+        Fl_Choice Ovrd_Down_Qua {
+          label 下
+          callback {m_process->Config.Ovrd_down_q=(int)o->value();
+update_overdrive_quality();}
+          xywh {305 425 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+          code0 {o->menu(menu_Upr_Qual);}
+          code1 {o->set_label_offset(1);}
+          class RKR_Choice
+        } {}
+        Fl_Choice Ovrd_Up_Qua {
+          label 上
+          callback {m_process->Config.Ovrd_up_q=(int)o->value();
+update_overdrive_quality();}
+          xywh {405 425 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+          code0 {o->menu(menu_Upr_Qual);}
+          code1 {o->set_label_offset(1);}
+          class RKR_Choice
+        } {}
+        Fl_Box Dere_Label {
+          label {Derelict 重采样}
+          xywh {45 450 156 18} labelsize 12 labelcolor 7 align 20 when 0
+          code0 {o->set_label_offset(2);}
+          class RKR_Box
+        }
+        Fl_Choice Dere_Amo {
+          callback {m_process->Config.Dere_res_amount=(int)o->value();
+update_derelict_quality();} open
+          xywh {195 450 70 18} down_box BORDER_BOX labelsize 10 labelcolor 7 textsize 10 textcolor 7
+          code0 {o->menu(menu_Dist_Amo);}
+          class RKR_Choice
+        } {}
+        Fl_Choice Dere_Down_Qua {
+          label 下
+          callback {m_process->Config.Dere_down_q=(int)o->value();
+update_derelict_quality();}
+          xywh {305 450 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+          code0 {o->menu(menu_Upr_Qual);}
+          code1 {o->set_label_offset(1);}
+          class RKR_Choice
+        } {}
+        Fl_Choice Dere_Up_Qua {
+          label 上
+          callback {m_process->Config.Dere_up_q=(int)o->value();
+update_derelict_quality();}
+          xywh {405 450 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+          code0 {o->menu(menu_Upr_Qual);}
+          code1 {o->set_label_offset(1);}
+          class RKR_Choice
+        } {}
+        Fl_Box DBand_Label {
+          label {分频失真重采样}
+          xywh {45 475 156 18} labelsize 12 labelcolor 7 align 20 when 0
+          code0 {o->set_label_offset(2);}
+          class RKR_Box
+        }
+        Fl_Choice DBand_Amo {
+          callback {m_process->Config.DBand_res_amount=(int)o->value();
+update_distband_quality();}
+          xywh {195 475 70 18} down_box BORDER_BOX labelsize 10 labelcolor 7 textsize 10 textcolor 7
+          code0 {o->menu(menu_Dist_Amo);}
+          class RKR_Choice
+        } {}
+        Fl_Choice DBand_Down_Qua {
+          label 下
+          callback {m_process->Config.DBand_down_q=(int)o->value();
+update_distband_quality();}
+          xywh {305 475 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+          code0 {o->menu(menu_Upr_Qual);}
+          code1 {o->set_label_offset(1);}
+          class RKR_Choice
+        } {}
+        Fl_Choice DBand_Up_Qua {
+          label 上
+          callback {m_process->Config.DBand_up_q=(int)o->value();
+update_distband_quality();}
+          xywh {405 475 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+          code0 {o->menu(menu_Upr_Qual);}
+          code1 {o->set_label_offset(1);}
+          class RKR_Choice
+        } {}
+        Fl_Box Stomp_Label {
+          label {踏板箱重采样}
+          xywh {45 500 156 18} labelsize 12 labelcolor 7 align 20 when 0
+          code0 {o->set_label_offset(2);}
+          class RKR_Box
+        }
+        Fl_Choice Stomp_Amo {
+          callback {m_process->Config.Stomp_res_amount=(int)o->value();
+update_stompbox_quality();}
+          xywh {195 500 70 18} down_box BORDER_BOX labelsize 10 labelcolor 7 textsize 10 textcolor 7
+          code0 {o->menu(menu_Dist_Amo);}
+          class RKR_Choice
+        } {}
+        Fl_Choice Stomp_Down_Qua {
+          label 下
+          callback {m_process->Config.Stomp_down_q=(int)o->value();
+update_stompbox_quality();}
+          xywh {305 500 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+          code0 {o->menu(menu_Upr_Qual);}
+          code1 {o->set_label_offset(1);}
+          class RKR_Choice
+        } {}
+        Fl_Choice Stomp_Up_Qua {
+          label 上
+          callback {m_process->Config.Stomp_up_q=(int)o->value();
+update_stompbox_quality();}
+          xywh {405 500 72 18} down_box BORDER_BOX labelsize 11 labelcolor 7 textsize 10 textcolor 7
+          code0 {o->menu(menu_Upr_Qual);}
+          code1 {o->set_label_offset(1);}
+          class RKR_Choice
+        } {}
+      }
+    }
+    Fl_Group MIDI_SET {
+      label MIDI
+      xywh {5 26 518 554} box DOWN_FRAME labelfont 1 labelcolor 7 align 4 hide
+    } {
+      Fl_Box Fondo8 {
+        xywh {5 26 518 554}
+      }
+      Fl_Check_Button D_A_Connect {
+        label {自动连接 MIDI 输入}
+        callback {m_process->Config.aconnect_MI=(int) o->value();
+
+if (m_process->Config.aconnect_MI) BMidiIn->activate();
+else BMidiIn->deactivate();}
+        xywh {30 38 153 16} down_box DOWN_BOX labelsize 12 labelcolor 7
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+      Fl_Browser BMidiIn {
+        label {ALSA 音序器端口}
+        callback {int valor;
+valor = (int) o->value();
+if(o->text(valor) != NULL)
+RKRP::strlcpy(m_process->Config.MID,o->text(valor), sizeof(m_process->Config.MID));
+else return;
+o->select(valor,1);
+m_process->Conecta();}
+        xywh {30 83 190 111} type Hold selection_color 0 labelcolor 7 align 5 textcolor 7
+        class RKR_Browser
+      }
+      Fl_Counter Midi_In_Counter {
+        label {效果器接收通道}
+        callback {m_process->Config.MIDI_In_Channel=(int)o->value()-1;}
+        xywh {30 210 60 24} type Simple color 25 labelsize 12 labelcolor 7 align 8 minimum 1 maximum 16 step 1 value 1 textsize 12
+        code0 {o->set_label_offset(2);}
+        code1 {o->set_text_offset(2);}
+        class RKR_Counter
+      }
+      Fl_Counter Har_In_Counter {
+        label {和声器接收通道}
+        callback {m_process->Config.Harmonizer_MIDI_Channel=(int)o->value()-1;}
+        xywh {245 210 60 24} type Simple color 25 labelsize 12 labelcolor 7 align 8 minimum 1 maximum 16 step 1 value 1 textsize 12
+        code0 {o->set_label_offset(2);}
+        code1 {o->set_text_offset(2);}
+        class RKR_Counter
+      }
+      Fl_Counter Stereo_Har_In_Counter {
+        label {立体声和声接收通道}
+        callback {m_process->Config.StereoHarm_MIDI_Channel=(int)o->value()-1;}
+        xywh {245 265 60 24} type Simple color 25 labelsize 12 labelcolor 7 align 8 minimum 1 maximum 16 step 1 value 1 textsize 12
+        code0 {o->set_label_offset(2);}
+        code1 {o->set_text_offset(2);}
+        class RKR_Counter
+      }
+      Fl_Group wMIDI {
+        label {MIDI 实现}
+        xywh {30 266 180 23} box DOWN_FRAME labelsize 12 labelcolor 7 align 5
+        code0 {o->set_label_offset(2);}
+        class RKR_Group
+      } {
+        Fl_Check_Button Mw0 {
+          label 默认
+          callback {m_process->Config.MIDIway=0;
+m_parent->ML_Menu->deactivate();}
+          xywh {35 268 73 16} type Radio down_box DOWN_BOX labelsize 12 labelcolor 7
+          code0 {o->set_label_offset(2);}
+          class RKR_Check_Button
+        }
+        Fl_Check_Button Mw1 {
+          label {MIDI 学习}
+          callback {m_process->Config.MIDIway=1;
+m_parent->ML_Menu->activate();}
+          xywh {119 268 87 16} type Radio down_box DOWN_BOX labelsize 12 labelcolor 7
+          code0 {o->set_label_offset(2);}
+          class RKR_Check_Button
+        }
+      }
+      Fl_Check_Button AAssign {
+        label {自动分配 MIDI 学习}
+        callback {m_process->Config.autoassign=o->value();}
+        xywh {30 308 163 16} down_box DOWN_BOX labelsize 12 labelcolor 7
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+      Fl_Check_Button MTable {
+        label {MIDI 程序切换表}
+        callback {// Set preset to C_CHANGE_PRESET_OFF means do NOT process preset change for GUI
+// timeout. In the case of MIDI control PGM change at the same time.
+// Will cause crash if we do not set preset off temporarily.    
+m_process->Change_Preset = C_CHANGE_PRESET_OFF;
+
+m_process->Config.custom_midi_table=o->value();
+
+// To show/stop highlight on under mouse based on parent status
+for (int i = 0; i < scroll->children(); ++i)
+{
+    Fl_Widget *c = scroll->child(i);
+
+    if(m_process->Config.custom_midi_table)
+    {
+        c->activate ();
+    }
+    else
+    {
+        c->deactivate ();
+    }
+}
+
+if(m_process->Config.custom_midi_table)
+{
+    scroll->activate();
+}
+else
+{
+    scroll->deactivate();
+}}
+        xywh {30 336 193 16} down_box DOWN_BOX labelsize 12 labelcolor 7
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+      Fl_Button {} {
+        label 载入
+        callback {m_parent->is_PG_table_modified();
+m_parent->Load_Midi_Program_Change_Table();}
+        tooltip {从文件载入程序切换表} xywh {254 331 70 20}
+        code0 {o->set_label_offset(4);}
+        class RKR_Button
+      }
+      Fl_Button {} {
+        label 保存
+        callback {m_parent->Save_Midi_Program_Change_Table();}
+        tooltip {保存当前程序切换表到文件} xywh {338 331 70 20}
+        code0 {o->set_label_offset(4);}
+        class RKR_Button
+      }
+      Fl_Scroll scroll {
+        xywh {30 366 430 162} type VERTICAL_ALWAYS
+        class RKR_Scroll
+      } {}
+    }
+    Fl_Group JACK_SET {
+      label JACK
+      xywh {5 26 518 554} box DOWN_FRAME labelfont 1 labelcolor 7 align 4 hide
+    } {
+      Fl_Box Fondo9 {
+        xywh {5 26 518 554}
+      }
+      Fl_Check_Button D_J_Connect {
+        label {自动连接输出}
+        callback {m_process->Config.aconnect_JA=(int) o->value();
+if (m_process->Config.aconnect_JA) JackCo->activate();
+else JackCo->deactivate();}
+        xywh {30 45 137 16} down_box DOWN_BOX labelsize 12 labelcolor 7
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+      Fl_Browser JackCo {
+        label {输出端口}
+        xywh {30 85 260 140} type Multi selection_color 0 labelcolor 7 align 5 textcolor 7
+        class RKR_Browser
+      }
+      Fl_Check_Button D_IJ_Connect {
+        label {自动连接输入}
+        callback {m_process->Config.aconnect_JIA=(int) o->value();
+if (m_process->Config.aconnect_JIA) JackIn->activate();
+else JackIn->deactivate();}
+        xywh {30 245 125 16} down_box DOWN_BOX labelsize 12 labelcolor 7
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+      Fl_Browser JackIn {
+        label {输入端口}
+        xywh {30 285 260 140} type Multi selection_color 0 labelcolor 7 align 5 textcolor 7
+        class RKR_Browser
+      }
+    }
+    Fl_Group MISC_SET {
+      label 杂项
+      xywh {5 26 518 554} box DOWN_FRAME labelfont 1 labelcolor 7 align 4 hide
+    } {
+      Fl_Box Fondo10 {
+        xywh {5 26 518 554}
+      }
+      Fl_Check_Button MESSAGE_DISABLE {
+        label {禁用警告    }
+        callback {m_process->Config.Disable_Warnings=(int) o->value();}
+        xywh {30 40 141 16} down_box DOWN_BOX labelsize 12 labelcolor 7
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+      Fl_Check_Button T_TIMEOUT {
+        label {敲击速度超时}
+        callback {m_process->t_timeout=(int) o->value();}
+        xywh {30 70 143 16} down_box DOWN_BOX labelsize 12 labelcolor 7
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+      Fl_Check_Button ENA_TOOL {
+        label {启用工具提示       }
+        callback {m_process->Config.ena_tool=(int) o->value();
+Fl_Tooltip::enable(m_process->Config.ena_tool);}
+        xywh {30 100 118 16} down_box DOWN_BOX labelsize 12 labelcolor 7
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+      Fl_Box {} {
+        label {指定鼠标悬停时项目被选中的延迟时间：}
+        xywh {30 130 400 56} align 148
+        class RKR_Box
+      }
+      Fl_Slider Focus_Slider {
+        user_data UD_RKR_Highlight
+        callback {m_parent->set_focus_timer(o->value());}
+        xywh {30 180 400 22} type {Horz Knob} box ROUND_DOWN_BOX labelsize 10 align 1 maximum 100 step 1 value 25
+        class RKR_Fl_Slider
+      }
+      Fl_Box {} {
+        label 禁用
+        xywh {30 205 69 17} align 20
+        class RKR_Box
+      }
+      Fl_Box {} {
+        label 中等
+        xywh {209 205 69 17} align 16
+        class RKR_Box
+      }
+      Fl_Box {} {
+        label 长
+        xywh {362 205 69 17} align 24
+        class RKR_Box
+      }
+      Fl_Check_Button NSM_SINGLE_STATE {
+        label {NSM 单一状态}
+        callback {\#ifdef NSM_SUPPORT
+m_process->Config.NSM_single_state=(int) o->value();
+\#endif}
+        tooltip {Check if you want NSM session to always save the last state of the active preset.
+ This will save all changes to effects including MIDI control changes.} xywh {30 250 124 16} down_box DOWN_BOX labelsize 12 labelcolor 7
+        code0 {o->set_label_offset(2);}
+        class RKR_Check_Button
+      }
+    }
+    Fl_Group USER_SET {
+      label 用户
+      xywh {5 26 518 554} box DOWN_FRAME labelfont 1 labelcolor 7 align 4 hide
+    } {
+      Fl_Box Fondo11 {
+        xywh {5 26 518 554}
+      }
+      Fl_File_Input Udir {
+        label {用户目录}
+        tooltip {The User Directory must be set to a writable location and all custom user banks must be stored in this directory.} xywh {20 50 390 40} labelsize 12 labelcolor 7 align 5 when 1 textcolor 7
+        code0 {o->set_label_offset(2);}
+        code1 {o->set_text_offset(4);}
+        class RKR_File_Input
+      }
+      Fl_Button UD_Browser {
+        label 浏览
+        callback {m_process->Shut_Off_Below_Mouse = 1;
+    char *dir = fl_dir_chooser("Browse:", NULL, 0);
+    m_process->Shut_Off_Below_Mouse = 0;
+
+    if (dir == NULL)
+        return;
+
+    Udir->value(dir);
+    RKRP::strlcpy(m_process->Config.UDirFilename, dir, sizeof(m_process->Config.UDirFilename));
+
+    // Needed for FPreset
+    global_user_directory = m_process->Config.UDirFilename;
+
+    m_process->load_MIDI_table_vector();
+    m_parent->Scan_Bank_Dir(1);}
+        tooltip {You must make and set a User Directory if  you want to make custom changes.
+The user directory is where all custom banks and files must be placed to be loaded by the program.
+See F1 help under General/Preferences for additional information.} xywh {415 65 65 20}
+        code0 {o->set_label_offset(4);}
+        class RKR_Button
+      }
+      Fl_File_Input BFiname {
+        label {默认用户音色库文件名}
+        tooltip {This is the bank that will be selected with the 'U' button from the main window or the Bank window.} xywh {20 120 390 40} labelsize 12 labelcolor 7 align 5 when 1 textcolor 7
+        code0 {o->set_label_offset(2);}
+        code1 {o->set_text_offset(4);}
+        class RKR_File_Input
+      }
+      Fl_Button BF_Browser {
+        label 浏览
+        callback {// If nothing previously set, then default location
+    std::string chooser_start_location = "";
+    
+    // If the user set a User Directory, then use it
+    if( (strcmp(m_process->Config.UDirFilename, DATADIR) != 0) && (strcmp(m_process->Config.UDirFilename, UD_NOT_SET) != 0) )
+    {
+        chooser_start_location = m_process->Config.UDirFilename;
+    }
+
+    m_process->Shut_Off_Below_Mouse = 1;
+    char *filename = fl_file_chooser("Browse:", "(*.rkrb)", chooser_start_location.c_str (), 0);
+    m_process->Shut_Off_Below_Mouse = 0;
+
+    if (filename == NULL)
+        return;
+    
+    filename = fl_filename_setext(filename, ".rkrb");
+    
+    BFiname->value(filename);
+    RKRP::strlcpy(m_process->Config.BankFilename,filename, sizeof(m_process->Config.BankFilename));
+
+    // If we do not find the Bank file, then the Default.rkrb file is loaded.
+    int bank_found = -1;
+
+    // Find the bank chosen by comparing file name
+    for(unsigned i = 0; i < m_process->Bank_Vector.size (); i++)
+    {
+        if(strcmp(m_process->Config.BankFilename , m_process->Bank_Vector[i].Bank_File_Name.c_str ()) == 0)
+        {
+            bank_found = i;
+            break;
+        }
+    }
+
+    // We did not find the bank in the User Directory, so reload the default
+    if(bank_found < 0)
+    {
+        // Get user default bank file from Settings/Bank/ --Bank Filename
+        memset(m_process->Config.BankFilename, 0, sizeof(m_process->Config.BankFilename));
+        snprintf(m_process->Config.BankFilename, sizeof(m_process->Config.BankFilename), "%s/Default.rkrb", DATADIR);
+        
+        m_process->Handle_Message(40, filename);
+        BFiname->value(m_process->Config.BankFilename);
+    }}
+        tooltip {Choose a default user bank in your User Directory that you want the 'U' button to select.} xywh {415 135 65 20}
+        code0 {o->set_label_offset(4);}
+        class RKR_Button
+      }
+      Fl_Input Username {
+        label 用户名
+        callback {// Copy the user name from settings
+    memset(m_process->Config.UserRealName, 0, sizeof(m_process->Config.UserRealName));
+    strncpy(m_process->Config.UserRealName, (char*) o->value(), sizeof(m_process->Config.UserRealName) - 1);}
+        tooltip {显示在主窗口预置名称下方的作者名。} xywh {20 192 240 21} labelsize 12 labelcolor 7 align 5 textcolor 7
+        code0 {o->set_label_offset(2);}
+        code1 {o->set_text_offset(4);}
+        class RKR_Input
+      }
+    }
+  }
+  decl {RKR* m_process} {private local
+  }
+  decl {RKRGUI* m_parent} {private local
+  }
+  Function {get_menu_Har_Downsample()} {C return_type {Fl_Menu_Item *}
+  } {
+    code {return menu_Har_Downsample;} {}
+  }
+  Function {make_table_window()} {} {
+    code {// Fill settings midi table scroll
+      scroll->clear();
+
+      scroll->begin();
+    
+      for (intptr_t y=0; y<128; y++)
+      {
+          char buf[20];
+          snprintf(buf, sizeof(buf), "%d",(int)y);
+          RKR_Box* b = new RKR_Box(6,y*25+22,40,25);
+          b->box(FL_DOWN_BOX);
+          b->copy_label(buf);
+          b->labelcolor(FL_BLACK);
+          b->user_data((void *) UD_Bank_Number);
+    
+          RKR_Choice* cb = new RKR_Choice(120,y*25+25,130,20);
+          cb->copy_label("Bank");
+          cb->labelcolor(FL_WHITE);
+
+          // Add all banks
+          for(unsigned bnk = 0; bnk < m_process->Bank_Vector.size (); bnk++)
+          {
+              cb->add (m_process->Bank_Vector[bnk].Bank_Name_Clean.c_str());
+          }
+
+          cb->user_data((void *) (UD_Bank_Used_Start + y));
+          cb->callback((Fl_Callback *)m_parent->bank_click);
+          cb->set_label_offset(4);
+          cb->set_text_offset(4);
+    
+          RKR_Choice* cp = new RKR_Choice(310,y*25+25,130,20);
+          cp->copy_label("Preset");
+          cp->labelcolor(FL_WHITE);
+          cp->user_data((void *) (UD_Preset_Used_Start + y));
+          cp->callback((Fl_Callback *)m_parent->p_click);
+          cp->set_label_offset(4);
+          cp->set_text_offset(4);
+      }
+    
+      scroll->end();
+      
+      Put_MidiTable();
+      
+      /* Resize because the starting window may have been resized.
+       * Adjusted to the current size of the window group which is
+       * MIDI_SET->w(), MIDI_SET->h(). If the group default size is
+       * ever changed in fluid, the magic numbers must be changed to match */
+      int MIDI_set_start_width = 518;     // The MIDI group default width - set in fluid
+      int MIDI_set_start_height = 554;    // The MIDI group default height - set in fluid
+      float W_midi_set_ratio = (float) MIDI_SET->w() / MIDI_set_start_width;
+      float H_midi_set_ratio = (float) MIDI_SET->h() / MIDI_set_start_height;
+      
+      scroll->resize
+      (
+        (float) scroll->get_start_x() * W_midi_set_ratio,
+        (float) scroll->get_start_y() * H_midi_set_ratio,
+        ((float) scroll->get_start_width() * W_midi_set_ratio),
+        (float) scroll->get_start_height() * H_midi_set_ratio
+      );} {}
+  }
+  Function {fill_mptable(int num,int value)} {} {
+    code {// Fill settings scroll
+    for (int t=0; t < scroll->children(); t++)
+    {
+        Fl_Widget *w = scroll->child(t);
+        long long temp = (long long) w->user_data();
+        if ((int)temp == num)
+        {
+            RKR_Choice *p = static_cast<RKR_Choice *>(w);
+            p->clear();
+            for(int i=1; i<=60; i++)
+            {
+                if(m_process->MIDI_Table_Bank_Preset_Names[value][i].Preset_Name[0] != 0)
+                {
+                    // We add the preset number here to avoid duplicate names which the fltk choice
+                    // widget will eliminate into one. It does not allow duplicates and things
+                    // will not align if eliminated.
+                    char buf[128];
+                    snprintf(buf, sizeof(buf), "(%d) %s", i, m_process->MIDI_Table_Bank_Preset_Names[value][i].Preset_Name);
+                    p->add(buf);
+                    p->textfont (global_font_type);
+                }
+                else
+                {
+                    char buf[128];
+                    snprintf(buf, sizeof(buf), "(%d) Untitled", i);
+                    p->add(buf);
+                    p->textfont (global_font_type);
+                }
+            }
+            p->redraw();
+            break;
+        }
+    }} {}
+  }
+  Function {mtfillvalue(int num,int value)} {} {
+    code {// fill settings scroll midi table
+    for (int t=0; t < scroll->children(); t++)
+    {
+        Fl_Widget *w = scroll->child(t);
+        long long temp = (long long) w->user_data();
+        if ((int)temp == num)
+        {
+            RKR_Choice *p = static_cast<RKR_Choice *>(w);
+            p->value(value);
+            break;
+        }
+    }} {}
+  }
+  Function {Put_MidiTable()} {} {
+    code {// Put_MidiTable
+  for(int i=0; i<128; i++)
+  {
+      mtfillvalue(i + UD_Bank_Used_Start, m_process->MIDI_Table[i].bank);
+      fill_mptable(i + UD_Preset_Used_Start, m_process->MIDI_Table[i].bank);
+      mtfillvalue(i + UD_Preset_Used_Start, m_process->MIDI_Table[i].preset);
+  }} {}
+  }
+  Function {update_convo_quality()} {return_type void
+  } {
+    code {/* shut off all processing */
+m_process->quality_update = true;
+
+/* Wait a bit */
+usleep(C_MILLISECONDS_25);
+
+/* Cast to derived class */
+Convolotron *Efx_Convolotron = static_cast<Convolotron*>(m_process->Rack_Effects[EFX_CONVOLOTRON]);
+
+/* Save current parameters */
+std::vector<int> save_state = Efx_Convolotron->save_parameters();
+
+/* Save current file name and path */
+std::string filename(Efx_Convolotron->Filename);
+
+/* Delete and re-create the efx with new downsample settings */
+delete m_process->Rack_Effects[EFX_CONVOLOTRON];
+m_process->Rack_Effects[EFX_CONVOLOTRON] = new Convolotron(m_process->Config.Con_Down, m_process->Config.Con_U_Q, m_process->Config.Con_D_Q, m_process->fSample_rate, m_process->period_master);
+Efx_Convolotron = static_cast<Convolotron*>(m_process->Rack_Effects[EFX_CONVOLOTRON]);
+
+/* Wait for things to complete */
+usleep(C_MILLISECONDS_50);
+
+/* Reset parameters and filename */
+Efx_Convolotron->reset_parameters(save_state);
+
+/* Check for user file and re-load if present */
+if(Efx_Convolotron->getpar(Convo_User_File))
+{
+    RKRP::strlcpy(Efx_Convolotron->Filename,filename.c_str(), sizeof(Efx_Convolotron->Filename));
+    if(!Efx_Convolotron->setfile(USERFILE))
+    {
+        m_process->Handle_Message(14, filename);
+    };
+}
+
+/* Turn processing back on */
+m_process->quality_update = false;} {}
+  }
+  Function {update_revtron_quality()} {open return_type void
+  } {
+    code {/* shut off all processing */
+m_process->quality_update = true;
+
+/* Wait a bit */
+usleep(C_MILLISECONDS_25);
+
+/* Cast to derived class */
+Reverbtron *Efx_Reverbtron = static_cast<Reverbtron*>(m_process->Rack_Effects[EFX_REVERBTRON]);
+
+/* Save current parameters */
+std::vector<int> save_state = Efx_Reverbtron->save_parameters();
+
+/* Save current file name and path */
+std::string filename(Efx_Reverbtron->Filename);
+
+/* Delete and re-create the efx with new downsample settings */
+delete m_process->Rack_Effects[EFX_REVERBTRON];
+m_process->Rack_Effects[EFX_REVERBTRON] = new Reverbtron(m_process->Config.Rev_Down, m_process->Config.Rev_U_Q, m_process->Config.Rev_D_Q, m_process->fSample_rate, m_process->period_master);
+Efx_Reverbtron = static_cast<Reverbtron*>(m_process->Rack_Effects[EFX_REVERBTRON]);
+
+/* Wait for things to complete */
+usleep(C_MILLISECONDS_50);
+
+/* Reset parameters and filename */
+Efx_Reverbtron->reset_parameters(save_state);
+
+/* Check for user file and re-load if present */
+if(Efx_Reverbtron->getpar(Revtron_User_File))
+{
+    RKRP::strlcpy(Efx_Reverbtron->Filename,filename.c_str(), sizeof(Efx_Reverbtron->Filename));
+    if(!Efx_Reverbtron->setfile(USERFILE))
+    {
+        m_process->Handle_Message(14, filename);
+    };
+}
+
+/* Turn processing back on */
+m_process->quality_update = false;} {}
+  }
+  Function {update_harmonizer_quality()} {return_type void
+  } {
+    code {/* shut off all processing */
+m_process->quality_update = true;
+
+/* This is for the gui bypass */
+int hold_bypass = m_process->EFX_Active[EFX_HARMONIZER];
+m_process->EFX_Active[EFX_HARMONIZER] = 0;
+
+/* Cast to derived class */
+Harmonizer *Efx_Harmonizer = static_cast<Harmonizer*>(m_process->Rack_Effects[EFX_HARMONIZER]);
+
+/* Wait a bit */
+usleep(C_MILLISECONDS_25);
+
+/* Save current parameters */
+std::vector<int> save_state = Efx_Harmonizer->save_parameters();
+
+/* Delete and re-create the efx with new downsample settings */
+delete m_process->Rack_Effects[EFX_HARMONIZER];
+m_process->Rack_Effects[EFX_HARMONIZER] = new Harmonizer((long) m_process->Config.HarQual, m_process->Config.Har_Down, m_process->Config.Har_U_Q, m_process->Config.Har_D_Q, m_process->fSample_rate, m_process->period_master);
+/* Wait for things to complete */
+usleep(C_MILLISECONDS_50);
+
+Efx_Harmonizer = static_cast<Harmonizer*>(m_process->Rack_Effects[EFX_HARMONIZER]);
+
+/* Reset parameters and filename */
+Efx_Harmonizer->reset_parameters(save_state);
+
+/* Turn processing back on */
+m_process->quality_update = false;
+
+/* Reset bypass */ 
+m_process->EFX_Active[EFX_HARMONIZER] = hold_bypass;
+
+/* Reset user select */
+if(Efx_Harmonizer->getpar(Harm_Select))
+{
+    Efx_Harmonizer->changepar(Harm_Select, Efx_Harmonizer->getpar(Harm_Select));
+    m_process->RC_Harm->cleanup();
+    m_parent->Chord(0);
+}} {}
+  }
+  Function {update_stereoharm_quality()} {return_type void
+  } {
+    code {/* shut off all processing */
+m_process->quality_update = true;
+
+/* Cast to derived class */
+StereoHarm *Efx_StereoHarm = static_cast<StereoHarm*>(m_process->Rack_Effects[EFX_STEREOHARM]);
+
+/* This is for the gui bypass */
+int hold_bypass = m_process->EFX_Active[EFX_STEREOHARM];
+m_process->EFX_Active[EFX_STEREOHARM] = 0;
+
+/* Wait a bit */
+usleep(C_MILLISECONDS_25);
+
+/* Save current parameters */
+std::vector<int> save_state = Efx_StereoHarm->save_parameters();
+
+/* Delete and re-create the efx with new downsample settings */
+delete m_process->Rack_Effects[EFX_STEREOHARM];
+m_process->Rack_Effects[EFX_STEREOHARM] = new StereoHarm((long) m_process->Config.SteQual, m_process->Config.Ste_Down, m_process->Config.Ste_U_Q, m_process->Config.Ste_D_Q, m_process->fSample_rate, m_process->period_master);
+/* Wait for things to complete */
+usleep(C_MILLISECONDS_50);
+
+Efx_StereoHarm = static_cast<StereoHarm*>(m_process->Rack_Effects[EFX_STEREOHARM]);
+
+/* Reset parameters and filename */
+Efx_StereoHarm->reset_parameters(save_state);
+
+/* Turn processing back on */
+m_process->quality_update = false;
+
+/* Reset bypass */ 
+m_process->EFX_Active[EFX_STEREOHARM] = hold_bypass;
+
+/* Reset user select */
+if(Efx_StereoHarm->getpar(Sharm_Select))
+{
+    Efx_StereoHarm->changepar(Sharm_Select, Efx_StereoHarm->getpar(Sharm_Select));
+    m_process->RC_Stereo_Harm->cleanup();
+    m_parent->Chord(1);
+}} {}
+  }
+  Function {update_sequence_quality()} {return_type void
+  } {
+    code {/* This is for the gui bypass, tempo change */
+int hold_bypass = m_process->EFX_Active[EFX_SEQUENCE];
+m_process->EFX_Active[EFX_SEQUENCE] = 0;
+
+/* shut off all processing */
+m_process->quality_update = true;
+
+/* Cast to derived class */
+Sequence *Efx_Sequence = static_cast<Sequence*>(m_process->Rack_Effects[EFX_SEQUENCE]);
+
+/* Wait a bit */
+usleep(C_MILLISECONDS_25);
+
+/* Save current parameters */
+std::vector<int> save_state = Efx_Sequence->save_parameters();
+
+/* Delete and re-create the efx with new downsample settings */
+delete m_process->Rack_Effects[EFX_SEQUENCE];
+m_process->Rack_Effects[EFX_SEQUENCE] = new Sequence((long) m_process->Config.SeqQual, m_process->Config.Seq_Down, m_process->Config.Seq_U_Q, m_process->Config.Seq_D_Q, m_process->fSample_rate, m_process->period_master);
+
+/* Wait for things to complete */
+usleep(C_MILLISECONDS_50);
+
+Efx_Sequence = static_cast<Sequence*>(m_process->Rack_Effects[EFX_SEQUENCE]);
+
+/* Reset parameters */
+Efx_Sequence->reset_parameters(save_state);
+
+/* Turn processing back on */
+m_process->quality_update = false;
+
+/* Reset bypass */ 
+m_process->EFX_Active[EFX_SEQUENCE] = hold_bypass;} {}
+  }
+  Function {update_shifter_quality()} {return_type void
+  } {
+    code {/* shut off all processing */
+m_process->quality_update = true;
+
+/* Cast to derived class */
+Shifter *Efx_Shifter = static_cast<Shifter*>(m_process->Rack_Effects[EFX_SHIFTER]);
+
+/* Wait a bit */
+usleep(C_MILLISECONDS_25);
+
+/* Save current parameters */
+std::vector<int> save_state = Efx_Shifter->save_parameters();
+
+/* Delete and re-create the efx with new downsample settings */
+delete m_process->Rack_Effects[EFX_SHIFTER];
+m_process->Rack_Effects[EFX_SHIFTER] = new Shifter((long) m_process->Config.ShiQual, m_process->Config.Shi_Down, m_process->Config.Shi_U_Q, m_process->Config.Shi_D_Q, m_process->fSample_rate, m_process->period_master);
+
+/* Wait for things to complete */
+usleep(C_MILLISECONDS_50);
+
+Efx_Shifter = static_cast<Shifter*>(m_process->Rack_Effects[EFX_SHIFTER]);
+
+/* Reset parameters */
+Efx_Shifter->reset_parameters(save_state);
+
+/* Turn processing back on */
+m_process->quality_update = false;} {}
+  }
+  Function {update_vocoder_quality()} {return_type void
+  } {
+    code {/* This is for the gui volume meter */
+int hold_bypass = m_process->EFX_Active[EFX_VOCODER];
+m_process->EFX_Active[EFX_VOCODER] = 0;
+
+/* shut off all processing */
+m_process->quality_update = true;
+
+Vocoder *Efx_Vocoder = static_cast<Vocoder*>(m_process->Rack_Effects[EFX_VOCODER]);
+
+/* Wait a bit */
+usleep(C_MILLISECONDS_25);
+
+/* Save current parameters */
+std::vector<int> save_state = Efx_Vocoder->save_parameters();
+
+/* Delete and re-create the efx with new downsample settings */
+delete m_process->Rack_Effects[EFX_VOCODER];
+m_process->Rack_Effects[EFX_VOCODER] = new Vocoder(m_process->auxresampled, m_process->Config.VocBands, m_process->Config.Voc_Down, m_process->Config.Voc_U_Q, m_process->Config.Voc_D_Q, m_process->fSample_rate, m_process->period_master);
+
+/* Wait for things to complete */
+usleep(C_MILLISECONDS_50);
+
+Efx_Vocoder = static_cast<Vocoder*>(m_process->Rack_Effects[EFX_VOCODER]);
+
+/* Reset parameters */
+Efx_Vocoder->reset_parameters(save_state);
+
+/* Turn processing back on */
+m_process->quality_update = false;
+
+/* Reset bypass */
+m_process->EFX_Active[EFX_VOCODER] = hold_bypass;} {}
+  }
+  Function {update_distortion_quality()} {return_type void
+  } {
+    code {/* shut off all processing */
+  m_process->quality_update = true;
+  
+  Distorsion *Efx_Distortion = static_cast<Distorsion*>(m_process->Rack_Effects[EFX_DISTORTION]);
+  /* Wait a bit */
+  usleep(C_MILLISECONDS_25);
+  
+  /* Save current parameters */
+  std::vector<int> save_state = Efx_Distortion->save_parameters();
+  
+  /* Delete and re-create the efx with new resample settings */
+  delete m_process->Rack_Effects[EFX_DISTORTION];
+  m_process->Rack_Effects[EFX_DISTORTION] = new Distorsion(m_process->Config.Dist_res_amount, m_process->Config.Dist_up_q, m_process->Config.Dist_down_q, m_process->fSample_rate, m_process->period_master);
+  
+  /* Wait for things to complete */
+  usleep(C_MILLISECONDS_50);
+  
+  Efx_Distortion = static_cast<Distorsion*>(m_process->Rack_Effects[EFX_DISTORTION]);
+  
+  /* Reset parameters */
+  Efx_Distortion->reset_parameters(save_state);
+  
+  /* Turn processing back on */
+  m_process->quality_update = false;} {}
+  }
+  Function {update_overdrive_quality()} {return_type void
+  } {
+    code {/* shut off all processing */
+m_process->quality_update = true;
+
+Overdrive *Efx_Overdrive = static_cast<Overdrive*>(m_process->Rack_Effects[EFX_OVERDRIVE]);
+/* Wait a bit */
+usleep(C_MILLISECONDS_25);
+
+/* Save current parameters */
+std::vector<int> save_state = Efx_Overdrive->save_parameters();
+
+/* Delete and re-create the efx with new resample settings */
+delete m_process->Rack_Effects[EFX_OVERDRIVE];
+m_process->Rack_Effects[EFX_OVERDRIVE] = new Overdrive(m_process->Config.Ovrd_res_amount, m_process->Config.Ovrd_up_q, m_process->Config.Ovrd_down_q, m_process->fSample_rate, m_process->period_master);
+
+/* Wait for things to complete */
+usleep(C_MILLISECONDS_50);
+
+Efx_Overdrive = static_cast<Overdrive*>(m_process->Rack_Effects[EFX_OVERDRIVE]);
+
+/* Reset parameters */
+Efx_Overdrive->reset_parameters(save_state);
+
+/* Turn processing back on */
+m_process->quality_update = false;} {}
+  }
+  Function {update_derelict_quality()} {return_type void
+  } {
+    code {/* shut off all processing */
+m_process->quality_update = true;
+
+/* Cast to derived class */
+Derelict *Efx_Derelict = static_cast<Derelict*>(m_process->Rack_Effects[EFX_DERELICT]);
+/* Wait a bit */
+usleep(C_MILLISECONDS_25);
+
+/* Save current parameters */
+std::vector<int> save_state = Efx_Derelict->save_parameters();
+
+/* Delete and re-create the efx with new resample settings */
+delete m_process->Rack_Effects[EFX_DERELICT];
+m_process->Rack_Effects[EFX_DERELICT] = new Derelict(m_process->Config.Dere_res_amount, m_process->Config.Dere_up_q, m_process->Config.Dere_down_q, m_process->fSample_rate, m_process->period_master);
+
+/* Wait for things to complete */
+usleep(C_MILLISECONDS_50);
+
+Efx_Derelict = static_cast<Derelict*>(m_process->Rack_Effects[EFX_DERELICT]);
+
+/* Reset parameters */
+Efx_Derelict->reset_parameters(save_state);
+
+/* Turn processing back on */
+m_process->quality_update = false;} {}
+  }
+  Function {update_distband_quality()} {return_type void
+  } {
+    code {/* shut off all processing */
+m_process->quality_update = true;
+
+/* Cast to derived class */
+DistBand *Efx_DistBand = static_cast<DistBand*>(m_process->Rack_Effects[EFX_DISTBAND]);
+
+/* Wait a bit */
+usleep(C_MILLISECONDS_25);
+
+/* Save current parameters */
+std::vector<int> save_state = Efx_DistBand->save_parameters();
+
+/* Delete and re-create the efx with new resample settings */
+delete m_process->Rack_Effects[EFX_DISTBAND];
+m_process->Rack_Effects[EFX_DISTBAND] = new DistBand(m_process->Config.DBand_res_amount, m_process->Config.DBand_up_q, m_process->Config.DBand_down_q, m_process->fSample_rate, m_process->period_master);
+
+/* Wait for things to complete */
+usleep(C_MILLISECONDS_50);
+
+Efx_DistBand = static_cast<DistBand*>(m_process->Rack_Effects[EFX_DISTBAND]);
+
+/* Reset parameters */
+Efx_DistBand->reset_parameters(save_state);
+
+/* Turn processing back on */
+m_process->quality_update = false;} {}
+  }
+  Function {update_stompbox_quality()} {return_type void
+  } {
+    code {/* shut off all processing */
+m_process->quality_update = true;
+
+/* Cast to derived class */
+StompBox *Efx_StompBox = static_cast<StompBox*>(m_process->Rack_Effects[EFX_STOMPBOX]);
+
+/* Wait a bit */
+usleep(C_MILLISECONDS_25);
+
+/* Save current parameters */
+std::vector<int> save_state = Efx_StompBox->save_parameters();
+
+/* Delete and re-create the efx with new resample settings */
+delete m_process->Rack_Effects[EFX_STOMPBOX];
+m_process->Rack_Effects[EFX_STOMPBOX] = new StompBox(m_process->Config.Stomp_res_amount, m_process->Config.Stomp_up_q, m_process->Config.Stomp_down_q, m_process->fSample_rate, m_process->period_master);
+
+/* Wait for things to complete */
+usleep(C_MILLISECONDS_50);
+
+Efx_StompBox = static_cast<StompBox*>(m_process->Rack_Effects[EFX_STOMPBOX]);
+
+/* Reset parameters */
+Efx_StompBox->reset_parameters(save_state);
+
+/* Turn processing back on */
+m_process->quality_update = false;} {}
+  }
+}

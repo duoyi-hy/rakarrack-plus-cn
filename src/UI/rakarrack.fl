@@ -1,0 +1,2266 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0404
+header_name {.h}
+code_name {.cxx}
+decl {\#include "../process.h"} {public local
+}
+
+decl {\#include "../global.h"} {public global
+}
+
+decl {\#include "RKR_Input.h"} {public global
+}
+
+decl {\#include "RKR_Slider.h"} {public global
+}
+
+decl {\#include "newvum.h"} {public global
+}
+
+decl {\#include "tunerbar.h"} {public global
+}
+
+decl {\#include "RKR_Box.h"} {public global
+}
+
+decl {\#include "RKR_Button.h"} {public global
+}
+
+decl {\#include "RKR_Choice.h"} {public global
+}
+
+decl {\#include "RKR_Counter.h"} {public global
+}
+
+decl {\#include "RKR_Light_Button.h"} {public global
+}
+
+decl {\#include "RKR_Menu_Bar.h"} {public global
+}
+
+decl {\#include <FL/Fl_Value_Slider.H>} {public local
+}
+
+decl {\#include <FL/Fl_Scroll.H>} {public local
+}
+
+decl {\#include <FL/Fl_Progress.H>} {public local
+}
+
+decl {\#include <FL/Fl_Tooltip.H>} {public local
+}
+
+decl {\#include <FL/x.H>} {public local
+}
+
+decl {\#include <FL/Fl_PNG_Image.H>} {public local
+}
+
+decl {\#include <FL/Fl_Tiled_Image.H>} {public local
+}
+
+decl {\#include <FL/Fl_Help_Dialog.H>} {public local
+}
+
+decl {\#include <FL/Fl_File_Chooser.H>} {public global
+}
+
+decl {\#include <FL/Fl_Color_Chooser.H>} {public global
+}
+
+decl {\#include <X11/xpm.h>} {public global
+}
+
+decl {\#include "../strlcpy.h"} {private global
+}
+
+decl {const std::vector<std::string> main_submenu_paths
+{
+    "&File/Import Preset",
+    "&File/Export Preset",
+    "&File/&Load Bank",
+    "&File/&Save Bank",
+    "&File/Load Skin",
+    "&File/Save Skin",
+    "&File/Load MIDI Table",
+    "&File/Save MIDI Table",
+    "&File/&Convert Reverb IR File",
+    "&File/Import Inserted Presets",
+    "&File/Exit",
+    "&Settings/Preferences",
+    "&Settings/MIDI Learn",
+    "&Settings/ACI",
+    "&Settings/Toggle Fullscreen",
+    "&Help/Help Contents",
+    "&Help/About...",
+};} {
+  comment {Main Window - From RKRGUI::menu_MenuP[].
+All the sub menu paths for resizing.
+If any of the File menu items change, then this vector needs to be changed.} private global
+}
+
+decl {class RKR;  // forward declaration} {public global
+}
+
+decl {class Scope;  // forward declaration} {public global
+}
+
+decl {class NewVum;  // forward declaration} {public global
+}
+
+decl {class Analyzer;  // forward declaration} {public global
+}
+
+decl {class TunerBar;  // forward declaration} {public global
+}
+
+decl {class EqGui; // forward declaration} {public global
+}
+
+decl {class CompressGui; // forward declaration} {public global
+}
+
+decl {class DistGui; // forward declaration} {public global
+}
+
+decl {class OvrdGui; // forward declaration} {public global
+}
+
+decl {class EchoGui; // forward declaration} {public global
+}
+
+decl {class ChorusGui; // forward declaration} {public global
+}
+
+decl {class PhaserGui; // forward declaration} {public global
+}
+
+decl {class FlangerGui; // forward declaration} {public global
+}
+
+decl {class ReverbGui; // forward declaration} {public global
+}
+
+decl {class PeqGui; // forward declaration} {public global
+}
+
+decl {class WahwahGui; // forward declaration} {public global
+}
+
+decl {class AlienwahGui; // forward declaration} {public global
+}
+
+decl {class CabinetGui; // forward declaration} {public global
+}
+
+decl {class PanGui; // forward declaration} {public global
+}
+
+decl {class HarGui; // forward declaration} {public global
+}
+
+decl {class MusdelayGui; // forward declaration} {public global
+}
+
+decl {class GateGui; // forward declaration} {public global
+}
+
+decl {class DerelictGui; // forward declaration} {public global
+}
+
+decl {class AphaserGui; // forward declaration} {public global
+}
+
+decl {class ValveGui; // forward declaration} {public global
+}
+
+decl {class DflangeGui; // forward declaration} {public global
+}
+
+decl {class RingGui; // forward declaration} {public global
+}
+
+decl {class ExciterGui; // forward declaration} {public global
+}
+
+decl {class DistBandGui; // forward declaration} {public global
+}
+
+decl {class ArpieGui; // forward declaration} {public global
+}
+
+decl {class ExpanderGui; // forward declaration} {public global
+}
+
+decl {class ShuffleGui; // forward declaration} {public global
+}
+
+decl {class SynthfilterGui; // forward declaration} {public global
+}
+
+decl {class VarybandGui; // forward declaration} {public global
+}
+
+decl {class ConvoGui; // forward declaration} {public global
+}
+
+decl {class LooperGui; // forward declaration} {public global
+}
+
+decl {class MutromojoGui; // forward declaration} {public global
+}
+
+decl {class EchoverseGui; // forward declaration} {public global
+}
+
+decl {class CoilGui; // forward declaration} {public global
+}
+
+decl {class ShelfGui; // forward declaration} {public global
+}
+
+decl {class VocoderGui; // forward declaration} {public global
+}
+
+decl {class SustainGui; // forward declaration} {public global
+}
+
+decl {class SequenceGui; // forward declaration} {public global
+}
+
+decl {class ShifterGui; // forward declaration} {public global
+}
+
+decl {class StompboxGui; // forward declaration} {public global
+}
+
+decl {class RevtronGui; // forward declaration} {public global
+}
+
+decl {class EchotronGui; // forward declaration} {public global
+}
+
+decl {class SharGui; // forward declaration} {public global
+}
+
+decl {class CbandGui; // forward declaration} {public global
+}
+
+decl {class OtremGui; // forward declaration} {public global
+}
+
+decl {class VibeGui; // forward declaration} {public global
+}
+
+decl {class InfinityGui; // forward declaration} {public global
+}
+
+decl {class RessolGui;// forward declaration} {public global
+}
+
+decl {class MidiGui; // forward declaration} {public global
+}
+
+decl {class BankWindowGui; // forward declaration} {public global
+}
+
+decl {class OrderWindowGui; // forward declaration} {public global
+}
+
+decl {class SettingsWindowGui; // forward declaration} {public global
+}
+
+decl {class MidiLearnWindowGui; // forward declaration} {public global
+}
+
+decl {class AboutWindowGui; // forward declaration} {public global
+}
+
+decl {class TrigWindowGui; // forward declaration} {public global
+}
+
+decl {class DelayFileWindowGui; // forward declaration} {public global
+}
+
+decl {class RandomEditGui; // forward declaration} {public global
+}
+
+decl {\#include "Reset_Window.h"} {public global
+}
+
+decl {Fl_Tiled_Image *back = NULL;} {private global
+}
+
+decl {Fl_Color global_leds_color = FL_DARK_YELLOW;} {private global
+}
+
+decl {Fl_Color global_back_color = FL_BLACK;} {private global
+}
+
+decl {Fl_Color global_fore_color = FL_DARK3;} {private global
+}
+
+decl {Fl_Color global_label_color = FL_WHITE;} {private global
+}
+
+decl {int global_font_size = C_DEFAULT_FONT_SIZE;} {private global
+}
+
+decl {int global_font_type = 0;} {private global
+}
+
+decl {int global_look_changed = 0;} {private global
+}
+
+class RKRGUI {open
+} {
+  decl {RKR *m_process;} {private local
+  }
+  decl {RKR_Gui_Effect *Efx_Gui_Base[EFX_NUMBER_EFFECTS];} {
+    comment {Efx_Gui_Base:
+Array to hold pointer to the rack effect base class gui.
+This is used for common effect actions to allow use in
+for() loops to eliminate redundant code.
+Array is indexed by EFX_Index.} private local
+  }
+  decl {CommonGuiMenu *m_looper_bar;} {private local
+  }
+  decl {CommonGuiMenu *m_looper_ms;} {private local
+  }
+  decl {int made;} {
+    comment {Flag to indicate if the custom MIDI control bank has been completed.} private local
+  }
+  decl {int focus_delay_time;} {
+    comment {The amount of time to delay before the below mouse
+widget gets the focus.} private local
+  }
+  decl {int stress_test_time;} {
+    comment {Timeout variable for random stress testing} private local
+  }
+  decl {int random_parameters;} {
+    comment {Random button will set all efx parameters randomly} private local
+  }
+  decl {int efx_always_active;} {
+    comment {Set all random generated effects as active.} private local
+  }
+  decl {int use_current_active_efx;} {
+    comment {Random button does not generate random effects for main window.
+Use only active effects already on the main rack.} private local
+  }
+  decl {int max_random_active;} {
+    comment {The maximum number or randomly selected efx that can be set as active.
+The user can set between 1 and 10, default is six. 
+If the efx_always_active is checked, then always the max.
+If efx_always_active is not checked, then the actual is randomly generated.} private local
+  }
+  decl {char FX_Excluded[EFX_NUMBER_EFFECTS];} {
+    comment {Array to hold user selections for random preset generation.} private local
+  }
+  decl {Fl_Help_Dialog *visor;} {private local
+  }
+  Function {make_window()} {open return_type void
+  } {
+    Fl_Window Principal {
+      callback {\#ifdef RKR_PLUS_LV2
+    // triggers hide from RakarrackPlusLV2UI::run()
+    m_process->Exit_Program = 1;
+\#else
+    if(nsm_preferences_file.empty())
+    {
+        is_bank_modified();
+        is_PG_table_modified();
+        save_current_state(0);
+        m_process->Exit_Program=1;
+    }
+\#endif
+\#ifdef NSM_SUPPORT
+    else
+    {
+        global_gui_show = CONST_GUI_HIDE;
+    }
+\#endif} open selected
+      xywh {977 236 800 600} type Double box DOWN_BOX color 0 resizable size_range {320 240 3200 2400} visible
+    } {
+      Fl_Box fondo {
+        xywh {1 1 800 600} align 112
+      }
+      Fl_Menu_Bar MenuP {
+        xywh {2 2 518 18} box NO_BOX color 178 selection_color 7 labelcolor 7 align 112 textcolor 7
+        code0 {o->set_label_offset(4);}
+        code1 {o->set_submenu_paths(main_submenu_paths);}
+        class RKR_Menu_Bar
+      } {
+        Submenu Archivo {
+          label {文件(&F)}
+          xywh {0 0 100 20} labelcolor 7
+        } {
+          MenuItem Import_Preset {
+            label {导入预置}
+            callback {import_preset->do_callback();}
+            tooltip {Import Preset file *.rkr type} xywh {0 0 45 26} shortcut 0x69
+          }
+          MenuItem Export_Preset {
+            label {导出预置}
+            callback {export_preset_choice->do_callback();}
+            tooltip {Export Preset to file *.rkr type} xywh {0 0 45 26} shortcut 0x65 divider
+          }
+          MenuItem {BankWindow->Load_Bank_M} {
+            label {载入音色库(&L)}
+            callback {set_bank_file();}
+            xywh {0 0 45 26}
+          }
+          MenuItem {BankWindow->Save_Bank_M} {
+            label {保存音色库(&S)}
+            callback {set_save_file();}
+            xywh {0 0 45 26} shortcut 0x40073 divider
+          }
+          MenuItem Load_Skin {
+            label {载入皮肤}
+            callback {// If nothing previously set, then default location
+    std::string chooser_start_location = "";
+    // If the user set a User Directory, then use it
+    if( (strcmp(m_process->Config.UDirFilename, DATADIR) != 0) && (strcmp(m_process->Config.UDirFilename, UD_NOT_SET) != 0) )
+    {
+        chooser_start_location = m_process->Config.UDirFilename;
+    }
+    m_process->Shut_Off_Below_Mouse = 1;
+    char *filename = fl_file_chooser("Load Skin:", "(*.rkrs)", chooser_start_location.c_str(), 0);
+    m_process->Shut_Off_Below_Mouse = 0;
+
+    if (filename == NULL)
+        return;
+
+    filename = fl_filename_setext(filename, ".rkrs");
+
+    if(m_process->load_skin(filename))
+    {
+        Put_Skin();
+    };}
+            xywh {0 0 36 21}
+          }
+          MenuItem Save_Skin {
+            label {保存皮肤}
+            callback {// If nothing previously set, then default location
+    std::string chooser_start_location = "";
+
+    // If the user set a User Directory, then use it
+    if( (strcmp(m_process->Config.UDirFilename, DATADIR) != 0) && (strcmp(m_process->Config.UDirFilename, UD_NOT_SET) != 0) )
+    {
+        chooser_start_location = m_process->Config.UDirFilename;
+    }
+
+    char *filename;
+\#define EXT ".rkrs"
+    m_process->Shut_Off_Below_Mouse = 1;
+    filename = fl_file_chooser("Save Skin:", "(*" EXT")", chooser_start_location.c_str(), 0);
+    m_process->Shut_Off_Below_Mouse = 0;
+
+    if (filename == NULL)
+        return;
+
+    filename = fl_filename_setext(filename, EXT);
+\#undef EXT
+
+    m_process->slabel_color = (int) global_label_color;
+    m_process->sback_color = (int) global_back_color;
+    m_process->sfore_color = (int) global_fore_color;
+    m_process->sleds_color = (int) global_leds_color;
+    m_process->swidth = (int) Principal->w();
+    m_process->sheight = (int) Principal->h();
+    m_process->sschema = Settings->scheme_ch->value();
+
+
+    m_process->save_skin(filename);}
+            xywh {0 0 36 21} divider
+          }
+          MenuItem Load_MTable {
+            label {载入 MIDI 表}
+            callback {Load_Midi_Program_Change_Table();}
+            xywh {10 10 36 21}
+          }
+          MenuItem Save_MTable {
+            label {保存 MIDI 表}
+            callback {Save_Midi_Program_Change_Table();}
+            xywh {10 10 36 21} divider
+          }
+          MenuItem ConvertReverb {
+            label {转换混响 IR 文件(&C)}
+            callback {// If nothing previously set, then default location
+    std::string chooser_start_location = "";
+
+    // If the user set a User Directory, then use it
+    if( (strcmp(m_process->Config.UDirFilename, DATADIR) != 0) && (strcmp(m_process->Config.UDirFilename, UD_NOT_SET) != 0) )
+    {
+        chooser_start_location = m_process->Config.UDirFilename;
+    }
+
+    m_process->Shut_Off_Below_Mouse = 1;
+    char *filename = fl_file_chooser("Convert Reverb IR File:", "(*.wav)", chooser_start_location.c_str(), 0);
+    m_process->Shut_Off_Below_Mouse = 0;
+
+    if (filename == NULL)
+        return;
+
+    filename = fl_filename_setext(filename, ".wav");
+
+    m_process->convert_reverb_file(filename);
+
+    m_process->Handle_Message(37);}
+            xywh {0 0 36 21} divider
+          }
+          MenuItem ImportPresets {
+            label {导入内嵌预置}
+            callback {// Set the file chooser to the previous hidden file
+    char tempfile[256];
+    memset(tempfile, 0, sizeof (tempfile));
+    snprintf(tempfile, sizeof(tempfile), "%s%s", getenv("HOME"), "/.rkrintpreset");
+
+    m_process->Shut_Off_Below_Mouse = 1;
+    char *filename = fl_file_chooser("Import Inserted Presets:","(*)", tempfile,0);
+    m_process->Shut_Off_Below_Mouse = 0;
+
+    if (filename == NULL) return;
+
+    read_insert_presets(filename);}
+            xywh {0 0 36 21} divider
+          }
+          MenuItem salir {
+            label 退出
+            callback {Principal->do_callback();}
+            xywh {2 2 36 21} shortcut 0x40078 labelcolor 7
+          }
+        }
+        MenuItem Bank_Menu {
+          label {音色库(&B)}
+          callback {B_preset->do_callback();}
+          xywh {0 0 45 26} shortcut 0x62
+        }
+        Submenu {} {
+          label {设置(&S)}
+          xywh {0 0 100 20}
+        } {
+          MenuItem Ajustes {
+            label 首选项
+            callback {if(!Settings->visible())
+{
+MiraClientes();
+MiraConfig();
+Settings->show();
+put_icon(Settings);
+}
+else
+Settings->hide();}
+            xywh {0 0 45 26} shortcut 0x6a labelcolor 7 divider
+          }
+          MenuItem ML_Menu {
+            label {MIDI 学习}
+            callback {if(!MIDILearn->visible())
+{
+m_process->comemouse=0;
+PrepareML();
+}
+else
+MIDILearn->hide();}
+            xywh {0 0 36 21} shortcut 0x6c labelcolor 7 divider
+          }
+          MenuItem ACI_Menu {
+            label ACI
+            callback {if(!Trigger->visible())
+{
+Trigger->show();
+m_process->ACI_Active = 1;
+put_icon(Trigger);
+m_process->old_a_sum = 0.0;
+m_process->val_a_sum = 0.0;
+}
+else
+{
+Trigger->hide();
+m_process->ACI_Active = 0;
+}}
+            xywh {0 0 36 21} shortcut 0x61 divider
+          }
+          MenuItem FullScreen_Menu {
+            label {切换全屏}
+            callback {\#ifndef RKR_PLUS_LV2
+\#ifdef NTK_SUPPORT
+\#ifdef NTK_EXTENDED
+    if(Principal->fullscreen_active())
+        Principal->fullscreen_off();
+    else
+        Principal->fullscreen();
+\#endif	// !RKR_PLUS_LV2
+\#else   // FLTK
+    if(Principal->fullscreen_active())
+        Principal->fullscreen_off();
+    else
+        Principal->fullscreen();
+\#endif	// NTK_SUPPORT
+\#endif	// NTK_EXTENDED}
+            xywh {0 0 36 21} shortcut 0xffc9
+          }
+        }
+        Submenu Ayuda {
+          label {帮助(&H)}
+          xywh {0 0 100 20} labelcolor 7
+        } {
+          MenuItem Contenido {
+            label {帮助内容}
+            callback {show_help();}
+            xywh {0 0 100 20} shortcut 0xffbe labelcolor 7 divider
+          }
+          MenuItem Acerca_de {
+            label {关于...}
+            callback {int x,y;
+
+x = Principal->x()+((Principal->w()-420)/2);
+y = Principal->y()+((Principal->h()-230)/2);
+
+AboutWin->position(x,y);
+AboutWin->show();
+put_icon(AboutWin);}
+            xywh {0 0 100 20} labelcolor 7
+          }
+        }
+      }
+      Fl_Button TITTLE_L {
+        callback {Tuner->hide();
+Sco->show();
+Sco->set_scope_ON(true);
+Fl::focus(Open_Order);}
+        tooltip {点击此处激活示波器} xywh {521 2 276 21} type Toggle box NO_BOX labeltype EMBOSSED_LABEL labelfont 1 labelsize 40 align 17
+      }
+      Fl_Box LMT_LED {
+        label 限幅器
+        xywh {291 6 12 12} box DOWN_BOX color 2 labelsize 10 labelcolor 7 align 4
+        code0 {o->set_label_offset(0);}
+        code1 {o->set_box_type(BOX_LIGHT);}
+        class RKR_Box
+      }
+      Fl_Box CLIP_LED {
+        label 削波
+        xywh {363 6 12 12} box DOWN_BOX color 136 labelsize 10 labelcolor 7 align 4
+        code0 {o->set_label_offset(0);}
+        code1 {o->set_box_type(BOX_LIGHT);}
+        class RKR_Box
+      }
+      Fl_Box UPS_LED {
+        label 重采样
+        xywh {450 6 12 12} box DOWN_BOX color 2 labelsize 10 labelcolor 7 align 4
+        code0 {o->set_label_offset(0);}
+        code1 {o->set_box_type(BOX_LIGHT);}
+        class RKR_Box
+      }
+      Fl_Box PORT_MIDI_IN_STATE {
+        label {MIDI 输入}
+        xywh {620 3 29 20} labelfont 1 labelsize 8 labelcolor 7 align 128 hide
+        code0 {o->set_label_offset(-2);}
+        code1 {o->set_box_type(BOX_LEDS);}
+        class RKR_Box
+      }
+      Fl_Box PORT_MIDI_OUT_STATE {
+        label {MIDI 输出}
+        xywh {648 3 29 20} labelfont 1 labelsize 8 labelcolor 7 align 128 hide
+        code0 {o->set_label_offset(-2);}
+        code1 {o->set_box_type(BOX_LEDS);}
+        class RKR_Box
+      }
+      Fl_Box PORT_AUX_STATE {
+        label 辅助
+        xywh {676 5 32 17} labelfont 1 labelsize 10 labelcolor 7 hide
+        code0 {o->set_label_offset(0);}
+        code1 {o->set_box_type(BOX_LEDS);}
+        class RKR_Box
+      }
+      Fl_Box PORT_IN_STATE {
+        label 入
+        xywh {698 5 32 17} labelfont 1 labelsize 10 labelcolor 7 hide
+        code0 {o->set_label_offset(0);}
+        code1 {o->set_box_type(BOX_LEDS);}
+        class RKR_Box
+      }
+      Fl_Box PORT_OUT_STATE {
+        label 出
+        xywh {719 5 32 17} labelfont 1 labelsize 10 labelcolor 7 hide
+        code0 {o->set_label_offset(0);}
+        code1 {o->set_box_type(BOX_LEDS);}
+        class RKR_Box
+      }
+      Fl_Box CPULOAD {
+        xywh {750 5 45 17} labelsize 10 labelcolor 7
+        code0 {o->set_label_offset(0);}
+        code1 {o->set_box_type(BOX_LEDS);}
+        class RKR_Box
+      }
+      Fl_Box Sco {
+        label Rakarrack
+        tooltip {点击此处关闭示波器} xywh {545 25 226 59} labeltype EMBOSSED_LABEL labelfont 1 labelsize 40 labelcolor 7 align 80 hide
+        code0 {\#include "scope.h"}
+        class Scope
+      }
+      Fl_Box E1 {
+        xywh {2 212 1 1} labelsize 18 hide deactivate
+      }
+      Fl_Box E2 {
+        xywh {162 212 1 1} labelsize 18 hide deactivate
+      }
+      Fl_Box E3 {
+        xywh {322 212 1 1} labelsize 18 hide deactivate
+      }
+      Fl_Box E4 {
+        xywh {482 212 1 1} labelsize 18 hide deactivate
+      }
+      Fl_Box E5 {
+        xywh {642 212 1 1} labelsize 18 hide deactivate
+      }
+      Fl_Box E6 {
+        xywh {2 413 1 1} labelsize 18 hide deactivate
+      }
+      Fl_Box E7 {
+        xywh {162 413 1 1} labelsize 18 hide deactivate
+      }
+      Fl_Box E8 {
+        xywh {322 413 1 1} labelsize 18 hide deactivate
+      }
+      Fl_Box E9 {
+        xywh {483 413 1 1} labelsize 18 hide deactivate
+      }
+      Fl_Box E10 {
+        xywh {642 413 1 1} labelsize 18 hide deactivate
+      }
+      Fl_Box L1 {
+        label 标签
+        user_data UD_Label_1
+        callback {if(Fl::event_button()==FL_LEFT_MOUSE)
+    {
+         set_drag(UD_Label_1);
+    }
+    else
+    {
+        set_random_parameters(0);
+    }}
+        xywh {2 195 158 17} labelfont 1 labelcolor 7 align 64
+        code0 {o->set_box_type(BOX_DRAG_EFFECT);}
+        class RKR_Box
+      }
+      Fl_Box L2 {
+        label 标签
+        user_data UD_Label_2
+        callback {if(Fl::event_button()==FL_LEFT_MOUSE)
+    {
+         set_drag(UD_Label_2);
+    }
+    else
+    {
+        set_random_parameters(1);
+    }}
+        xywh {162 195 158 17} labelfont 1 labelcolor 7 align 64
+        code0 {o->set_box_type(BOX_DRAG_EFFECT);}
+        class RKR_Box
+      }
+      Fl_Box L3 {
+        label 标签
+        user_data UD_Label_3
+        callback {if(Fl::event_button()==FL_LEFT_MOUSE)
+    {
+         set_drag(UD_Label_3);
+    }
+    else
+    {
+        set_random_parameters(2);
+    }}
+        xywh {322 195 158 17} labelfont 1 labelcolor 7
+        code0 {o->set_box_type(BOX_DRAG_EFFECT);}
+        class RKR_Box
+      }
+      Fl_Box L4 {
+        label 标签
+        user_data UD_Label_4
+        callback {if(Fl::event_button()==FL_LEFT_MOUSE)
+    {
+         set_drag(UD_Label_4);
+    }
+    else
+    {
+        set_random_parameters(3);
+    }}
+        xywh {482 195 158 17} labelfont 1 labelcolor 7
+        code0 {o->set_box_type(BOX_DRAG_EFFECT);}
+        class RKR_Box
+      }
+      Fl_Box L5 {
+        label 标签
+        user_data UD_Label_5
+        callback {if(Fl::event_button()==FL_LEFT_MOUSE)
+    {
+         set_drag(UD_Label_5);
+    }
+    else
+    {
+        set_random_parameters(4);
+    }}
+        xywh {642 195 157 17} labelfont 1 labelcolor 7
+        code0 {o->set_box_type(BOX_DRAG_EFFECT);}
+        class RKR_Box
+      }
+      Fl_Box L6 {
+        label 标签
+        user_data UD_Label_6
+        callback {if(Fl::event_button()==FL_LEFT_MOUSE)
+    {
+         set_drag(UD_Label_6);
+    }
+    else
+    {
+        set_random_parameters(5);
+    }}
+        xywh {1 396 158 17} labelfont 1 labelcolor 7
+        code0 {o->set_box_type(BOX_DRAG_EFFECT);}
+        class RKR_Box
+      }
+      Fl_Box L7 {
+        label 标签
+        user_data UD_Label_7
+        callback {if(Fl::event_button()==FL_LEFT_MOUSE)
+    {
+         set_drag(UD_Label_7);
+    }
+    else
+    {
+        set_random_parameters(6);
+    }}
+        xywh {162 396 158 17} labelfont 1 labelcolor 7
+        code0 {o->set_box_type(BOX_DRAG_EFFECT);}
+        class RKR_Box
+      }
+      Fl_Box L8 {
+        label 标签
+        user_data UD_Label_8
+        callback {if(Fl::event_button()==FL_LEFT_MOUSE)
+    {
+         set_drag(UD_Label_8);
+    }
+    else
+    {
+        set_random_parameters(7);
+    }}
+        xywh {322 396 158 17} labelfont 1 labelcolor 7
+        code0 {o->set_box_type(BOX_DRAG_EFFECT);}
+        class RKR_Box
+      }
+      Fl_Box L9 {
+        label 标签
+        user_data UD_Label_9
+        callback {if(Fl::event_button()==FL_LEFT_MOUSE)
+    {
+         set_drag(UD_Label_9);
+    }
+    else
+    {
+        set_random_parameters(8);
+    }}
+        xywh {482 396 158 17} labelfont 1 labelcolor 7
+        code0 {o->set_box_type(BOX_DRAG_EFFECT);}
+        class RKR_Box
+      }
+      Fl_Box L10 {
+        label 标签
+        user_data UD_Label_10
+        callback {if(Fl::event_button()==FL_LEFT_MOUSE)
+    {
+         set_drag(UD_Label_10);
+    }
+    else
+    {
+        set_random_parameters(9);
+    }}
+        xywh {642 396 154 17} labelfont 1 labelcolor 7
+        code0 {o->set_box_type(BOX_DRAG_EFFECT);}
+        class RKR_Box
+      }
+      Fl_Group EQ {
+        xywh {2 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "eq_gui.h"}
+        code1 {Efx_Gui_Base[EFX_EQ] = o;}
+        code2 {o->initialize(m_process, this);}
+        class EqGui
+      } {}
+      Fl_Group COMPRESS {
+        xywh {161 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "compress_gui.h"}
+        code1 {Efx_Gui_Base[EFX_COMPRESSOR] = o;}
+        code2 {o->initialize(m_process, this);}
+        class CompressGui
+      } {}
+      Fl_Group DIST {
+        xywh {320 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "dist_gui.h"}
+        code1 {Efx_Gui_Base[EFX_DISTORTION] = o;}
+        code2 {o->initialize(m_process, this);}
+        class DistGui
+      } {}
+      Fl_Group OVRD {
+        xywh {480 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "ovrd_gui.h"}
+        code1 {Efx_Gui_Base[EFX_OVERDRIVE] = o;}
+        code2 {o->initialize(m_process, this);}
+        class OvrdGui
+      } {}
+      Fl_Group ECHO {
+        xywh {639 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "echo_gui.h"}
+        code1 {Efx_Gui_Base[EFX_ECHO] = o;}
+        code2 {o->initialize(m_process, this);}
+        class EchoGui
+      } {}
+      Fl_Group CHORUS {
+        xywh {2 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "chorus_gui.h"}
+        code1 {Efx_Gui_Base[EFX_CHORUS] = o;}
+        code2 {o->initialize(m_process, this);}
+        class ChorusGui
+      } {}
+      Fl_Group PHASER {
+        xywh {161 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "phaser_gui.h"}
+        code1 {Efx_Gui_Base[EFX_PHASER] = o;}
+        code2 {o->initialize(m_process, this);}
+        class PhaserGui
+      } {}
+      Fl_Group FLANGER {
+        xywh {321 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "flanger_gui.h"}
+        code1 {Efx_Gui_Base[EFX_FLANGER] = o;}
+        code2 {o->initialize(m_process, this);}
+        class FlangerGui
+      } {}
+      Fl_Group REVERB {
+        xywh {480 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "reverb_gui.h"}
+        code1 {Efx_Gui_Base[EFX_REVERB] = o;}
+        code2 {o->initialize(m_process, this);}
+        class ReverbGui
+      } {}
+      Fl_Group PEQ {
+        xywh {639 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "peq_gui.h"}
+        code1 {Efx_Gui_Base[EFX_PARAMETRIC] = o;}
+        code2 {o->initialize(m_process, this);}
+        class PeqGui
+      } {}
+      Fl_Group WAHWAH {
+        xywh {2 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "wahwah_gui.h"}
+        code1 {Efx_Gui_Base[EFX_WAHWAH] = o;}
+        code2 {o->initialize(m_process, this);}
+        class WahwahGui
+      } {}
+      Fl_Group ALIENWAH {
+        xywh {161 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "alienwah_gui.h"}
+        code1 {Efx_Gui_Base[EFX_ALIENWAH] = o;}
+        code2 {o->initialize(m_process, this);}
+        class AlienwahGui
+      } {}
+      Fl_Group CABINET {
+        xywh {320 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "cabinet_gui.h"}
+        code1 {Efx_Gui_Base[EFX_CABINET] = o;}
+        code2 {o->initialize(m_process, this);}
+        class CabinetGui
+      } {}
+      Fl_Group PAN {
+        xywh {480 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "pan_gui.h"}
+        code1 {Efx_Gui_Base[EFX_PAN] = o;}
+        code2 {o->initialize(m_process, this);}
+        class PanGui
+      } {}
+      Fl_Group HAR {
+        xywh {639 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "har_gui.h"}
+        code1 {Efx_Gui_Base[EFX_HARMONIZER] = o;}
+        code2 {o->initialize(m_process, this);}
+        class HarGui
+      } {}
+      Fl_Group MUSDELAY {
+        xywh {2 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "musdelay_gui.h"}
+        code1 {Efx_Gui_Base[EFX_MUSICAL_DELAY] = o;}
+        code2 {o->initialize(m_process, this);}
+        class MusdelayGui
+      } {}
+      Fl_Group GATE {
+        xywh {161 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "gate_gui.h"}
+        code1 {Efx_Gui_Base[EFX_NOISEGATE] = o;}
+        code2 {o->initialize(m_process, this);}
+        class GateGui
+      } {}
+      Fl_Group DERELICT {
+        xywh {321 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "derelict_gui.h"}
+        code1 {Efx_Gui_Base[EFX_DERELICT] = o;}
+        code2 {o->initialize(m_process, this);}
+        class DerelictGui
+      } {}
+      Fl_Group APHASER {
+        xywh {480 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "aphaser_gui.h"}
+        code1 {Efx_Gui_Base[EFX_ANALOG_PHASER] = o;}
+        code2 {o->initialize(m_process, this);}
+        class AphaserGui
+      } {}
+      Fl_Group VALVE {
+        xywh {639 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "valve_gui.h"}
+        code1 {Efx_Gui_Base[EFX_VALVE] = o;}
+        code2 {o->initialize(m_process, this);}
+        class ValveGui
+      } {}
+      Fl_Group DFLANGE {
+        xywh {2 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "dflange_gui.h"}
+        code1 {Efx_Gui_Base[EFX_DUAL_FLANGE] = o;}
+        code2 {o->initialize(m_process, this);}
+        class DflangeGui
+      } {}
+      Fl_Group RING {
+        xywh {161 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "ring_gui.h"}
+        code1 {Efx_Gui_Base[EFX_RING] = o;}
+        code2 {o->initialize(m_process, this);}
+        class RingGui
+      } {}
+      Fl_Group EXCITER {
+        xywh {320 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "exciter_gui.h"}
+        code1 {Efx_Gui_Base[EFX_EXCITER] = o;}
+        code2 {o->initialize(m_process, this);}
+        class ExciterGui
+      } {}
+      Fl_Group DISTBAND {
+        xywh {480 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "distband_gui.h"}
+        code1 {Efx_Gui_Base[EFX_DISTBAND] = o;}
+        code2 {o->initialize(m_process, this);}
+        class DistBandGui
+      } {}
+      Fl_Group ARPIE {
+        xywh {639 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "arpie_gui.h"}
+        code1 {Efx_Gui_Base[EFX_ARPIE] = o;}
+        code2 {o->initialize(m_process, this);}
+        class ArpieGui
+      } {}
+      Fl_Group EXPANDER {
+        xywh {2 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "expander_gui.h"}
+        code1 {Efx_Gui_Base[EFX_EXPANDER] = o;}
+        code2 {o->initialize(m_process, this);}
+        class ExpanderGui
+      } {}
+      Fl_Group SHUFFLE {
+        xywh {161 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "shuffle_gui.h"}
+        code1 {Efx_Gui_Base[EFX_SHUFFLE] = o;}
+        code2 {o->initialize(m_process, this);}
+        class ShuffleGui
+      } {}
+      Fl_Group SYNTHFILTER {
+        xywh {321 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "synthfilter_gui.h"}
+        code1 {Efx_Gui_Base[EFX_SYNTHFILTER] = o;}
+        code2 {o->initialize(m_process, this);}
+        class SynthfilterGui
+      } {}
+      Fl_Group VARYBAND {
+        xywh {480 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "varyband_gui.h"}
+        code1 {Efx_Gui_Base[EFX_VARYBAND] = o;}
+        code2 {o->initialize(m_process, this);}
+        class VarybandGui
+      } {}
+      Fl_Group CONVOLOTRON {
+        xywh {639 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "convo_gui.h"}
+        code1 {Efx_Gui_Base[EFX_CONVOLOTRON] = o;}
+        code2 {o->initialize(m_process, this);}
+        code3 {o->add_user_files();}
+        class ConvoGui
+      } {}
+      Fl_Group LOOPER {
+        xywh {2 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "looper_gui.h"}
+        code1 {Efx_Gui_Base[EFX_LOOPER] = o;}
+        code2 {o->initialize(m_process, this);}
+        class LooperGui
+      } {}
+      Fl_Group MUTROMOJO {
+        xywh {161 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "mutromojo_gui.h"}
+        code1 {Efx_Gui_Base[EFX_MUTROMOJO] = o;}
+        code2 {o->initialize(m_process, this);}
+        class MutromojoGui
+      } {}
+      Fl_Group ECHOVERSE {
+        xywh {320 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "echoverse_gui.h"}
+        code1 {Efx_Gui_Base[EFX_ECHOVERSE] = o;}
+        code2 {o->initialize(m_process, this);}
+        class EchoverseGui
+      } {}
+      Fl_Group COILCRAFTER {
+        xywh {480 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "coil_gui.h"}
+        code1 {Efx_Gui_Base[EFX_COILCRAFTER] = o;}
+        code2 {o->initialize(m_process, this);}
+        class CoilGui
+      } {}
+      Fl_Group SHELFBOOST {
+        xywh {639 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "shelf_gui.h"}
+        code1 {Efx_Gui_Base[EFX_SHELFBOOST] = o;}
+        code2 {o->initialize(m_process, this);}
+        class ShelfGui
+      } {}
+      Fl_Group VOCODER {
+        xywh {2 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "vocoder_gui.h"}
+        code1 {Efx_Gui_Base[EFX_VOCODER] = o;}
+        code2 {o->initialize(m_process, this);}
+        class VocoderGui
+      } {}
+      Fl_Group SUSTAINER {
+        xywh {161 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "sustain_gui.h"}
+        code1 {Efx_Gui_Base[EFX_SUSTAINER] = o;}
+        code2 {o->initialize(m_process, this);}
+        class SustainGui
+      } {}
+      Fl_Group SEQUENCE {
+        xywh {321 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "sequence_gui.h"}
+        code1 {Efx_Gui_Base[EFX_SEQUENCE] = o;}
+        code2 {o->initialize(m_process, this);}
+        class SequenceGui
+      } {}
+      Fl_Group SHIFTER {
+        xywh {480 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "shifter_gui.h"}
+        code1 {Efx_Gui_Base[EFX_SHIFTER] = o;}
+        code2 {o->initialize(m_process, this);}
+        class ShifterGui
+      } {}
+      Fl_Group STOMPBOX {
+        xywh {639 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "stompbox_gui.h"}
+        code1 {Efx_Gui_Base[EFX_STOMPBOX] = o;}
+        code2 {o->initialize(m_process, this);}
+        class StompboxGui
+      } {}
+      Fl_Group REVERBTRON {
+        xywh {2 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "reverbtron_gui.h"}
+        code1 {Efx_Gui_Base[EFX_REVERBTRON] = o;}
+        code2 {o->initialize(m_process, this);}
+        code3 {o->add_user_files();}
+        class RevtronGui
+      } {}
+      Fl_Group ECHOTRON {
+        xywh {161 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "echotron_gui.h"}
+        code1 {Efx_Gui_Base[EFX_ECHOTRON] = o;}
+        code2 {o->initialize(m_process, this);}
+        code3 {o->add_user_files();}
+        class EchotronGui
+      } {}
+      Fl_Group SHAR {
+        xywh {320 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "stereoharm_gui.h"}
+        code1 {Efx_Gui_Base[EFX_STEREOHARM] = o;}
+        code2 {o->initialize(m_process, this);}
+        class SharGui
+      } {}
+      Fl_Group COMPBAND {
+        xywh {480 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "compband_gui.h"}
+        code1 {Efx_Gui_Base[EFX_COMPBAND] = o;}
+        code2 {o->initialize(m_process, this);}
+        class CbandGui
+      } {}
+      Fl_Group OTREM {
+        xywh {639 212 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "otrem_gui.h"}
+        code1 {Efx_Gui_Base[EFX_OPTICALTREM] = o;}
+        code2 {o->initialize(m_process, this);}
+        class OtremGui
+      } {}
+      Fl_Group VIBE {
+        xywh {2 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "vibe_gui.h"}
+        code1 {Efx_Gui_Base[EFX_VIBE] = o;}
+        code2 {o->initialize(m_process, this);}
+        class VibeGui
+      } {}
+      Fl_Group INFINIT {
+        xywh {161 413 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "infinity_gui.h"}
+        code1 {Efx_Gui_Base[EFX_INFINITY] = o;}
+        code2 {o->initialize(m_process, this);}
+        class InfinityGui
+      } {}
+      Fl_Group RESSOLUTION {
+        xywh {166 418 158 184} box UP_BOX color 0 selection_color 0 labelfont 1 align 112 hide
+        code0 {\#include "ressol_gui.h"}
+        code1 {Efx_Gui_Base[EFX_RESSOLUTION] = o;}
+        code2 {o->initialize(m_process, this);}
+        class RessolGui
+      } {}
+      Fl_Group Tuner {
+        xywh {520 24 276 58} box UP_BOX color 0 selection_color 0 align 112
+      } {
+        Fl_Light_Button tuner_activar {
+          label 开
+          callback {m_process->Tuner_Active=(int)o->value();
+tuner_bar->value(-32);
+WNote->copy_label("");
+WRfreq->copy_label("");
+WNfreq->copy_label("");
+ChangeActives();
+TUNER_LABEL->redraw_label();}
+          tooltip {启用调音器 - 快捷键 'T'} xywh {526 28 38 18} shortcut 0x74 color 62 selection_color 1 labelsize 10 when 1
+          class RKR_Light_Button
+        }
+        Fl_Progress tuner_bar {
+          xywh {586 31 205 14} box THIN_DOWN_BOX color 47 selection_color 88 align 80
+          code0 {o->minimum(-32);}
+          code1 {o->maximum(32);}
+          code2 {o->value(-32);}
+          class TunerBar
+        }
+        Fl_Box WNote {
+          xywh {676 57 28 22} labelfont 1 labelcolor 7 align 16
+          class RKR_Box
+        }
+        Fl_Box WRfreq {
+          xywh {588 57 76 22} labelfont 1 labelcolor 7 align 16
+          class RKR_Box
+        }
+        Fl_Box WNfreq {
+          xywh {714 57 76 22} labelfont 1 labelcolor 7 align 16
+          class RKR_Box
+        }
+        Fl_Box PINCHO {
+          label {@-4$8<}
+          xywh {673 48 32 5} box FLAT_BOX color 55 labelcolor 4 align 16
+        }
+        Fl_Box TUNER_LABEL {
+          label 调音器
+          xywh {524 63 57 14} labelfont 1 labelcolor 7
+          class RKR_Box
+        }
+      }
+      Fl_Group InOut {
+        xywh {2 24 164 170} box UP_BOX color 0 selection_color 0 align 112
+      } {
+        Fl_Light_Button ActivarGeneral {
+          label {FX 开}
+          callback {m_process->Active_Preset.FX_Master_Active = o->value();
+m_process->val_il_sum=-50.0;
+m_process->val_ir_sum=-50.0;
+
+m_process->val_vl_sum=-50.0;
+m_process->val_vr_sum=-50.0;
+
+m_process->old_vl_sum=-50.0;
+m_process->old_vr_sum=-50.0;
+
+m_process->old_il_sum=-50.0;
+m_process->old_ir_sum=-50.0;
+
+input_vul->value(-50.0);
+input_vur->value(-50.0);
+
+output_vul->value(-50.0);
+output_vur->value(-50.0);
+
+
+ChangeActives();  
+LABEL_IO->redraw_label();
+
+if (!o->value())
+   {
+    m_process->OnCounter = 0;
+    if (m_process->Tuner_Active)
+        {
+           tuner_activar->value(0);
+           tuner_activar->do_callback();
+        } 
+    if (m_process->MIDIConverter_Active)  
+        {
+            MIDI->midi_activar->value(0);
+            MIDI->midi_activar->do_callback();
+        }
+             
+m_process->cleanup_efx();
+
+}}
+          tooltip {启用 rakarrack - 快捷键 'R'} xywh {6 30 52 18} down_box BORDER_BOX shortcut 0x72 color 62 selection_color 1 labelsize 10 align 84 when 1
+          class RKR_Light_Button
+        }
+        Fl_Button BostBut {
+          label {+10dB}
+          callback {if(o->value()) m_process->booster = dB2rap(10);
+else m_process->booster=1.0f;}
+          tooltip {+10 dB 增强器 - 快捷键 'F10'} xywh {132 30 30 14} type Toggle shortcut 0xffc7 color 62 labelsize 6
+          code0 {o->set_label_offset(-4);}
+          class RKR_Button
+        }
+        Fl_Value_Slider Balance {
+          label {FX%}
+          callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ getMIDIControl(MC_Balance_FX);
+ return;
+} 
+m_process->Active_Preset.Fraction_Bypass=(float)(o->value()/100.0f);}
+          xywh {15 48 19 126} type {Vert Knob} box FLAT_BOX color 0 selection_color 0 labelsize 10 labelcolor 31 minimum 100 maximum 0 step 1 value 100 textcolor 7
+          class RKR_Slider
+        }
+        Fl_Value_Slider Nivel_Entrada {
+          label 输入
+          callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ getMIDIControl(MC_Input_Volume);
+ return;
+} 
+m_process->Active_Preset.Input_Gain=(float)((o->value()+50)/100.0);
+m_process->calculavol(1);}
+          xywh {57 48 19 126} type {Vert Knob} box FLAT_BOX color 0 selection_color 0 labelsize 10 labelcolor 31 minimum 50 maximum -50 step 1 textcolor 7
+          class RKR_Slider
+        }
+        Fl_Value_Slider Nivel_Salida {
+          label 输出
+          callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ getMIDIControl(MC_Output_Volume);
+ return;
+} 
+
+m_process->Active_Preset.Master_Volume=(float)((o->value()+50)/100.0);
+m_process->calculavol(2);}
+          tooltip {快捷键 'F2' 减小音量，'F3' 增大音量} xywh {115 48 19 126} type {Vert Knob} box FLAT_BOX color 0 selection_color 0 labelsize 10 labelcolor 31 minimum 50 maximum -50 step 1 textcolor 7
+          class RKR_Slider
+        }
+        Fl_Slider input_vul {
+          xywh {84 50 8 122} type {Vert Fill} box NO_BOX color 178 selection_color 90 align 80 when 0 minimum 15 maximum -48 step 1 value -48
+          class NewVum
+        }
+        Fl_Slider input_vur {
+          xywh {93 50 8 122} type {Vert Fill} box NO_BOX color 178 selection_color 90 align 80 when 0 minimum 15 maximum -48 step 1 value -48
+          class NewVum
+        }
+        Fl_Slider output_vul {
+          xywh {142 50 8 122} type {Vert Fill} box NO_BOX color 178 selection_color 90 align 80 when 0 minimum 15 maximum -48 step 1 value -48
+          class NewVum
+        }
+        Fl_Slider output_vur {
+          xywh {151 50 8 122} type {Vert Fill} box NO_BOX color 178 selection_color 90 align 80 when 0 minimum 15 maximum -48 step 1 value -48
+          class NewVum
+        }
+        Fl_Box LABEL_IO {
+          label {输入/输出}
+          xywh {60 30 62 14} labelfont 1 labelcolor 7 align 16
+          class RKR_Box
+        }
+      }
+      Fl_Group MIDI {
+        xywh {520 85 276 52} box UP_BOX color 0 selection_color 0 align 112 hide
+        code0 {\#include "midiconv_gui.h"}
+        code1 {o->initialize(m_process, this);}
+        class MidiGui
+      } {}
+      Fl_Group Metro {
+        xywh {520 85 276 52} box UP_BOX color 0 selection_color 0 align 112
+      } {
+        Fl_Light_Button metro_activar {
+          label 开
+          callback {if ((int)o->value()==0)
+{ 
+  Metro_Led->color(fl_darker(FL_RED));
+  Metro_Led->redraw();
+}
+
+m_process->M_Metronome->cleanup();
+m_process->Metro_Active=(int)o->value();
+
+
+ChangeActives();
+Metro_Label->redraw_label();}
+          tooltip {启用节拍器 - 快捷键 'M'} xywh {525 89 38 18} shortcut 0x6d color 62 selection_color 1 labelsize 10 when 1
+          class RKR_Light_Button
+        }
+        Fl_Choice MetroBar {
+          label {拍号}
+          callback {m_process->M_Metro_Bar=(int)o->value();
+
+switch(m_process->M_Metro_Bar)
+
+   {
+      case 0:
+      m_process->M_Metronome->set_meter(2);
+      break;                    
+      case 1:
+      m_process->M_Metronome->set_meter(3);
+      break;                    
+      case 2:
+      m_process->M_Metronome->set_meter(4);
+      break;                    
+      case 3:
+      m_process->M_Metronome->set_meter(5);
+      break;                    
+      case 4:
+      m_process->M_Metronome->set_meter(6);
+      break;                    
+      case 5:
+      m_process->M_Metronome->set_meter(7);
+      break;                    
+      case 6:
+      m_process->M_Metronome->set_meter(9);
+      break;                    
+      case 7:
+      m_process->M_Metronome->set_meter(11);
+      break;                    
+
+ }} open
+          xywh {624 98 37 16} down_box BORDER_BOX selection_color 0 labelsize 8 labelcolor 7 textsize 10 textcolor 7
+          code0 {o->menu(m_looper_bar->get_time_sig());}
+          code1 {o->set_label_offset(-2);}
+          code2 {o->set_text_offset(-2);}
+          class RKR_Choice
+        } {}
+        Fl_Value_Slider Metro_Volume {
+          label 音量
+          callback {m_process->M_Metro_Vol=2.0f*(float)o->value()/100.0f;}
+          xywh {667 100 117 11} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 8 labelcolor 7 align 9 maximum 100 step 1 value 50 textcolor 7
+          code0 {o->set_label_offset(-2);}
+          code1 {o->shut_off_pixel_adjustment();}
+          class RKR_Slider
+        }
+        Fl_Choice MetroSound {
+          label S
+          callback {m_process->M_Metro_Sound=(int)o->value();
+
+switch(m_process->M_Metro_Sound)
+
+   {
+      case 0:
+      MetroBar->do_callback();
+      break;                    
+      case 1:
+      m_process->M_Metronome->set_meter(1);
+      break;                    
+      case 2:
+      m_process->M_Metronome->set_meter(0);
+      break;                    
+       
+
+ }} open
+          xywh {634 118 28 16} down_box BORDER_BOX selection_color 0 labelsize 8 labelcolor 7 textsize 10 textcolor 7
+          code0 {o->menu(m_looper_ms->get_metronome_sound());}
+          code1 {o->set_label_offset(-2);}
+          code2 {o->set_text_offset(-1);}
+          class RKR_Choice
+        } {}
+        Fl_Value_Slider Metro_Tempo {
+          label 速度
+          callback {m_process->M_Metro_Tempo=(int)o->value();
+m_process->M_Metronome->set_tempo(m_process->M_Metro_Tempo);}
+          xywh {667 119 117 11} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 8 labelcolor 7 align 9 minimum 20 maximum 340 step 1 value 100 textcolor 7
+          code0 {o->set_label_offset(-2);}
+          code1 {o->shut_off_pixel_adjustment();}
+          class RKR_Slider
+        }
+        Fl_Box Metro_Led {
+          xywh {568 90 10 10} box ROUNDED_BOX color 88 labelsize 18
+        }
+        Fl_Box Metro_Label {
+          label 节拍器
+          xywh {522 117 92 14} labelfont 1 labelcolor 7 when 0
+          class RKR_Box
+        }
+      }
+      Fl_Group Presets {
+        xywh {168 24 352 170} box UP_BOX color 0 selection_color 0 align 112
+      } {
+        Fl_Box PRESETS_LABEL {
+          label 预置列表
+          xywh {174 28 62 14} labelfont 1 labelcolor 7
+          class RKR_Box
+        }
+        Fl_Button L_B1 {
+          label 1
+          callback {load_default_bank(0);}
+          xywh {418 30 22 16} color 62 labelsize 10
+          class RKR_Button
+        }
+        Fl_Button L_B2 {
+          label 2
+          callback {load_default_bank(1);}
+          xywh {442 30 22 16} color 62 labelsize 10
+          class RKR_Button
+        }
+        Fl_Button L_B3 {
+          label 3
+          callback {load_default_bank(2);}
+          xywh {466 30 22 16} color 62 labelsize 10
+          class RKR_Button
+        }
+        Fl_Button L_B4 {
+          label U
+          callback {// Check if the bank was modified - request save
+    is_bank_modified ();
+
+    if(m_process->load_bank_from_vector (m_process->Config.BankFilename))
+    {
+        // Update the Bank Window
+        BankWin_Label(m_process->Config.BankFilename);
+        Put_Loaded_Bank();
+        BankWindow->unlight_preset(m_process->Selected_Preset);
+    }}
+          xywh {490 30 22 16} color 62 labelsize 10
+          class RKR_Button
+        }
+        Fl_Button S_new {
+          label 新建
+          callback {m_process->new_preset();
+DisAssigns();
+FillML();
+Prepare_Order();
+Put_Loaded();}
+          tooltip {新建预置 - 快捷键 'N'} xywh {174 50 64 18} shortcut 0x6e color 62 labelsize 12
+          code0 {o->set_label_offset(2);}
+          class RKR_Button
+        }
+        Fl_Button import_preset {
+          label 导入
+          callback {// If nothing previously set, then default location
+    std::string chooser_start_location = "";
+
+    // If the user set a User Directory then use it
+    if( (strcmp(m_process->Config.UDirFilename, DATADIR) != 0) && (strcmp(m_process->Config.UDirFilename, UD_NOT_SET) != 0) )
+    {
+        chooser_start_location = m_process->Config.UDirFilename;
+    }
+
+    m_process->Shut_Off_Below_Mouse = 1;
+    char *filename = fl_file_chooser("Import Preset:", "(*.rkr)", chooser_start_location.c_str(), 0);
+    m_process->Shut_Off_Below_Mouse = 0;
+
+    if (filename == NULL)
+        return;
+
+    filename=fl_filename_setext(filename,".rkr");
+    m_process->load_preset(filename);
+    Put_Loaded();}
+          tooltip {导入预置文件（*.rkr）- 快捷键 'I'} xywh {240 50 64 18} shortcut 0x69 color 62 labelsize 12
+          code0 {o->set_label_offset(2);}
+          class RKR_Button
+        }
+        Fl_Choice export_preset_choice {
+          label 导出
+          callback {int choice = o->value();
+  // If nothing previously set, then default location
+    std::string chooser_start_location = "";
+
+    // Did the user set a User Directory
+    if( (strcmp(m_process->Config.UDirFilename, DATADIR) != 0) && (strcmp(m_process->Config.UDirFilename, UD_NOT_SET) != 0) )
+    {
+        chooser_start_location = m_process->Config.UDirFilename;
+    }
+
+    // Need to shut off below mouse or it tries to modify the fl_choice widget and crash.
+    m_process->Shut_Off_Below_Mouse = 1;
+    
+    switch ( choice )
+    {
+        case 0:  // Default
+        {
+            char *filename;
+
+\#define EXT ".rkr"
+            m_process->Shut_Off_Below_Mouse = 1;
+            filename = fl_file_chooser("Export Preset:", "(*" EXT")", chooser_start_location.c_str (), 0);
+            m_process->Shut_Off_Below_Mouse = 0;
+
+            if (filename == NULL)
+                return;
+
+            filename = fl_filename_setext(filename,EXT);
+\#undef EXT
+            m_process->save_preset(filename);
+        }
+        break;
+
+        case 2:
+        {
+            char *filename;
+
+\#define EXT ".strip"
+            m_process->Shut_Off_Below_Mouse = 1;
+            filename = fl_file_chooser("Export Non-Mixer-XT:", "(*" EXT")", chooser_start_location.c_str (), 0);
+            m_process->Shut_Off_Below_Mouse = 0;
+
+            if (filename == NULL)
+                return;
+
+            filename = fl_filename_setext(filename,EXT);
+\#undef EXT
+
+            m_process->export_to_nsm_mixer(filename);
+        }
+        break;
+
+        case 1:
+        {
+            char *filename;
+
+\#define EXT ".carxp"
+            m_process->Shut_Off_Below_Mouse = 1;
+            filename = fl_file_chooser("Export Carla:", "(*" EXT")", chooser_start_location.c_str (), 0);
+            m_process->Shut_Off_Below_Mouse = 0;
+
+            if (filename == NULL)
+                return;
+
+            filename = fl_filename_setext(filename,EXT);
+\#undef EXT
+
+            m_process->export_to_carla(filename);
+        }
+        break;
+    }
+
+    m_process->Shut_Off_Below_Mouse = 0;} open
+          tooltip {导出预置到文件 - 快捷键 'E'} xywh {306 50 64 18} down_box BORDER_BOX color 2 selection_color 0 align 1 when 6
+          class RKR_Choice
+        } {
+          MenuItem {} {
+            label {Rakarrack+}
+            tooltip {Export native Rakarrack+ format} xywh {0 0 34 24}
+          }
+          MenuItem {} {
+            label Carla
+            tooltip {Export Carla format} xywh {0 0 34 24}
+          }
+          MenuItem {} {
+            label {Non-Mixer-XT}
+            tooltip {Export to NON-Mixer-XT format} xywh {0 0 34 24}
+          }
+        }
+        Fl_Light_Button Compare {
+          label 对比
+          callback {if ((int) o->value())
+{
+m_process->main_window_preset_to_active_bank(0);
+m_process->active_bank_preset_to_main_window((int)Preset_Counter->value());
+Put_Loaded();
+}
+
+else
+{
+ m_process->active_bank_preset_to_main_window(0);
+ Put_Loaded();
+}}
+          tooltip {与音色库预置对比 - 快捷键 'P'} xywh {373 50 72 18} shortcut 0x70 color 62 selection_color 1 labelsize 12 align 84 when 1
+          code0 {o->set_label_offset(2);}
+          class RKR_Light_Button
+        }
+        Fl_Button B_preset {
+          label 音色库
+          callback {if(!BankWindow->visible())
+{
+if(!made) BankWindow->make_window_banks();
+BankWindow->show();
+put_icon(BankWindow);
+Scan_Bank_Dir(0);
+}
+else
+BankWindow->hide();}
+          tooltip {打开音色库窗口 - 快捷键 'B'} xywh {448 50 64 18} shortcut 0x62 color 62 labelsize 12
+          code0 {o->set_label_offset(2);}
+          class RKR_Button
+        }
+        Fl_Input WPreset_Name {
+          callback {RKRP::strlcpy(m_process->Active_Preset.Preset_Name,o->value(), sizeof(m_process->Active_Preset.Preset_Name));}
+          tooltip {输入此效果器的预置名称。} xywh {174 72 338 30} color 62 labelcolor 7 align 20 textsize 24 textcolor 7
+          code0 {o->set_text_offset(14);}
+          code1 {o->maximum_size(22);}
+          class RKR_Input
+        }
+        Fl_Counter Preset_Counter {
+          label 预置
+          callback {m_process->new_bank_loaded=0;
+BankWindow->unlight_preset(m_process->Selected_Preset);
+m_process->active_bank_preset_to_main_window((int) o->value());
+BankWindow->light_preset((int)o->value());
+m_process->Selected_Preset=(int)o->value();
+m_process->OnCounter=0;
+FillML();
+Prepare_Order();
+Put_Loaded();
+
+if(m_process->Config.Tap_Updated)
+   update_tap_tempo_GUI();}
+          tooltip {上一个或下一个预置 - 快捷键 +(加) 或 -(减)} xywh {174 106 60 20} type Simple color 62 selection_color 0 labelsize 11 labelcolor 7 minimum 1 maximum 60 step 1 value 1 textsize 11
+          code0 {o->set_label_offset(1);}
+          code1 {o->set_text_offset(1);}
+          class RKR_Counter
+        }
+        Fl_Box DAuthor {
+          xywh {246 107 266 18} box DOWN_BOX color 62 align 116
+          class RKR_Box
+        }
+        Fl_Button RandomP {
+          label 随机
+          callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+    if (!RandomEdit->visible())
+    {
+        RandomEdit->show();
+        put_icon(RandomEdit);
+    }
+    return;
+}
+
+\#ifdef STRESS_TEST_CHECK
+if(Fl::event_button()==FL_MIDDLE_MOUSE)
+{
+    if(stress_test_time)
+    {
+        stress_test_time = 0;
+    }
+    else
+    {
+      stress_test_time = 1;
+    }
+    return;
+}
+\#endif
+
+RandomPreset();}
+          tooltip {Random Preset selection - Shortcut 'F7'
+Right mouse to set random button preferences.} xywh {175 141 59 14} shortcut 0xffc4 color 62 labelsize 10 align 80 when 6
+          class RKR_Button
+        }
+        Fl_Button Open_Order {
+          label {效果器机架排序}
+          callback {if (!Order->visible())
+{
+Prepare_Order();
+m_process->Config.deachide=0;
+Order->Order_DeacHide->value(m_process->Config.deachide);
+Order->show();
+put_icon(Order);
+}
+else
+Order->hide();}
+          tooltip {打开预置顺序窗口 - 快捷键 'O'} xywh {247 132 195 24} shortcut 0x6f color 62 align 80 when 6
+          code0 {o->set_label_offset(4);}
+          class RKR_Button
+        }
+        Fl_Button Etit {
+          label {Rakarrack +}
+          user_data UD_Disable_Highlight
+          callback {//if(m_process->FX_Master_Active)
+//{
+o->hide();
+Analy->show();
+Analy->set_analyzer_ON(true);
+//}}
+          tooltip {点击此处开关分析器} xywh {174 160 340 28} type Toggle box NO_BOX color 2 labeltype EMBOSSED_LABEL labelfont 1 labelsize 21 labelcolor 1 align 80
+          code0 {o->set_label_offset(15);}
+          code1 {o->set_button_type(BUTTON_RKR_LABEL);}
+          class RKR_Button
+        }
+        Fl_Box Analy {
+          tooltip {点击此处开关分析器} xywh {174 160 340 28} labeltype EMBOSSED_LABEL labelfont 1 labelsize 22 align 80 hide
+          code0 {\#include "analyzer.h"}
+          class Analyzer
+        }
+        Fl_Button HideUE {
+          label 隐藏
+          callback {if(m_process->Config.deachide)
+{
+ m_process->Config.deachide=0;
+ o->label("Hide");
+}
+else
+{
+m_process->Config.deachide=1;
+ o->label("Show");
+}
+ 
+reordena();}
+          tooltip {隐藏/显示未使用的效果器 - 快捷键 'F9'} xywh {445 137 32 18} shortcut 0xffc6 color 62 labelsize 10 align 80 when 6
+          class RKR_Button
+        }
+        Fl_Button SwitchMod {
+          label 切换
+          callback {if(m_process->Config.sw_stat==0) 
+{ 
+  m_process->Config.sw_stat = 1;
+  MIDI->hide();
+  Metro->show();
+}
+else
+ {
+  m_process->Config.sw_stat= 0;
+  Metro->hide();
+  MIDI->show();
+ }}
+          tooltip {Switch between Midi Converter &
+Metronome - Shortcut 'F8'} xywh {480 137 32 18} shortcut 0xffc5 color 62 labelsize 10 align 80 when 6
+          class RKR_Button
+        }
+      }
+      Fl_Group Tap {
+        xywh {520 140 276 54} box UP_BOX color 0 selection_color 0 align 112
+      } {
+        Fl_Light_Button Tap_activar {
+          label 开
+          callback {m_process->Tap_Active = (int)o->value();
+if(m_process->Tap_Active) m_process->TapTempo_Timeout(0);
+ChangeActives();
+TAP_LABEL->redraw_label();}
+          tooltip {启用敲击速度 - 快捷键 'H'} xywh {525 144 38 18} shortcut 0x68 color 62 selection_color 1 labelsize 10 when 1
+          class RKR_Light_Button
+        }
+        Fl_Choice T_SEL {
+          label 输入
+          callback {m_process->Tap_Selection=(int)o->value();}
+          xywh {600 145 87 15} down_box BORDER_BOX labelsize 10 labelcolor 7 textsize 10 textcolor 7
+          code0 {o->set_text_offset(-1);}
+          class RKR_Choice
+        } {
+          MenuItem {} {
+            label GUI
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {MIDI Note On}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Jack 走带 (LV2)}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label MTC
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {节拍跟踪}
+            xywh {0 0 36 21} labelsize 9
+          }
+        }
+        Fl_Choice T_SET {
+          label 设置
+          callback {m_process->Tap_SetValue=(int)o->value();}
+          xywh {714 145 76 15} down_box BORDER_BOX labelsize 10 labelcolor 7 textsize 10 textcolor 7
+          code0 {o->set_text_offset(-1);}
+          class RKR_Choice
+        } {
+          MenuItem {} {
+            label {Dl. 1 LFO 1}
+            xywh {10 10 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1 LFO 1/2}
+            xywh {10 10 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1 LFO 1/3}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1 LFO 1/4}
+            xywh {10 10 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1 LFO 1/8}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/2 LFO 1}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/2 LFO 1/2}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/2 LFO 1/3}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/2 LFO 1/4}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/2 LFO 1/8}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/3 LFO 1}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/3 LFO 1/2}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/3 LFO 1/3}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/3 LFO 1/4}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/3 LFO 1/8}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/4 LFO 1}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/4 LFO 1/2}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/4 LFO 1/3}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/4 LFO 1/4}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/4 LFO 1/8}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/8 LFO 1}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/8 LFO 1/2}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/8 LFO 1/3}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/8 LFO 1/4}
+            xywh {0 0 36 21} labelsize 9
+          }
+          MenuItem {} {
+            label {Dl. 1/8 LFO 1/8}
+            xywh {0 0 36 21} labelsize 9
+          }
+        }
+        Fl_Button T_Apply {
+          label 应用
+          callback {if((m_process->Tap_Active) && (m_process->Tap_TempoSet>0))
+{
+m_process->Update_tempo();
+update_tap_tempo_GUI();
+}}
+          xywh {628 172 38 15} shortcut 0x67 labelsize 10
+          class RKR_Button
+        }
+        Fl_Button T_BUT {
+          label 敲击
+          callback {if((m_process->Tap_Active) && ( m_process->Tap_Selection==0))
+{
+T_DIS->value(m_process->TapTempo());
+update_tap_tempo_GUI();
+}}
+          tooltip {敲击设定速度 - 快捷键 'G'} xywh {671 165 38 23} shortcut 0x67 labelsize 12
+          code0 {o->set_label_offset(2);}
+          class RKR_Button
+        }
+        Fl_Box TAP_LABEL {
+          label {敲击速度}
+          xywh {524 170 93 14} labelfont 1 labelcolor 7 when 0
+          class RKR_Box
+        }
+        Fl_Value_Input T_DIS {
+          callback {if(o->value()> 360) o->value(360);
+if(o->value()< 20) o->value(20);
+if(m_process->Tap_Active)
+{
+m_process->Tap_TempoSet=(int)o->value();
+m_process->Update_tempo();
+update_tap_tempo_GUI();
+}}
+          xywh {719 165 70 22} align 0 minimum 20 maximum 360 step 1 value 100 textcolor 7
+          code0 {o->set_text_offset(4);}
+          code1 {o->set_label_offset(4);}
+          class RKR_Value_Input
+        }
+      }
+    }
+    Fl_Window BankWindow {
+      callback {save_current_state(1);
+o->hide();} open
+      xywh {113 380 800 600} type Double box NO_BOX color 4 selection_color 7 hide resizable
+      code0 {\#include "bankwindow_gui.h"}
+      code1 {o->initialize(m_process, this);}
+      code2 {o->hide();}
+      class BankWindowGui size_range {320 240 3200 2400}
+    } {}
+    Fl_Window Order {
+      callback {save_current_state(2);
+o->hide();} open
+      xywh {133 400 500 400} type Double box NO_BOX color 4 selection_color 7 hide resizable
+      code0 {\#include "orderwindow_gui.h"}
+      code1 {o->initialize(m_process, this);}
+      code2 {o->hide();}
+      class OrderWindowGui size_range {250 200 3200 2400}
+    } {}
+    Fl_Window Settings {
+      callback {save_current_state(3);
+o->hide();} open
+      xywh {390 434 530 580} type Double box NO_BOX color 4 selection_color 7 hide resizable
+      code0 {\#include "settingswindow_gui.h"}
+      code1 {o->initialize(m_process, this);}
+      code2 {o->hide();}
+      class SettingsWindowGui size_range {320 290 3200 2900}
+    } {}
+    Fl_Window MIDILearn {
+      callback {MIDILearn->CancelRec->do_callback();
+save_current_state(5);
+o->hide();} open
+      xywh {165 106 640 480} type Double box NO_BOX color 4 selection_color 7 hide
+      code0 {\#include "midilearnwindow_gui.h"}
+      code1 {o->initialize(m_process, this);}
+      code2 {o->hide();}
+      class MidiLearnWindowGui size_range {320 240 3200 2400}
+    } {}
+    Fl_Window AboutWin {
+      label {关于 Rakarrack-plus}
+      callback {o->hide();} open
+      xywh {575 380 375 280} type Double color 8 selection_color 7 hide
+      code0 {\#include "aboutwindow_gui.h"}
+      code1 {o->initialize(this);}
+      code2 {o->hide();}
+      class AboutWindowGui
+    } {}
+    Fl_Window Trigger {
+      callback {m_process->ACI_Active=0;
+save_current_state(6);
+o->hide();} open
+      xywh {711 533 205 165} type Double box NO_BOX color 4 selection_color 7 hide
+      code0 {\#include "trigwindow_gui.h"}
+      code1 {o->initialize(m_process);}
+      code2 {o->hide();}
+      class TrigWindowGui
+    } {}
+    Fl_Window DelayFile {
+      callback {save_current_state(7);
+o->hide();} open
+      xywh {831 639 800 265} type Double box NO_BOX color 4 selection_color 7 hide resizable
+      code0 {\#include "delayfilewindow_gui.h"}
+      code1 {o->initialize(m_process, this);}
+      code2 {o->hide();}
+      class DelayFileWindowGui size_range {400 132 1600 1060}
+    } {}
+    Fl_Window RandomEdit {
+      callback {save_current_state(4);
+o->hide();} open
+      xywh {890 520 240 320} type Double box NO_BOX color 4 selection_color 7 hide resizable
+      code0 {\#include "randomedit_gui.h"}
+      code1 {o->hide();}
+      code2 {o->initialize(m_process, this);}
+      class RandomEditGui size_range {240 320 960 1280}
+    } {}
+    code {char tmp[64];
+snprintf(tmp, sizeof(tmp), "Version %s",VERSION);
+AboutWin->About_Version->copy_label(tmp);} {}
+  }
+  Function {RKRGUI(int argc, char**argv,RKR *rkr_)} {
+    comment {The following functions are defined in the rkrprocess_gui.cxx file.
+They are declared in the rakarrack.h file through the fluid IDE.
+Changes to the declarations should be made in fluid to be included
+in the header file. Changes to the defines can be made directly in the .cxx file.
+} C
+  } {}
+  Function {TimeoutStatic(void* ptr)} {
+    comment {Main FLTK gui timeout} open private C return_type {static void}
+  } {}
+  Function {GuiTimeout(void)} {open private C return_type void
+  } {}
+  Function {load_default_bank(unsigned bank_index)} {open return_type void
+  } {}
+  Function {back_color_change(Fl_Color back_color)} {open
+  } {}
+  Function {label_color_change(Fl_Color label_color)} {open
+  } {}
+  Function {buttons_color_change(Fl_Color buttons_color)} {open
+  } {}
+  Function {leds_color_change(Fl_Color leds_color)} {open
+  } {}
+  Function {font_size_change(int font_size)} {open
+  } {}
+  Function {font_type_change(int font_type)} {open return_type void
+  } {}
+  Function {put_icon(Fl_Window* window)} {open
+  } {}
+  Function {load_previous_state()} {open
+  } {}
+  Function {save_preferences(Fl_Preferences &rakarrack, int whati)} {open return_type void
+  } {}
+  Function {save_current_state(int whati)} {open
+  } {}
+  Function {Put_Loaded()} {open
+  } {}
+  Function {preset_click(Fl_Button* o, void* v)} {open return_type {static void}
+  } {}
+  Function {preset_click_i(Fl_Button* o, void*)} {open C return_type {inline void}
+  } {}
+  Function {reordena()} {open
+  } {}
+  Function {show_help()} {open
+  } {}
+  Function {show_lic()} {open
+  } {}
+  Function {MiraClientes()} {open
+  } {}
+  Function {MiraConfig()} {open
+  } {}
+  Function {BankWin_Label(const std::string &filename)} {open return_type void
+  } {}
+  Function {is_bank_modified()} {open
+  } {}
+  Function {is_PG_table_modified()} {open return_type void
+  } {}
+  Function {Put_Loaded_Bank()} {open
+  } {}
+  Function {Chord(int eff)} {open
+  } {}
+  Function {MIDI_control_gui_refresh()} {open
+  } {}
+  Function {ActOnOff()} {open
+  } {}
+  Function {PutBackground()} {open
+  } {}
+  Function {ChangeActives()} {open
+  } {}
+  Function {findpos(int num, int value, Fl_Widget*)} {open
+  } {}
+  Function {Put_Skin()} {open
+  } {}
+  Function {FillML(/*int type*/)} {open
+  } {}
+  Function {DisAssigns()} {open
+  } {}
+  Function {Prepare_Order()} {open
+  } {}
+  Function {Show_Reset_Window()} {open return_type void
+  } {}
+  Function {Show_Next_Time()} {open
+  } {}
+  Function {update_looper()} {open
+  } {}
+  Function {update_tap_tempo_GUI()} {open
+  } {}
+  Function {ActACI()} {open
+  } {}
+  Function {Busca_Eff(int num)} {open return_type int
+  } {}
+  Function {Fill_Avail(int filter)} {open
+  } {}
+  Function {below_mouse_highlight_and_focus()} {open
+  } {}
+  Function {search_bank_preset_button(int x, int y)} {open return_type int
+  } {}
+  Function {Scan_Bank_Dir(int reload)} {open
+  } {}
+  Function {global_shortcuts(int event)} {open return_type {static int}
+  } {}
+  Function {getMIDIControl(int num)} {open
+  } {}
+  Function {PrepareML()} {open
+  } {}
+  Function {get_insert_preset_name(Fl_Widget *w, int effect)} {open return_type {inline void}
+  } {}
+  Function {add_insert_preset_name(Fl_Widget *w, const std::string &name)} {open
+  } {}
+  Function {check_insert_duplicate(Fl_Widget *w, const std::string &name)} {open return_type bool
+  } {}
+  Function {find_effect_preset_widget(int effect)} {open return_type {Fl_Widget *}
+  } {}
+  Function {read_insert_presets(const std::string &location = "")} {open return_type void
+  } {}
+  Function {delete_insert_preset(Fl_Widget *w, int effect)} {open return_type {inline void}
+  } {}
+  Function {Prep_Reorden(int source, int dest)} {open
+  } {}
+  Function {bank_click(Fl_Choice* o, void* v)} {open return_type {static void}
+  } {}
+  Function {bank_click_i(Fl_Choice* o, void*)} {open C return_type {inline void}
+  } {}
+  Function {p_click(Fl_Choice* o, void* v)} {open return_type {static void}
+  } {}
+  Function {p_click_i(Fl_Choice* o, void*)} {open C return_type {inline void}
+  } {}
+  Function {Set_effect(RKR_Check_Button *o, void* v)} {open return_type {static void}
+  } {}
+  Function {cb_Set_effect_i(RKR_Check_Button*, void*)} {open C return_type {inline void}
+  } {}
+  Function {set_drag(int rack_position)} {open return_type void
+  } {}
+  Function {RandomPreset()} {open
+  } {}
+  Function {set_random_parameters(int effect)} {open return_type void
+  } {}
+  Function {set_parameters_random(int value)} {open return_type void
+  } {}
+  Function {set_all_random_active(int value)} {open return_type void
+  } {}
+  Function {set_random_current(int value)} {open return_type void
+  } {}
+  Function {set_max_random(int value)} {open return_type void
+  } {}
+  Function {drag_effect()} {open
+  } {}
+  Function {set_bank_file()} {open C return_type void
+  } {}
+  Function {set_save_file()} {open return_type void
+  } {}
+  Function {set_bank_made(int a_made)} {open C return_type void
+  } {}
+  Function {get_bank_made()} {open C return_type int
+  } {}
+  Function {Load_Midi_Program_Change_Table()} {open C return_type void
+  } {}
+  Function {Save_Midi_Program_Change_Table()} {open C return_type void
+  } {}
+  Function {set_focus_timer(int time)} {open return_type void
+  } {}
+  Function {NSM_gui_show(int hold_preset)} {open return_type int
+  } {}
+  Function {NSM_gui_hide()} {open return_type void
+  } {}
+  Function {LV2_gui_hide()} {open return_type void
+  } {}
+  Function {LV2_gui_show()} {open return_type void
+  } {}
+  Function {get_process()} {open return_type {RKR*}
+  } {}
+}

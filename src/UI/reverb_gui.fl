@@ -1,0 +1,265 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0304
+header_name {.h}
+code_name {.cxx}
+decl {\#include "RKR_Light_Button.h"} {public global
+}
+
+decl {\#include "RKR_Choice.h"} {public global
+}
+
+decl {\#include "RKR_GUI_Effect.h"} {public global
+}
+
+widget_class ReverbGui {open selected
+  xywh {1679 213 155 180} type Double box UP_BOX color 0 selection_color 0 align 112
+  code0 {\#include "RKR_Slider.h"}
+  code1 {\#include "../process.h"}
+  code2 {\#include "rakarrack.h"}
+  class RKR_Gui_Effect visible position_relative
+} {
+  Fl_Light_Button reverb_activar {
+    label 开
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Multi_On_Off);
+ o->value(m_process->EFX_Active[EFX_REVERB]);
+ return;
+}
+m_process->EFX_Active[EFX_REVERB]=(int)o->value();
+if((int) o->value()==0)
+m_process->Rack_Effects[EFX_REVERB]->cleanup();
+m_parent->findpos(EFX_REVERB,(int)o->value(),o);}
+    xywh {5 4 34 18} shortcut 0x39 color 62 selection_color 1 labelsize 10 align 84 when 1
+    code0 {activate_effect = o;}
+    class RKR_Light_Button
+  }
+  Fl_Choice reverb_preset {
+    label 预置
+    user_data UD_PRESET_REVERB
+    callback {m_process->EFX_Active[EFX_REVERB]=0;
+long long ud= (long long) v;
+if((ud==0)||(ud==UD_PRESET_REVERB))
+    m_process->Rack_Effects[EFX_REVERB]->setpreset((int) o->value());
+
+for (int i = 0; i < m_process->EFX_Param_Size[EFX_REVERB]; i++)
+{
+    parameter_refresh(i);
+};
+
+if((int)reverb_activar->value())m_process->EFX_Active[EFX_REVERB]=1;}
+    xywh {77 4 76 18} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 when 6 textsize 10 textcolor 7
+    code0 {preset_choice = o;}
+    class RKR_Choice
+  } {
+    MenuItem {} {
+      label {大教堂 1}
+      xywh {44 44 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {大教堂 2}
+      xywh {44 44 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {大教堂 3}
+      xywh {44 44 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {大厅 1}
+      xywh {54 54 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {大厅 2}
+      xywh {64 64 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {房间 1}
+      xywh {74 74 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {房间 2}
+      xywh {84 84 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 地下室
+      xywh {94 94 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 隧道
+      xywh {104 104 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {回声感 1}
+      xywh {114 114 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {回声感 2}
+      xywh {124 124 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {超长 1}
+      xywh {134 134 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {超长 2}
+      xywh {144 144 36 21} labelsize 10
+    }
+  }
+  Fl_Value_Slider reverb_WD {
+    label {干湿比}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Reverb_DryWet);
+ return;
+} 
+m_process->Rack_Effects[EFX_REVERB]->changepar(Reverb_DryWet,Dry_Wet((int)(o->value())));}
+    xywh {56 27 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider reverb_pan {
+    label 声像
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Reverb_Pan);
+ return;
+} 
+m_process->Rack_Effects[EFX_REVERB]->changepar(Reverb_Pan,(int)(o->value()+64));}
+    xywh {56 39 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -64 maximum 63 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider reverb_time {
+    label 时间
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Reverb_Time);
+ return;
+}
+m_process->Rack_Effects[EFX_REVERB]->changepar(Reverb_Time,(int)o->value());}
+    xywh {56 52 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider reverb_ldel {
+    label {初始延迟}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Reverb_I_Delay);
+ return;
+}
+m_process->Rack_Effects[EFX_REVERB]->changepar(Reverb_I_Delay,(int)o->value());}
+    tooltip {初始延迟} xywh {56 64 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider reverb_ldelft {
+    label {Del. E/R}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Reverb_Delay_FB);
+ return;
+}
+m_process->Rack_Effects[EFX_REVERB]->changepar(Reverb_Delay_FB,(int)o->value());}
+    tooltip {初始延迟反馈} xywh {56 77 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Choice reverb_type {
+    label 类型
+    callback {m_process->Rack_Effects[EFX_REVERB]->changepar(Reverb_Type,(int)o->value());}
+    xywh {62 92 72 16} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 textsize 10 textcolor 7
+    class RKR_Choice
+  } {
+    MenuItem {} {
+      label Freeverb
+      xywh {34 34 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 随机
+      callback {m_process->Rack_Effects[EFX_REVERB]->changepar(Reverb_Type,1)}
+      xywh {34 34 36 21} labelsize 10
+    }
+  }
+  Fl_Value_Slider reverb_RS {
+    label {房间大小}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Reverb_Room);
+ return;
+}
+m_process->EFX_Active[EFX_REVERB]=0;
+m_process->Rack_Effects[EFX_REVERB]->changepar(Reverb_Room,(int)o->value());
+if((int)reverb_activar->value())m_process->EFX_Active[EFX_REVERB]=1;}
+    tooltip {房间大小} xywh {56 116 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 when 4 minimum 1 maximum 127 step 1 value 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider reverb_LPF {
+    label LPF
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Reverb_LPF);
+ return;
+} 
+m_process->Rack_Effects[EFX_REVERB]->changepar(Reverb_LPF,(int)o->value());}
+    tooltip {低通滤波} xywh {56 131 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 20 maximum 26000 step 1 value 20000 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider reverb_HPF {
+    label HPF
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Reverb_HPF);
+ return;
+} 
+m_process->Rack_Effects[EFX_REVERB]->changepar(Reverb_HPF,(int)o->value());}
+    tooltip {高通滤波} xywh {56 147 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 20 maximum 20000 step 1 value 20 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider reverb_damp {
+    label 阻尼
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Reverb_Damp);
+ return;
+}
+m_process->Rack_Effects[EFX_REVERB]->changepar(Reverb_Damp,(int)o->value());}
+    xywh {56 163 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 64 maximum 127 step 1 value 64 textcolor 7
+    class RKR_Slider
+  }
+  Function {parameter_refresh(int index)} {return_type void
+  } {
+    code {switch (index)
+    {
+    case Reverb_DryWet:
+        reverb_WD->value(Dry_Wet(m_process->Rack_Effects[EFX_REVERB]->getpar(Reverb_DryWet)));
+        break;
+    case Reverb_Pan:
+        reverb_pan->value(m_process->Rack_Effects[EFX_REVERB]->getpar(Reverb_Pan)-64);
+        break;
+    case Reverb_Time:
+        reverb_time->value(m_process->Rack_Effects[EFX_REVERB]->getpar(Reverb_Time));
+        break;
+    case Reverb_I_Delay:
+        reverb_ldel->value(m_process->Rack_Effects[EFX_REVERB]->getpar(Reverb_I_Delay));
+        break;
+    case Reverb_Delay_FB:
+        reverb_ldelft->value(m_process->Rack_Effects[EFX_REVERB]->getpar(Reverb_Delay_FB));
+        break;
+    case Reverb_SKIP_5:
+        break;
+    case Reverb_SKIP_6:
+        break;
+    case Reverb_LPF:
+        reverb_LPF->value(m_process->Rack_Effects[EFX_REVERB]->getpar(Reverb_LPF));
+        break;
+    case Reverb_HPF:
+        reverb_HPF->value(m_process->Rack_Effects[EFX_REVERB]->getpar(Reverb_HPF));
+        break;
+    case Reverb_Damp:
+        reverb_damp->value(m_process->Rack_Effects[EFX_REVERB]->getpar(Reverb_Damp));
+        break;
+    case Reverb_Type:
+        reverb_type->value(m_process->Rack_Effects[EFX_REVERB]->getpar(Reverb_Type));
+        break;
+    case Reverb_Room:
+        reverb_RS->value(m_process->Rack_Effects[EFX_REVERB]->getpar(Reverb_Room));
+        break;
+    }} {}
+  }
+}

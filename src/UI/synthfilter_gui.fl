@@ -1,0 +1,321 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0304
+header_name {.h}
+code_name {.cxx}
+decl {\#include "RKR_Light_Button.h"} {public global
+}
+
+decl {\#include "RKR_Value_Input.h"} {public global
+}
+
+decl {\#include "RKR_Check_Button.h"} {public global
+}
+
+decl {\#include "RKR_Counter.h"} {public global
+}
+
+decl {\#include "RKR_Choice.h"} {public global
+}
+
+decl {\#include "RKR_GUI_Effect.h"} {public global
+}
+
+widget_class {\#include "common_gui_menu.h"} SynthfilterGui {open selected
+  xywh {1557 72 155 180} type Double box UP_BOX color 0 selection_color 0 align 112
+  code0 {\#include "RKR_Slider.h"}
+  code1 {\#include "../process.h"}
+  code2 {\#include "rakarrack.h"}
+  code3 {\#include "common_gui_menu.h"}
+  class RKR_Gui_Effect visible position_relative
+} {
+  Fl_Light_Button synthfilter_activar {
+    label 开
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Multi_On_Off);
+ o->value(m_process->EFX_Active[EFX_SYNTHFILTER]);
+ return;
+}
+m_process->EFX_Active[EFX_SYNTHFILTER]=(int)o->value();
+if((int) o->value()==0)
+m_process->Rack_Effects[EFX_SYNTHFILTER]->cleanup();
+m_parent->findpos(EFX_SYNTHFILTER,(int)o->value(),o);}
+    xywh {5 4 34 18} shortcut 0x37 color 62 selection_color 1 labelsize 10 align 84 when 1
+    code0 {activate_effect = o;}
+    class RKR_Light_Button
+  }
+  Fl_Choice synthfilter_preset {
+    label 预置
+    user_data UD_PRESET_SYNTHFILTER
+    callback {long long ud= (long long) v;
+if((ud==0)||(ud==UD_PRESET_SYNTHFILTER))
+    m_process->Rack_Effects[EFX_SYNTHFILTER]->setpreset((int) o->value());
+
+for (int i = 0; i < m_process->EFX_Param_Size[EFX_SYNTHFILTER]; i++)
+{
+    parameter_refresh(i);
+};}
+    xywh {77 4 76 18} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 when 6 textsize 10 textcolor 7
+    code0 {preset_choice = o;}
+    class RKR_Choice
+  } {
+    MenuItem {} {
+      label {低通}
+      xywh {82 82 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {高通}
+      xywh {82 82 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {带通}
+      xywh {82 82 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {主音合成}
+      xywh {92 92 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 水声
+      xywh {0 0 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {Pan Filter}
+      xywh {0 0 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 多重
+      xywh {0 0 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {慵懒哇音}
+      xywh {10 10 36 21} labelsize 10
+    }
+  }
+  Fl_Value_Slider synthfilter_WD {
+    label {干湿比}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Synthfilter_DryWet);
+ return;
+}
+m_process->Rack_Effects[EFX_SYNTHFILTER]->changepar(Synthfilter_DryWet,Dry_Wet((int)(o->value())));}
+    xywh {56 25 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider synthfilter_Distort {
+    label 失真度
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Synthfilter_Distort);
+ return;
+}
+m_process->Rack_Effects[EFX_SYNTHFILTER]->changepar(Synthfilter_Distort,(int)o->value());}
+    xywh {56 37 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider synthfilter_freq {
+    label 速度
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Synthfilter_LFO_Tempo);
+ return;
+}
+m_process->Rack_Effects[EFX_SYNTHFILTER]->changepar(Synthfilter_LFO_Tempo,(int)o->value());}
+    xywh {56 49 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 1 maximum 600 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Input synthfilter_rand {
+    label R
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Synthfilter_LFO_Random);
+ return;
+}
+m_process->Rack_Effects[EFX_SYNTHFILTER]->changepar(Synthfilter_LFO_Random,(int)o->value());}
+    tooltip {LFO 随机性} xywh {16 62 23 15} labelsize 10 labelcolor 7 maximum 127 step 1 textsize 10 textcolor 7
+    class RKR_Value_Input
+  }
+  Fl_Choice synthfilter_lfotype {
+    label LFO
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Synthfilter_LFO_Type);
+ return;
+}
+
+m_process->Rack_Effects[EFX_SYNTHFILTER]->changepar(Synthfilter_LFO_Type,(int)o->value());}
+    xywh {65 63 52 13} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 textsize 10 textcolor 7
+    code0 {o->menu(m_lfo_menu->get_lfo_type());}
+    code1 {o->set_text_offset(-1);}
+    class RKR_Choice
+  } {}
+  Fl_Check_Button synthfilter_subs {
+    label 副
+    callback {m_process->Rack_Effects[EFX_SYNTHFILTER]->changepar(Synthfilter_Subtract,(int)o->value())}
+    tooltip {减法 - 将滤波器输出反相} xywh {143 63 46 15} down_box BORDER_BOX labelsize 10 labelcolor 7 align 4
+    class RKR_Check_Button
+  }
+  Fl_Value_Slider synthfilter_stdf {
+    label {立体声深度}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Synthfilter_LFO_Stereo);
+ return;
+}
+m_process->Rack_Effects[EFX_SYNTHFILTER]->changepar(Synthfilter_LFO_Stereo,(int)o->value());}
+    tooltip {LFO 左右延迟} xywh {56 80 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider synthfilter_width {
+    label 宽度
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Synthfilter_Width);
+ return;
+}
+m_process->Rack_Effects[EFX_SYNTHFILTER]->changepar(Synthfilter_Width,(int)o->value());}
+    xywh {56 91 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider synthfilter_fb {
+    label 反馈
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Synthfilter_Feedback);
+ return;
+}
+m_process->Rack_Effects[EFX_SYNTHFILTER]->changepar(Synthfilter_Feedback,(int)o->value());}
+    xywh {56 102 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -64 maximum 64 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Counter synthfilter_Lstages {
+    label {LPF 级}
+    callback {m_process->Rack_Effects[EFX_SYNTHFILTER]->changepar(Synthfilter_LPF_Stages,(int)o->value());}
+    xywh {48 114 28 11} type Simple box THIN_UP_BOX labelsize 10 labelcolor 7 align 4 minimum 0 maximum 12 step 1 value 1 textsize 9
+    code0 {o->set_text_offset(-1);}
+    class RKR_Counter
+  }
+  Fl_Counter synthfilter_Hstages {
+    label {HPF 级}
+    callback {m_process->Rack_Effects[EFX_SYNTHFILTER]->changepar(Synthfilter_HPF_Stages,(int)o->value());}
+    xywh {125 114 28 11} type Simple box THIN_UP_BOX labelsize 10 labelcolor 7 align 4 minimum 0 maximum 12 step 1 value 1 textsize 9
+    code0 {o->set_text_offset(-1);}
+    class RKR_Counter
+  }
+  Fl_Value_Slider synthfilter_dpth {
+    label 深度
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Synthfilter_Depth);
+ return;
+}
+m_process->Rack_Effects[EFX_SYNTHFILTER]->changepar(Synthfilter_Depth,(int)o->value());}
+    xywh {56 126 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider synthfilter_EnvSens {
+    label {包络灵敏度}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Synthfilter_Env_Sens);
+ return;
+}
+m_process->Rack_Effects[EFX_SYNTHFILTER]->changepar(Synthfilter_Env_Sens,(int)(o->value()));}
+    tooltip {包络灵敏度} xywh {56 137 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -64 maximum 64 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider synthfilter_ATime {
+    label {起音时间}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Synthfilter_Attack);
+ return;
+}
+m_process->Rack_Effects[EFX_SYNTHFILTER]->changepar(Synthfilter_Attack,(int)o->value());}
+    tooltip {起音时间} xywh {56 148 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 5 maximum 1000 step 1 value 5 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider synthfilter_RTime {
+    label {混响时间}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Synthfilter_Release);
+ return;
+}
+m_process->Rack_Effects[EFX_SYNTHFILTER]->changepar(Synthfilter_Release,(int)o->value());}
+    tooltip {释放时间} xywh {56 159 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 5 maximum 500 step 1 value 5 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider synthfilter_Offset {
+    label 偏移
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Synthfilter_Offset);
+ return;
+}
+m_process->Rack_Effects[EFX_SYNTHFILTER]->changepar(Synthfilter_Offset,(int)o->value());}
+    tooltip {高通/低通偏移} xywh {56 170 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  decl {CommonGuiMenu *m_lfo_menu;} {private local
+  }
+  Function {parameter_refresh(int index)} {return_type void
+  } {
+    code {switch (index)
+    {
+    case Synthfilter_DryWet:
+        synthfilter_WD->value(Dry_Wet(m_process->Rack_Effects[EFX_SYNTHFILTER]->getpar(Synthfilter_DryWet)));
+        break;
+    case Synthfilter_Distort:
+        synthfilter_Distort->value(m_process->Rack_Effects[EFX_SYNTHFILTER]->getpar(Synthfilter_Distort));
+        break;
+    case Synthfilter_LFO_Tempo:
+        synthfilter_freq->value(m_process->Rack_Effects[EFX_SYNTHFILTER]->getpar(Synthfilter_LFO_Tempo));
+        break;
+    case Synthfilter_LFO_Random:
+        synthfilter_rand->value(m_process->Rack_Effects[EFX_SYNTHFILTER]->getpar(Synthfilter_LFO_Random));
+        break;
+    case Synthfilter_LFO_Type:
+        synthfilter_lfotype->value(m_process->Rack_Effects[EFX_SYNTHFILTER]->getpar(Synthfilter_LFO_Type));
+        break;
+    case Synthfilter_LFO_Stereo:
+        synthfilter_stdf->value(m_process->Rack_Effects[EFX_SYNTHFILTER]->getpar(Synthfilter_LFO_Stereo));
+        break;
+    case Synthfilter_Width:
+        synthfilter_width->value(m_process->Rack_Effects[EFX_SYNTHFILTER]->getpar(Synthfilter_Width));
+        break;
+    case Synthfilter_Feedback:
+        synthfilter_fb->value(m_process->Rack_Effects[EFX_SYNTHFILTER]->getpar(Synthfilter_Feedback));
+        break;
+    case Synthfilter_LPF_Stages:
+        synthfilter_Lstages->value(m_process->Rack_Effects[EFX_SYNTHFILTER]->getpar(Synthfilter_LPF_Stages));
+        break;
+    case Synthfilter_HPF_Stages:
+        synthfilter_Hstages->value(m_process->Rack_Effects[EFX_SYNTHFILTER]->getpar(Synthfilter_HPF_Stages));
+        break;
+    case Synthfilter_Subtract:
+        synthfilter_subs->value(m_process->Rack_Effects[EFX_SYNTHFILTER]->getpar(Synthfilter_Subtract));
+        break;
+    case Synthfilter_Depth:
+        synthfilter_dpth->value(m_process->Rack_Effects[EFX_SYNTHFILTER]->getpar(Synthfilter_Depth));
+        break;
+    case Synthfilter_Env_Sens:
+        synthfilter_EnvSens->value(m_process->Rack_Effects[EFX_SYNTHFILTER]->getpar(Synthfilter_Env_Sens));
+        break;
+    case Synthfilter_Attack:
+        synthfilter_ATime->value(m_process->Rack_Effects[EFX_SYNTHFILTER]->getpar(Synthfilter_Attack));
+        break;
+    case Synthfilter_Release:
+        synthfilter_RTime->value(m_process->Rack_Effects[EFX_SYNTHFILTER]->getpar(Synthfilter_Release));
+        break;
+    case Synthfilter_Offset:
+        synthfilter_Offset->value(m_process->Rack_Effects[EFX_SYNTHFILTER]->getpar(Synthfilter_Offset));
+        break;
+    }} {}
+  }
+  Function {tap_tempo_update()} {return_type void
+  } {
+    code {synthfilter_freq->value(m_process->Rack_Effects[EFX_SYNTHFILTER]->getpar(Synthfilter_LFO_Tempo));} {}
+  }
+}

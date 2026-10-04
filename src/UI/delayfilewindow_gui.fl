@@ -1,0 +1,776 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0404
+header_name {.h}
+code_name {.cxx}
+decl {\#include <FL/Fl_File_Chooser.H>} {public global
+}
+
+decl {\#include <unistd.h>} {public global
+}
+
+decl {\#include "RKR_Button.h"} {public global
+}
+
+decl {\#include "RKR_Float_Input.h"} {public global
+}
+
+decl {\#include "RKR_Group.h"} {public global
+}
+
+decl {\#include "RKR_Scroll.h"} {public global
+}
+
+decl {\#include "RKR_Value_Input.h"} {public global
+}
+
+decl {\#include "../FX/Echotron.h"} {public global
+}
+
+decl {\#include "rakarrack.h"} {public global
+}
+
+decl {\#include "../strlcpy.h"} {private global
+}
+
+decl {\#define DEFAULT_DLY_FILE_NAME "Delay File - Untitled"} {public global
+}
+
+decl {struct DelayLine
+{
+    double pan;
+    double time;
+    double level;
+    double LP;
+    double BP;
+    double HP;
+    double freq;
+    double Q;
+    int stages;
+    
+    DelayLine() :
+    pan(),
+    time(1.0),
+    level(0.7),
+    LP(1.0),
+    BP(-1.0),
+    HP(1.0),
+    freq(800.0),
+    Q(2.0),
+    stages(1) {}
+};} {public global
+}
+
+decl {enum
+{
+    DELETE_ROW = 0,
+    ADD_ROW,
+    INSERT_ROW,
+    MOVE_ROW_UP,
+    MOVE_ROW_DOWN
+};} {public global
+}
+
+decl {class dlyFileGroup;  // forward declaration} {public global
+}
+
+widget_class DelayFileWindowGui {open selected
+  xywh {795 305 800 265} color 4 selection_color 7 resizable
+  code0 {this->m_process = NULL;}
+  code1 {this->m_parent = NULL;}
+  class Fl_Double_Window size_range {400 130 1600 530} visible
+} {
+  Fl_Box Fondo13 {
+    xywh {2 2 796 261}
+  }
+  Fl_Input dly_filter {
+    label 滤波
+    tooltip {滤波调制速度倍率} xywh {25 25 50 25} labelcolor 7 align 1 when 1 textcolor 7
+    code0 {o->set_label_offset(4);}
+    code1 {o->set_text_offset(4);}
+    class RKR_Float_Input
+  }
+  Fl_Input dly_delay {
+    label 延迟
+    tooltip {延迟调制速度倍率} xywh {90 25 50 25} labelcolor 7 align 1 when 1 textcolor 7
+    code0 {o->set_label_offset(4);}
+    code1 {o->set_text_offset(4);}
+    class RKR_Float_Input
+  }
+  Fl_Box {} {
+    label 模式
+    xywh {156 8 35 17}
+    code0 {o->set_label_offset(4);}
+    class RKR_Box
+  }
+  Fl_Button dly_Q_mode {
+    label Q
+    tooltip {Filter Resonance Mode. Check for higher quality - potentially unstable at some settings, but better sound} xywh {159 25 25 25} type Toggle
+    code0 {o->set_label_offset(4);}
+    class RKR_Button
+  }
+  Fl_Round_Button apply_button {
+    label 应用
+    callback {DlyFile file = get_current_settings();
+
+    if (file.fLength == INVALID_DELAY_FILE_RANGE )
+      return;
+
+    /* Send the file to Echotron */
+    Echotron *Efx_Echotron = static_cast<Echotron*>(m_process->Rack_Effects[EFX_ECHOTRON]);
+    Efx_Echotron->applyfile(file);
+
+    /* Update the file name if we have one */
+    if(strcmp(file.Filename, DEFAULT_DLY_FILE_NAME) != 0 )
+    {
+        RKRP::strlcpy(Efx_Echotron->Filename, file.Filename, sizeof(Efx_Echotron->Filename));
+    }
+
+    /* Set efx gui max file length to the applied file size */
+    m_parent->ECHOTRON->echotron_length->maximum(Efx_Echotron->File.fLength);
+
+    /* Change the file length to the max */
+    Efx_Echotron->changepar(Echotron_Taps, Efx_Echotron->File.fLength);
+
+    /* Update the gui for the change */
+    m_parent->ECHOTRON->echotron_length->value(Efx_Echotron->getpar(Echotron_Taps));}
+    tooltip {将更改应用到回声矩阵} xywh {210 25 72 25} type Normal box ROUND_UP_BOX down_box ROUND_DOWN_BOX color 7
+    code0 {o->set_label_offset(4);}
+    class RKR_Light_Button
+  }
+  Fl_Button {} {
+    label 载入
+    callback {// If nothing previously set, then default location
+    std::string chooser_start_location = "";
+    // If the user set a User Directory, then use it
+    if( (strcmp(m_process->Config.UDirFilename, DATADIR) != 0) && (strcmp(m_process->Config.UDirFilename, UD_NOT_SET) != 0) )
+    {
+        chooser_start_location = m_process->Config.UDirFilename;
+    }
+
+    m_process->Shut_Off_Below_Mouse = 1;
+    char *filename = fl_file_chooser("Load dly File:","(*.dly)", chooser_start_location.c_str(), 0);
+    m_process->Shut_Off_Below_Mouse = 0;
+
+    if (filename == NULL)
+        return;
+
+    filename = fl_filename_setext(filename,".dly");
+    //strcpy(rkr->efx_Echotron->Filename,filename);
+
+    Echotron *Efx_Echotron = static_cast<Echotron*>(m_process->Rack_Effects[EFX_ECHOTRON]);
+    DlyFile delay_file = Efx_Echotron->loadfile(filename);
+
+    load_delay_file(delay_file);
+
+    this->copy_label(filename);}
+    tooltip {从文件载入} xywh {295 25 70 25}
+    code0 {o->set_label_offset(4);}
+    class RKR_Button
+  }
+  Fl_Button {} {
+    label 保存
+    callback {// If nothing previously set, then default location
+    std::string chooser_start_location = "";
+    // If the user set a User Directory, then use it
+    if( (strcmp(m_process->Config.UDirFilename, DATADIR) != 0) && (strcmp(m_process->Config.UDirFilename, UD_NOT_SET) != 0) )
+    {
+        chooser_start_location = m_process->Config.UDirFilename;
+    }
+    char *filename;
+\#define EXT ".dly"
+    m_process->Shut_Off_Below_Mouse = 1;
+    filename=fl_file_chooser("Save delay file:","(*" EXT")", chooser_start_location.c_str(), 0);
+    m_process->Shut_Off_Below_Mouse = 0;
+    if (filename==NULL) return;
+    filename=fl_filename_setext(filename,EXT);
+\#undef EXT
+    save_delay_file(filename);
+
+    this->copy_label(filename);}
+    tooltip {保存到文件} xywh {370 25 70 25}
+    code0 {o->set_label_offset(4);}
+    class RKR_Button
+  }
+  Fl_Button add_button {
+    label {+}
+    callback {if(m_file_size >= (ECHOTRON_F_SIZE - 1))
+    return;
+
+update_scroll(0, ADD_ROW);}
+    tooltip {添加延迟行} xywh {450 25 25 25} labelsize 21
+    code0 {o->set_label_offset(11);}
+    class RKR_Button
+  }
+  Fl_Button clear_button {
+    label 清除
+    callback {m_file_size = 0;
+dly_filter->value("1.0");
+dly_delay->value("1.0");
+dly_Q_mode->value(0);
+dly_description->value("");
+dly_scroll->clear();
+add_button->do_callback();
+this->copy_label(DEFAULT_DLY_FILE_NAME);}
+    tooltip {清除所有延迟线并恢复默认} xywh {488 25 70 25}
+    code0 {o->set_label_offset(4);}
+    class RKR_Button
+  }
+  Fl_Input dly_description {
+    label 描述
+    tooltip {为此延迟文件输入描述} xywh {569 25 220 25} align 1
+    code0 {o->set_label_offset(4);}
+    code1 {o->set_text_offset(4);}
+    code2 {o->maximum_size(100);}
+    class RKR_Input
+  }
+  Fl_Group scroll_label_1 {
+    label {声像          时间          电平} open
+    xywh {73 69 190 20} align 16
+    code0 {o->set_label_offset(4);}
+    class RKR_Group
+  } {}
+  Fl_Group srcoll_label_2 {
+    label {LP         BP        HP} open
+    xywh {295 69 126 20} align 16
+    code0 {o->set_label_offset(4);}
+    class RKR_Group
+  } {}
+  Fl_Group scroll_label_3 {
+    label {频率        Q      级数} open
+    xywh {439 69 200 20} align 16
+    code0 {o->set_label_offset(4);}
+    class RKR_Group
+  } {}
+  Fl_Scroll dly_scroll {open
+    xywh {25 88 750 165} type VERTICAL
+    code0 {o->set_delay_scroll();}
+    class RKR_Scroll
+  } {}
+  decl {int m_file_size;} {private local
+  }
+  decl {RKRGUI* m_parent;} {private local
+  }
+  decl {RKR* m_process;} {private local
+  }
+  decl {DlyFile m_delay_file;} {private local
+  }
+  decl {DelayLine m_paste_item;} {public local
+  }
+  decl {bool m_need_update;} {public local
+  }
+  decl {int m_group;} {public local
+  }
+  decl {int m_type;} {public local
+  }
+  Function {make_delay_window()} {} {
+    code {clear_button->do_callback();} {}
+  }
+  Function {initialize(RKR *_rkr,RKRGUI *_rgui)} {} {
+    code {m_file_size = 0;
+m_process = _rkr;
+m_parent = _rgui;
+m_need_update = false;
+m_group = 0;
+m_type = 0;
+this->copy_label(DEFAULT_DLY_FILE_NAME);} {}
+  }
+  Function {load_delay_file(DlyFile delay_file)} {private
+  } {
+    code {dly_scroll->clear();
+    m_file_size = 0;
+
+    if (!delay_file.Description.empty())
+    {
+        dly_description->value(delay_file.Description.c_str());
+    }
+  
+    dly_filter->value( FTSP(delay_file.subdiv_fmod, 3).c_str());
+
+    dly_delay->value( FTSP(delay_file.subdiv_dmod, 3).c_str());    
+    
+    dly_Q_mode->value(delay_file.f_qmode);
+    
+    for(int i = 0; i < delay_file.fLength; ++i)
+    {
+        if(m_file_size >= (ECHOTRON_F_SIZE - 1))
+            break;
+
+        m_file_size++;
+
+        dlyFileGroup *ADDG = new dlyFileGroup
+        (
+            0,
+            0,
+            725,
+            30
+        );
+        ADDG->initialize(this);
+
+        ADDG->dly_pan->value( FTSP(delay_file.fPan[i], 3).c_str() );
+        ADDG->dly_time->value( FTSP(delay_file.fTime[i], 10).c_str() );
+        ADDG->dly_level->value( FTSP(delay_file.fLevel[i], 4).c_str() );
+        ADDG->dly_LP->value( FTSP(delay_file.fLP[i], 4).c_str() );
+        ADDG->dly_BP->value( FTSP(delay_file.fBP[i], 4).c_str() );
+        ADDG->dly_HP->value( FTSP(delay_file.fHP[i], 4).c_str() );
+        ADDG->dly_freq->value( FTSP(delay_file.fFreq[i], 5).c_str() );
+        ADDG->dly_Q->value( FTSP(delay_file.fQ[i], 6).c_str() );
+        ADDG->dly_stages->value( FTSP(delay_file.iStages[i] + 1, 0).c_str() );    // +1 since echotron load file is offset -1
+
+        std::stringstream strs;
+        strs << m_file_size;
+        std::string temp_str = strs.str();
+        char* char_type = (char*) temp_str.c_str();
+        ADDG->dly_occur->copy_label(char_type);
+
+        dly_scroll->add(ADDG);
+    }
+
+dly_scroll->resize(dly_scroll->x(), dly_scroll->y(), dly_scroll->w(), dly_scroll->h());
+
+//int set_start_height = 265;    //  set in fluid
+//float H_set_ratio = (float) this->h() / set_start_height;
+      
+//dly_scroll->scroll_to(dly_scroll->xposition(), (60 * H_set_ratio) + dly_scroll->yposition());
+
+this->redraw();} {}
+  }
+  Function {save_delay_file(char *filename)} {} {
+    code {DlyFile delay_file = get_current_settings();
+
+    if ( delay_file.fLength == INVALID_DELAY_FILE_RANGE )
+        return;
+
+    FILE *fn;
+    char buf[256];
+    fn = fopen(filename, "w");
+
+    if (errno == EACCES)
+    {
+        m_process->Handle_Message(3);
+        fclose(fn);
+        return;
+    }
+
+    // Description
+    memset(buf, 0, sizeof (buf));
+    snprintf(buf, sizeof(buf), "\#%s\\n", dly_description->value());
+    fputs(buf, fn);
+
+    //General
+    memset(buf, 0, sizeof (buf));
+    snprintf(buf, sizeof(buf), "\#Filter  Delay  Mode\\n");   // titles
+    fputs(buf, fn);
+
+    memset(buf, 0, sizeof (buf));
+    snprintf(buf, sizeof(buf), "%s\\t%s\\t%d\\n",dly_filter->value(), dly_delay->value(), delay_file.f_qmode);
+    fputs(buf, fn);
+
+    memset(buf, 0, sizeof (buf));
+    snprintf(buf, sizeof(buf), "\#    Pan       Time            Level         LP          BP          HP     Frequency       Q    Stages\\n");   // titles
+    fputs(buf, fn);
+    
+    for(int i = 0; i < m_file_size; ++i)
+    {
+    
+        memset(buf, 0, sizeof (buf));
+        snprintf
+        (
+        buf, sizeof(buf), "%9.3f\\t%9.10f\\t%9.4f\\t%9.4f\\t%9.4f\\t%9.4f\\t%9.5f\\t%9.6f\\t%d\\n",
+        delay_file.fPan[i],
+        delay_file.fTime[i],
+        delay_file.fLevel[i],
+        delay_file.fLP[i],
+        delay_file.fBP[i],
+        delay_file.fHP[i],
+        delay_file.fFreq[i],
+        delay_file.fQ[i],
+        (delay_file.iStages[i] + 1)   // + 1 since get_current_settings() offsets by -1 for apply
+        );
+        fputs(buf, fn);
+    }
+    
+    fclose(fn);} {}
+  }
+  Function {get_current_settings()} {private return_type DlyFile
+  } {
+    code {DlyFile delay_file;
+
+  RKRP::strlcpy(delay_file.Filename, this->label(), sizeof(delay_file.Filename));
+  delay_file.fLength = (float)m_file_size;
+  
+  delay_file.subdiv_fmod = (double) strtod(dly_filter->value(), NULL);
+  delay_file.subdiv_dmod = (double) strtod(dly_delay->value(), NULL);
+  
+  delay_file.f_qmode = dly_Q_mode->value();
+  
+  Echotron *Efx_Echotron = static_cast<Echotron*>(m_process->Rack_Effects[EFX_ECHOTRON]);
+  
+    for(int i = 0; i < m_file_size; ++i)
+    {
+      Fl_Widget *c = dly_scroll->child(i);
+      dlyFileGroup *c_choice = static_cast<dlyFileGroup *>(c);
+
+      // Gotta range check all of these!!
+      delay_file.fPan[i] = (double) strtod(c_choice->dly_pan->value(), NULL);               // -1.0 -- + 1.0
+      delay_file.fTime[i] = (double) strtod(c_choice->dly_time->value(), NULL);             // -6.0 -- + 6.0
+      delay_file.fLevel[i] = (double) strtod(c_choice->dly_level->value(), NULL);           // -10.0 -- + 10.0
+      delay_file.fLP[i] = (double) strtod(c_choice->dly_LP->value(), NULL);                 // -2.0 -- + 2.0
+      delay_file.fBP[i] = (double) strtod(c_choice->dly_BP->value(), NULL);                 // -2.0 -- + 2.0
+      delay_file.fHP[i] = (double) strtod(c_choice->dly_HP->value(), NULL);                 // -2.0 -- + 2.0
+      delay_file.fFreq[i] = (double) strtod(c_choice->dly_freq->value(), NULL);             // 20.0 -- 26000.0
+      delay_file.fQ[i] = (double) strtod(c_choice->dly_Q->value(), NULL);                   // 0.0  -- 300.0
+      delay_file.iStages[i] = atoi((c_choice->dly_stages->value())) - 1;                    // 0 -- MAX_FILTER_STAGES
+      
+      if ( !Efx_Echotron->check_delay_file_ranges( delay_file.fPan[i], Dly_Pan ) )
+      {
+          delay_file.fLength = INVALID_DELAY_FILE_RANGE;
+          return delay_file;
+      }
+      if ( !Efx_Echotron->check_delay_file_ranges( delay_file.fTime[i], Dly_Time ) )
+      {
+          delay_file.fLength = INVALID_DELAY_FILE_RANGE;
+          return delay_file;
+      }
+      if ( !Efx_Echotron->check_delay_file_ranges( delay_file.fLevel[i], Dly_Level ) )
+      {
+          delay_file.fLength = INVALID_DELAY_FILE_RANGE;
+          return delay_file;
+      }
+      if ( !Efx_Echotron->check_delay_file_ranges( delay_file.fLP[i], Dly_LP ) )
+      {
+          delay_file.fLength = INVALID_DELAY_FILE_RANGE;
+          return delay_file;
+      }
+      if ( !Efx_Echotron->check_delay_file_ranges( delay_file.fBP[i], Dly_BP ) )
+      {
+          delay_file.fLength = INVALID_DELAY_FILE_RANGE;
+          return delay_file;
+      }
+      if ( !Efx_Echotron->check_delay_file_ranges( delay_file.fHP[i], Dly_HP ) )
+      {
+          delay_file.fLength = INVALID_DELAY_FILE_RANGE;
+          return delay_file;
+      }
+      if ( !Efx_Echotron->check_delay_file_ranges( delay_file.fFreq[i], Dly_Freq ) )
+      {
+          delay_file.fLength = INVALID_DELAY_FILE_RANGE;
+          return delay_file;
+      }
+      if ( !Efx_Echotron->check_delay_file_ranges( delay_file.fQ[i], Dly_Q ) )
+      {
+          delay_file.fLength = INVALID_DELAY_FILE_RANGE;
+          return delay_file;
+      }
+      if ( !Efx_Echotron->check_delay_file_ranges( (double) (delay_file.iStages[i] + 1), Dly_Stages ) )  // + 1 since we offset above in file
+      {
+          delay_file.fLength = INVALID_DELAY_FILE_RANGE;
+          return delay_file;
+      }
+    }
+  
+  return delay_file;} {}
+  }
+  Function {update_scroll(int group, int type)} {return_type void
+  } {
+    code {std::vector<DelayLine> vector_delay_line;
+
+  for(int i = 0; i < m_file_size; ++i)
+  {
+      Fl_Widget *c = dly_scroll->child(i);
+      dlyFileGroup *c_choice = static_cast<dlyFileGroup *>(c);
+      
+      switch(type)
+      {
+          case DELETE_ROW:
+          {
+              if(group == i)
+                  continue;
+          }
+          break;
+          case INSERT_ROW:
+          {
+              if(group == i)
+              {
+                  DelayLine insert;
+                  vector_delay_line.push_back(insert);
+              }
+          }
+          break;
+      }
+
+      DelayLine d_choice;
+      copy_group_to_delay_line(d_choice, c_choice);     
+      vector_delay_line.push_back(d_choice);
+  }
+  
+  if(type == MOVE_ROW_UP)
+  {
+      reorder_delay_lines(vector_delay_line, group);
+  }
+  else if(type == MOVE_ROW_DOWN)
+  {
+      reorder_delay_lines(vector_delay_line, group + 1);
+  }
+  else if(type == ADD_ROW)
+  {
+       DelayLine add;
+       vector_delay_line.push_back(add);
+  }
+  
+  dly_scroll->clear();
+  m_file_size = 0;
+  
+      for(unsigned i = 0; i < vector_delay_line.size(); ++i)
+      {
+          m_file_size++;
+          
+          dlyFileGroup *ADDG = new dlyFileGroup
+          (
+              0,
+              0,
+              725,
+              30
+          );
+
+          ADDG->initialize(this);
+          copy_delay_line_to_group(ADDG, vector_delay_line[i]);
+
+          std::stringstream strs;
+          strs << m_file_size;
+          std::string temp_str = strs.str();
+          char* char_type = (char*) temp_str.c_str();
+          ADDG->dly_occur->copy_label(char_type);
+  
+          dly_scroll->add(ADDG);
+      }
+  
+  dly_scroll->resize(dly_scroll->x(), dly_scroll->y(), dly_scroll->w(), dly_scroll->h());
+  
+  this->redraw();} {}
+  }
+  Function {reorder_delay_lines(std::vector<DelayLine> &vector_delay_line, int line)} {return_type void
+  } {
+    code {std::vector<DelayLine> vector_temp;
+  
+for(unsigned i = 0; i < vector_delay_line.size(); ++i)
+{
+    if(i == (unsigned) (line - 1))
+    {
+        vector_temp.push_back(vector_delay_line[i + 1]);
+    }
+    else if(i == (unsigned) line)
+    {
+        vector_temp.push_back(vector_delay_line[i - 1]);
+    }
+    else
+     {
+        vector_temp.push_back(vector_delay_line[i]);
+    }
+}
+  
+vector_delay_line = vector_temp;} {}
+  }
+  Function {get_file_size()} {return_type int
+  } {
+    code {return m_file_size;} {}
+  }
+  Function {copy_delay_line_to_group(dlyFileGroup *ADDG, DelayLine line)} {return_type void
+  } {
+    code {ADDG->dly_pan->value( FTSP(line.pan, 3).c_str() );
+    ADDG->dly_time->value( FTSP(line.time, 10).c_str() );
+    ADDG->dly_level->value( FTSP(line.level, 4).c_str() );
+    ADDG->dly_LP->value( FTSP(line.LP, 4).c_str() );
+    ADDG->dly_BP->value( FTSP(line.BP, 4).c_str() );
+    ADDG->dly_HP->value( FTSP(line.HP, 4).c_str() );
+    ADDG->dly_freq->value( FTSP(line.freq, 5).c_str() );
+    ADDG->dly_Q->value( FTSP(line.Q, 6).c_str() );
+    ADDG->dly_stages->value( FTSP(line.stages, 0).c_str() );} {}
+  }
+  Function {copy_group_to_delay_line(DelayLine &line, dlyFileGroup *c_choice)} {return_type void
+  } {
+    code {line.pan = (double) strtod(c_choice->dly_pan->value(), NULL);
+    line.time = (double) strtod(c_choice->dly_time->value(), NULL);
+    line.level = (double) strtod(c_choice->dly_level->value(), NULL);
+    line.LP = (double) strtod(c_choice->dly_LP->value(), NULL);
+    line.BP = (double) strtod(c_choice->dly_BP->value(), NULL);
+    line.HP = (double) strtod(c_choice->dly_HP->value(), NULL);
+    line.freq = (double) strtod(c_choice->dly_freq->value(), NULL);
+    line.Q = (double) strtod(c_choice->dly_Q->value(), NULL);
+    line.stages = atoi(c_choice->dly_stages->value());} {}
+  }
+  Function {process_scroll_update()} {return_type void
+  } {
+    code {update_scroll(m_group, m_type);} {}
+  }
+}
+
+widget_class dlyFileGroup {
+  user_data UD_delay_group open
+  xywh {820 443 745 30}
+  code0 {m_parent = NULL;}
+  class RKR_Group visible position_relative
+} {
+  decl {DelayFileWindowGui *m_parent;} {private local
+  }
+  Fl_Box dly_occur {
+    label 1
+    xywh {6 6 35 20} align 20
+    class RKR_Box
+  }
+  Fl_Input dly_pan {
+    tooltip {声像范围 -1.0 至 1.0} xywh {45 6 45 20} color 0 labeltype NO_LABEL when 1 textsize 10 textcolor 7
+    code0 {o->set_text_offset(1);}
+    class RKR_Float_Input
+  }
+  Fl_Input dly_time {
+    tooltip {时间范围 -6.0 至 6.0} xywh {94 6 93 21} color 0 labeltype NO_LABEL when 1 textsize 10 textcolor 7
+    code0 {o->set_text_offset(1);}
+    class RKR_Float_Input
+  }
+  Fl_Input dly_level {
+    tooltip {音量电平 -10.0 至 10.0} xywh {190 6 60 20} color 0 labeltype NO_LABEL when 1 textsize 10 textcolor 7
+    code0 {o->set_text_offset(1);}
+    class RKR_Float_Input
+  }
+  Fl_Input dly_LP {
+    tooltip {低通范围 -2.0 至 2.0} xywh {255 6 50 20} color 0 labeltype NO_LABEL when 1 textsize 10 textcolor 7
+    code0 {o->set_text_offset(1);}
+    class RKR_Float_Input
+  }
+  Fl_Input dly_BP {
+    tooltip {带通范围 -2.0 至 2.0} xywh {307 6 50 20} color 0 labeltype NO_LABEL when 1 textsize 10 textcolor 7
+    code0 {o->set_text_offset(1);}
+    class RKR_Float_Input
+  }
+  Fl_Input dly_HP {
+    tooltip {高通范围 -2.0 至 2.0} xywh {359 6 50 20} color 0 labeltype NO_LABEL when 1 textsize 10 textcolor 7
+    code0 {o->set_text_offset(1);}
+    class RKR_Float_Input
+  }
+  Fl_Input dly_freq {
+    tooltip {频率范围 20.0 至 26000.0} xywh {415 6 83 20} color 0 labeltype NO_LABEL when 1 textsize 10 textcolor 7
+    code0 {o->set_text_offset(1);}
+    class RKR_Float_Input
+  }
+  Fl_Input dly_Q {
+    tooltip {Q 范围 0.0 至 300.0} xywh {502 6 76 20} color 0 labeltype NO_LABEL when 1 textsize 10 textcolor 7
+    code0 {o->set_text_offset(1);}
+    class RKR_Float_Input
+  }
+  Fl_Input dly_stages {
+    tooltip {级数范围 0 至 5} xywh {580 6 16 20} color 0 labeltype NO_LABEL when 1 textsize 10 textcolor 7
+    code0 {o->set_text_offset(1);}
+    class RKR_Float_Input
+  }
+  Fl_Button dly_copy {
+    label C
+    user_data 0
+    callback {Fl_Widget * P = o->parent();
+    dlyFileGroup *c_choice = static_cast<dlyFileGroup *>(P);
+
+    m_parent->copy_group_to_delay_line(m_parent->m_paste_item, c_choice);}
+    tooltip {将此延迟行复制到缓冲区} xywh {600 6 20 20} align 16
+    class RKR_Button
+  }
+  Fl_Button dly_paste {
+    label P
+    user_data 0
+    callback {Fl_Widget * P = o->parent();
+    dlyFileGroup *ADDG = static_cast<dlyFileGroup *>(P);
+
+    m_parent->copy_delay_line_to_group(ADDG, m_parent->m_paste_item);}
+    tooltip {将缓冲区粘贴到此行} xywh {624 6 22 20} align 16
+    class RKR_Button
+  }
+  Fl_Button dly_delete {
+    label D
+    user_data 0
+    callback {Fl_Widget * P = o->parent();
+  
+dlyFileGroup *Choice = static_cast<dlyFileGroup *>(P);
+
+std::stringstream strValue;
+strValue << Choice->dly_occur->label();
+
+int intValue;
+strValue >> intValue;
+
+m_parent->m_group = intValue -1;   // offset by 1
+m_parent->m_type = DELETE_ROW;
+m_parent->m_need_update = true;}
+    tooltip {删除此行} xywh {649 6 20 20} align 16
+    class RKR_Button
+  }
+  Fl_Button dly_insert {
+    label I
+    user_data 0
+    callback {if(m_parent->get_file_size() >= (ECHOTRON_F_SIZE - 1))
+    return;
+
+Fl_Widget * P = o->parent();
+
+dlyFileGroup *Choice = static_cast<dlyFileGroup *>(P);
+
+std::stringstream strValue;
+strValue << Choice->dly_occur->label();
+
+int intValue;
+strValue >> intValue;
+
+m_parent->m_group = intValue -1;
+m_parent->m_type = INSERT_ROW;
+m_parent->m_need_update = true;}
+    tooltip {在此之前插入新行} xywh {674 6 20 20} align 16
+    class RKR_Button
+  }
+  Fl_Button dly_up {
+    label {@8>}
+    user_data 0
+    callback {Fl_Widget * P = o->parent();
+  
+dlyFileGroup *Choice = static_cast<dlyFileGroup *>(P);
+
+std::stringstream strValue;
+strValue << Choice->dly_occur->label();
+
+int intValue;
+strValue >> intValue;
+
+/* Already at the top */
+if(intValue == 1)
+    return;
+
+m_parent->m_group = intValue -1;
+m_parent->m_type = MOVE_ROW_UP;
+m_parent->m_need_update = true;}
+    tooltip {将此行上移} xywh {700 4 20 12} labelsize 10
+    class RKR_Button
+  }
+  Fl_Button dly_down {
+    label {@2>}
+    user_data 0
+    callback {Fl_Widget * P = o->parent();
+  
+dlyFileGroup *Choice = static_cast<dlyFileGroup *>(P);
+
+std::stringstream strValue;
+strValue << Choice->dly_occur->label();
+
+int intValue;
+strValue >> intValue;
+
+/* Already at the bottom */
+if(intValue == m_parent->get_file_size())
+    return;
+
+m_parent->m_group = intValue -1;
+m_parent->m_type = MOVE_ROW_DOWN;
+m_parent->m_need_update = true;}
+    tooltip {将此行下移} xywh {700 15 20 12} labelsize 10
+    class RKR_Button
+  }
+  Function {initialize(DelayFileWindowGui *parent)} {open return_type void
+  } {
+    code {m_parent = parent;} {}
+  }
+}

@@ -1,0 +1,81 @@
+name: Build Chinese deb packages
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-deb:
+    name: Build ${{ matrix.arch }} deb
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: amd64
+            platform: linux/amd64
+          - arch: arm64
+            platform: linux/arm64
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU for arm64
+        if: matrix.arch == 'arm64'
+        run: |
+          docker run --privileged --rm tonistiigi/binfmt --install arm64
+
+      - name: Build deb inside Debian 11 container
+        run: |
+          docker run --rm --platform ${{ matrix.platform }} \
+            -v "$PWD:/src" -w /src \
+            debian:11-slim \
+            bash packaging/build-deb.sh
+
+      - name: Verify deb
+        run: |
+          ls -lh dist/
+          sudo dpkg-deb --info dist/rakarrack-plus_*_${{ matrix.arch }}.deb
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rakarrack-plus-cn-${{ matrix.arch }}
+          path: dist/*.deb
+          if-no-files-found: error
+
+  release:
+    name: Create release with debs
+    needs: build-deb
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Create/update release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.4.1-cn1
+          name: RakArrack-Plus 1.4.1 中文版
+          body: |
+            RakArrack-Plus 1.4.1 简体中文汉化版安装包。
+
+            ## 安装包说明
+            - 内置全部运行时依赖库（glibc 除外），安装即用，无需额外装库
+            - 支持 Debian 11+ / Ubuntu 22.04+ / deepin 23+ 等 x86_64 与 arm64 系统
+            - 界面为简体中文，建议同时安装中文字体：`sudo apt install fonts-noto-cjk`
+
+            ## 安装方法
+            ```bash
+            sudo dpkg -i rakarrack-plus_1.4.1-cn1_amd64.deb   # x86_64
+            sudo dpkg -i rakarrack-plus_1.4.1-cn1_arm64.deb   # arm64
+            ```
+          files: artifacts/*.deb
+          make_latest: true

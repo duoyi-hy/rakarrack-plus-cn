@@ -1,0 +1,223 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0304
+header_name {.h}
+code_name {.cxx}
+decl {\#include "RKR_Light_Button.h"} {public global
+}
+
+decl {\#include "RKR_Check_Button.h"} {public global
+}
+
+decl {\#include "RKR_Choice.h"} {public global
+}
+
+decl {\#include "RKR_GUI_Effect.h"} {public global
+}
+
+widget_class CoilGui {open selected
+  xywh {1675 72 155 180} type Double box UP_BOX color 0 selection_color 0 align 112
+  code0 {\#include "RKR_Slider.h"}
+  code1 {\#include "../process.h"}
+  code2 {\#include "rakarrack.h"}
+  class RKR_Gui_Effect visible position_relative
+} {
+  Fl_Light_Button coil_activar {
+    label 开
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Multi_On_Off);
+ o->value(m_process->EFX_Active[EFX_COILCRAFTER]);
+ return;
+}
+m_process->EFX_Active[EFX_COILCRAFTER]=(int)o->value();
+if((int) o->value()==0)
+m_process->Rack_Effects[EFX_COILCRAFTER]->cleanup();
+m_parent->findpos(EFX_COILCRAFTER,(int)o->value(),o);}
+    xywh {5 4 34 18} shortcut 0x31 color 62 selection_color 1 labelsize 10 align 84 when 1
+    code0 {activate_effect = o;}
+    class RKR_Light_Button
+  }
+  Fl_Choice coil_preset {
+    label 预置
+    user_data UD_PRESET_COILCRAFTER
+    callback {long long ud= (long long) v;
+if((ud==0)||(ud==UD_PRESET_COILCRAFTER))
+    m_process->Rack_Effects[EFX_COILCRAFTER]->setpreset((int) o->value());
+
+for (int i = 0; i < m_process->EFX_Param_Size[EFX_COILCRAFTER]; i++)
+{
+    parameter_refresh(i);
+};}
+    xywh {77 4 76 18} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 when 6 textsize 10 textcolor 7
+    code0 {preset_choice = o;}
+    class RKR_Choice
+  } {
+    MenuItem {} {
+      label {H 到 S}
+      xywh {32 32 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {S 到 H}
+      xywh {10 10 36 21} labelsize 10
+    }
+  }
+  Fl_Value_Slider coil_WD {
+    label 增益
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Coil_Gain);
+ return;
+}
+m_process->Rack_Effects[EFX_COILCRAFTER]->changepar(Coil_Gain,(int)o->value());}
+    xywh {56 25 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 value 127 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider coil_tone {
+    label 音色
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Coil_Tone);
+ return;
+}
+m_process->Rack_Effects[EFX_COILCRAFTER]->changepar(Coil_Tone,(int)o->value());}
+    xywh {56 41 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 20 maximum 4400 step 1 value 20 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Choice coil_origin {
+    label 来源
+    callback {m_process->Rack_Effects[EFX_COILCRAFTER]->changepar(Coil_Origin,(int)o->value());
+coil_freq1->value(m_process->Rack_Effects[EFX_COILCRAFTER]->getpar(Coil_Freq_1));
+coil_q1->value(m_process->Rack_Effects[EFX_COILCRAFTER]->getpar(Coil_Q_1));}
+    xywh {61 55 90 18} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 when 6 textsize 10 textcolor 7
+    class RKR_Choice
+  } {
+    MenuItem {} {
+      label 关
+      xywh {0 0 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {Fender Strat (old)}
+      xywh {42 42 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {Fender Strat (new)}
+      xywh {20 20 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {Squire Strat}
+      xywh {42 42 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {Fender Hambucker}
+      xywh {42 42 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {Gibson P90}
+      xywh {52 52 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {Gibson Standard}
+      xywh {10 10 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {Gibson Mini}
+      xywh {10 10 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {Gibson Super L6S}
+      xywh {10 10 36 21} labelsize 10
+    }
+  }
+  Fl_Value_Slider coil_freq1 {
+    label {频率 1}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Coil_Freq_1);
+ return;
+}
+m_process->Rack_Effects[EFX_COILCRAFTER]->changepar(Coil_Freq_1,(int)o->value());}
+    tooltip {原点拾音频率} xywh {56 79 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 2600 maximum 4500 step 1 value 3200 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider coil_q1 {
+    label {Q 1}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Coil_Q_1);
+ return;
+}
+m_process->Rack_Effects[EFX_COILCRAFTER]->changepar(Coil_Q_1,(int)o->value());}
+    tooltip {原点拾音谐振} xywh {56 94 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 10 maximum 65 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Choice coil_destiny {
+    label 目标
+    callback {m_process->Rack_Effects[EFX_COILCRAFTER]->changepar(Coil_Destiny,(int)o->value());
+coil_freq2->value(m_process->Rack_Effects[EFX_COILCRAFTER]->getpar(Coil_Freq_2));
+coil_q2->value(m_process->Rack_Effects[EFX_COILCRAFTER]->getpar(Coil_Q_2));} open
+    xywh {61 107 90 18} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 when 6 textsize 10 textcolor 7
+    code0 {o->menu(menu_coil_origin);}
+    class RKR_Choice
+  } {}
+  Fl_Value_Slider coil_freq2 {
+    label {频率 2}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Coil_Freq_2);
+ return;
+}
+m_process->Rack_Effects[EFX_COILCRAFTER]->changepar(Coil_Freq_2,(int)o->value());}
+    tooltip {目标拾音频率} xywh {56 132 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 2600 maximum 4500 step 1 value 3200 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider coil_q2 {
+    label {Q 2}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Coil_Q_2);
+ return;
+}
+m_process->Rack_Effects[EFX_COILCRAFTER]->changepar(Coil_Q_2,(int)o->value());}
+    tooltip {目标拾音谐振} xywh {56 147 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 10 maximum 65 step 1 value 20 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Check_Button coil_mode {
+    label {琴颈拾音器}
+    callback {m_process->Rack_Effects[EFX_COILCRAFTER]->changepar(Coil_NeckMode,(int)o->value());}
+    xywh {13 161 82 15} down_box BORDER_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  Function {parameter_refresh(int index)} {return_type void
+  } {
+    code {switch (index)
+    {
+    case Coil_Gain:
+        coil_WD->value(m_process->Rack_Effects[EFX_COILCRAFTER]->getpar(Coil_Gain));
+        break;
+    case Coil_Origin:
+        coil_origin->value(m_process->Rack_Effects[EFX_COILCRAFTER]->getpar(Coil_Origin));
+        break;
+    case Coil_Destiny:
+        coil_destiny->value(m_process->Rack_Effects[EFX_COILCRAFTER]->getpar(Coil_Destiny));
+        break;
+    case Coil_Freq_1:
+        coil_freq1->value(m_process->Rack_Effects[EFX_COILCRAFTER]->getpar(Coil_Freq_1));
+        break;
+    case Coil_Q_1:
+        coil_q1->value(m_process->Rack_Effects[EFX_COILCRAFTER]->getpar(Coil_Q_1));
+        break;
+    case Coil_Freq_2:
+        coil_freq2->value(m_process->Rack_Effects[EFX_COILCRAFTER]->getpar(Coil_Freq_2));
+        break;
+    case Coil_Q_2:
+        coil_q2->value(m_process->Rack_Effects[EFX_COILCRAFTER]->getpar(Coil_Q_2));
+        break;
+    case Coil_Tone:
+        coil_tone->value(m_process->Rack_Effects[EFX_COILCRAFTER]->getpar(Coil_Tone));
+        break;
+    case Coil_NeckMode:
+        coil_mode->value(m_process->Rack_Effects[EFX_COILCRAFTER]->getpar(Coil_NeckMode));
+        break;
+    }} {}
+  }
+}

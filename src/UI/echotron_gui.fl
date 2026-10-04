@@ -1,0 +1,501 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0309
+header_name {.h}
+code_name {.cxx}
+decl {\#include "RKR_Light_Button.h"} {public global
+}
+
+decl {\#include "RKR_Check_Button.h"} {public global
+}
+
+decl {\#include "RKR_Counter.h"} {public global
+}
+
+decl {\#include "RKR_Choice.h"} {public global
+}
+
+decl {\#include "RKR_GUI_Effect.h"} {public global
+}
+
+decl {\#include "../strlcpy.h"} {private global
+}
+
+widget_class {\#include "common_gui_menu.h"} EchotronGui {open selected
+  xywh {1576 112 155 180} type Double box UP_BOX color 0 selection_color 0 align 112
+  code0 {\#include "RKR_Slider.h"}
+  code1 {\#include "../process.h"}
+  code2 {\#include "rakarrack.h"}
+  code3 {\#include "common_gui_menu.h"}
+  class RKR_Gui_Effect visible position_relative
+} {
+  Fl_Light_Button echotron_activar {
+    label 开
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Multi_On_Off);
+ o->value(m_process->EFX_Active[EFX_ECHOTRON]);
+ return;
+}
+m_process->EFX_Active[EFX_ECHOTRON]=(int)o->value();
+if((int) o->value()==0) m_process->Rack_Effects[EFX_ECHOTRON]->cleanup();
+m_parent->findpos(EFX_ECHOTRON,(int)o->value(),o);}
+    xywh {5 4 34 18} shortcut 0x35 color 62 selection_color 1 labelsize 10 align 84 when 1
+    code0 {activate_effect = o;}
+    class RKR_Light_Button
+  }
+  Fl_Choice echotron_preset {
+    label 预置
+    user_data UD_PRESET_ECHOTRON
+    callback {long long ud= (long long) v;
+if((ud==0)||(ud==UD_PRESET_ECHOTRON))
+    m_process->Rack_Effects[EFX_ECHOTRON]->setpreset((int) o->value());
+
+for (int i = 0; i < m_process->EFX_Param_Size[EFX_ECHOTRON]; i++)
+{
+    parameter_refresh(i);
+};
+
+Echotron *Efx_Echotron = static_cast<Echotron*>(m_process->Rack_Effects[EFX_ECHOTRON]);
+echotron_length->maximum(Efx_Echotron->get_file_length());}
+    xywh {77 4 76 18} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 when 6 textsize 10 textcolor 7
+    code0 {preset_choice = o;}
+    class RKR_Choice
+  } {
+    MenuItem {} {
+      label 夏日
+      xywh {87 87 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 氛围
+      xywh {0 0 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 编曲
+      xywh {0 0 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 吸力
+      xywh {10 10 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 吸力镶边
+      xywh {20 20 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 柔和
+      xywh {97 97 36 21} labelsize 10
+    }
+  }
+  Fl_Value_Slider echotron_WD {
+    label {干湿比}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Echotron_DryWet);
+ return;
+}
+m_process->Rack_Effects[EFX_ECHOTRON]->changepar(Echotron_DryWet,Dry_Wet((int)(o->value())));}
+    xywh {56 25 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider echotron_pan {
+    label 声像
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Echotron_Pan);
+ return;
+}
+m_process->Rack_Effects[EFX_ECHOTRON]->changepar(Echotron_Pan,(int)(o->value()+64));}
+    xywh {56 37 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -64 maximum 63 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider echotron_tempo {
+    label 速度
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Echotron_Tempo);
+ return;
+}
+m_process->Rack_Effects[EFX_ECHOTRON]->changepar(Echotron_Tempo,(int)o->value());}
+    xywh {56 49 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 when 4 minimum 1 maximum 600 step 1 value 60 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider echotron_damp {
+    label 阻尼
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Echotron_Damp);
+ return;
+}
+m_process->Rack_Effects[EFX_ECHOTRON]->changepar(Echotron_Damp,(int)o->value());}
+    xywh {56 61 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider echotron_fb {
+    label 反馈
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Echotron_Feedback);
+ return;
+}
+m_process->Rack_Effects[EFX_ECHOTRON]->changepar(Echotron_Feedback,(int)o->value());}
+    xywh {56 73 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -64 maximum 64 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider echotron_lrcross {
+    label {左右交叉}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Echotron_LR_Cross);
+ return;
+}
+m_process->Rack_Effects[EFX_ECHOTRON]->changepar(Echotron_LR_Cross,(int)(o->value()+64));}
+    xywh {56 85 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -64 maximum 64 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider echotron_width {
+    label 宽度
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Echotron_LFO_Width);
+ return;
+}
+m_process->Rack_Effects[EFX_ECHOTRON]->changepar(Echotron_LFO_Width,(int)o->value());}
+    xywh {56 97 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 when 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider echotron_deep {
+    label 深度
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Echotron_Depth);
+ return;
+}
+m_process->Rack_Effects[EFX_ECHOTRON]->changepar(Echotron_Depth,((int)o->value()+64));}
+    xywh {56 109 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 when 4 minimum -64 maximum 64 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider echotron_stdf {
+    label {立体声深度}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Echotron_LFO_Stereo);
+ return;
+}
+m_process->Rack_Effects[EFX_ECHOTRON]->changepar(Echotron_LFO_Stereo,(int)o->value());}
+    xywh {56 121 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Check_Button echotron_af {
+    label AF
+    callback {m_process->Rack_Effects[EFX_ECHOTRON]->changepar(Echotron_Filters,(int)o->value());}
+    xywh {2 136 32 15} down_box BORDER_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  Fl_Choice echotron_lfotype {
+    label {LFO 波形}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Echotron_LFO_Type);
+ return;
+}
+
+m_process->Rack_Effects[EFX_ECHOTRON]->changepar(Echotron_LFO_Type,(int)o->value());} open
+    xywh {88 135 64 16} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 textsize 10 textcolor 7
+    code0 {o->menu(m_lfo_menu->get_lfo_type());}
+    class RKR_Choice
+  } {}
+  Fl_Check_Button echotron_mf {
+    label MF
+    callback {m_process->Rack_Effects[EFX_ECHOTRON]->changepar(Echotron_Mod_Filter,(int)o->value());}
+    xywh {2 151 33 15} down_box BORDER_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  Fl_Check_Button echotron_md {
+    label MD
+    callback {m_process->Rack_Effects[EFX_ECHOTRON]->changepar(Echotron_Mod_Delay,(int)o->value());}
+    xywh {33 151 34 15} down_box BORDER_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  Fl_Box echotron_user {
+    label 用户
+    xywh {67 154 12 12} box DOWN_BOX labelsize 10 labelcolor 7 align 8
+    code0 {o->set_box_type(BOX_LIGHT);}
+    code1 {o->set_label_offset(1);}
+    class RKR_Box
+  }
+  Fl_Button B_scan {
+    label 扫描
+    callback {scan_for_new_dly_files();}
+    tooltip {扫描用户目录中程序启动后新增的 .dly 文件。} xywh {106 156 46 10} labelsize 10
+    class RKR_Button
+  }
+  Fl_Counter echotron_length {
+    label {\#}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Echotron_Taps);
+ return;
+}
+m_process->Rack_Effects[EFX_ECHOTRON]->changepar(Echotron_Taps,(int)o->value());}
+    xywh {16 167 48 12} type Simple labelsize 10 labelcolor 7 align 4 when 4 minimum 1 maximum 127 step 1 value 1 textsize 9
+    code0 {o->set_text_offset(-1);}
+    class RKR_Counter
+  }
+  Fl_Choice echotron_fnum {
+    label 文件
+    callback {if(Fl::event_button() == 3)
+    {
+        if(!m_parent->DelayFile->visible())
+        {
+            m_parent->DelayFile->apply_button->activate();
+            m_parent->DelayFile->show();
+            m_parent->put_icon(m_parent->DelayFile);
+        }
+        else
+        {
+            m_parent->DelayFile->hide();
+        }
+        return;
+    }
+
+    int user_file_selected = 0;
+
+    Fl_Menu_Item *m = const_cast<Fl_Menu_Item*>  (o->menu ());
+    std::string file = m[o->value()].label();
+    
+    Echotron *Efx_Echotron = static_cast<Echotron*>(m_process->Rack_Effects[EFX_ECHOTRON]);
+    
+    // See if this is a User provided file by checking the vector of user files
+    for(unsigned i = 0; i < m_process->Echotron_DLY_Files.size (); i++)
+    {
+        // String compare by menu name
+        if(strcmp(file.c_str(), m_process->Echotron_DLY_Files[i].User_File_Menu_Name.c_str ()) == 0)
+        {
+            user_file_selected = 1;  // found
+            file = m_process->Echotron_DLY_Files[i].User_File_Name;  // full path
+            break;
+        }
+    }
+
+    if(user_file_selected)
+    {
+        // Copy the file name to the EFX
+        RKRP::strlcpy(Efx_Echotron->Filename, file.c_str(), sizeof(Efx_Echotron->Filename));
+        
+        // Tell the EFX that this is a user supplied file
+        m_process->Rack_Effects[EFX_ECHOTRON]->changepar(Echotron_User_File, 1);
+
+        // Try to load the user file
+        if(!Efx_Echotron->setfile(USERFILE))
+        {
+            // The error handling is done by the EFX
+            //m_process->Handle_Message(14, file);
+            
+            // The user file did not work, un-set the user file
+            m_process->Rack_Effects[EFX_ECHOTRON]->changepar(Echotron_User_File, 0);
+        }
+        else
+        {
+            // On file loading, the taps are set to max length
+            echotron_length->value(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_Taps));
+
+            // We don't know what the max file length is until after the file is loaded
+            echotron_length->maximum(Efx_Echotron->get_file_length());
+            
+            // User file was loaded so set the gui user check box
+            echotron_user->color (global_leds_color);
+            echotron_user->redraw ();
+        }
+    }
+    else
+    {
+        // They selected a program provided file, so un-set the User file
+        m_process->Rack_Effects[EFX_ECHOTRON]->changepar(Echotron_User_File, 0);
+
+        // Load the program provided file
+        m_process->Rack_Effects[EFX_ECHOTRON]->changepar(Echotron_Set_File,(int)o->value());
+
+        // On file loading, the taps are set to max length
+        echotron_length->value(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_Taps));
+
+        // We don't know what the max file length is until after the file is loaded
+        echotron_length->maximum(Efx_Echotron->get_file_length());
+
+        // Not a user file so un-check the gui user check box
+        echotron_user->color (global_fore_color);
+        echotron_user->redraw ();
+    }}
+    tooltip {Right mouse button for Delay File Editor.
+Select the .dly file to be used.
+Files preceded by a '*' are user supplied files in the User Directory.} xywh {88 168 64 14} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 textsize 10 textcolor 7
+    class RKR_Choice
+  } {
+    MenuItem {} {
+      label 摇摆乒乓
+      xywh {64 64 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {短延迟}
+      xywh {0 0 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {镶边+回声}
+      xywh {0 0 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 梳状
+      xywh {0 0 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 回声镶边
+      xywh {0 0 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {滤波回声}
+      xywh {0 0 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {陷波哇音}
+      xywh {0 0 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {多重合唱}
+      xywh {10 10 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 乒乓
+      xywh {20 20 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {90-Shifter}
+      xywh {30 30 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {基本左右延迟}
+      xywh {40 40 36 21} labelsize 10
+    }
+  }
+  decl {CommonGuiMenu *m_lfo_menu;} {private local
+  }
+  Function {parameter_refresh(int index)} {return_type void
+  } {
+    code {switch (index)
+    {
+    case Echotron_DryWet:
+        echotron_WD->value(Dry_Wet(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_DryWet)));
+        break;
+    case Echotron_Depth:
+        echotron_deep->value(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_Depth)-64);
+        break;
+    case Echotron_LFO_Width:
+        echotron_width->value(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_LFO_Width));
+        break;
+    case Echotron_Taps:
+        echotron_length->value(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_Taps));
+        break;
+    case Echotron_User_File:
+    {
+        if(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_User_File))
+        {
+            echotron_user->color (global_leds_color);
+            echotron_user->redraw ();
+        }
+        else
+        {
+            echotron_user->color (global_fore_color);
+            echotron_user->redraw ();
+        }
+    }
+        break;
+    case Echotron_Tempo:
+        echotron_tempo->value(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_Tempo));
+        break;
+    case Echotron_Damp:
+        echotron_damp->value(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_Damp));
+        break;
+    case Echotron_LR_Cross:
+        echotron_lrcross->value(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_LR_Cross)-64);
+        break;
+    case Echotron_Set_File:
+        echotron_fnum->value(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_Set_File));
+        break;
+    case Echotron_LFO_Stereo:
+        echotron_stdf->value(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_LFO_Stereo));
+        break;
+    case Echotron_Feedback:
+        echotron_fb->value(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_Feedback));
+        break;
+    case Echotron_Pan:
+        echotron_pan->value(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_Pan)-64);
+        break;
+    case Echotron_Mod_Delay:
+        echotron_md->value(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_Mod_Delay));
+        break;
+    case Echotron_Mod_Filter:
+        echotron_mf->value(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_Mod_Filter));
+        break;
+    case Echotron_LFO_Type:
+        echotron_lfotype->value(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_LFO_Type));
+        break;
+    case Echotron_Filters:
+        echotron_af->value(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_Filters));
+        break;
+    }} {}
+  }
+  Function {tap_tempo_update()} {return_type void
+  } {
+    code {echotron_tempo->value(m_process->Rack_Effects[EFX_ECHOTRON]->getpar(Echotron_Tempo));} {}
+  }
+  Function {add_echotron_file(const std::string &name)} {return_type void
+  } {
+    code {echotron_fnum->add(name.c_str ());
+  
+      Fl_Menu_Item *m = const_cast<Fl_Menu_Item*>  (echotron_fnum->menu ());
+      Fl_Menu_Item *p;
+      
+      int font_size = C_DEFAULT_FONT_SIZE;
+  
+      for (int i = 0; i < m->size(); i++)
+      {
+          p = m->next(i);
+          
+          if (i == 0)
+          {
+              font_size = p->labelsize();
+          }
+          
+          p->labelsize(font_size);
+          p->labelfont (global_font_type);
+      }} {}
+  }
+  Function {add_user_files()} {return_type void
+  } {
+    code {for(unsigned i = 0; i < m_process->Echotron_DLY_Files.size(); i++)
+  {
+      add_echotron_file(m_process->Echotron_DLY_Files[i].User_File_Menu_Name );
+  }} {}
+  }
+  Function {scan_for_new_dly_files()} {return_type void
+  } {
+    code {// This is just to get the current font size so the scan does not change the size
+      // when the menu is reloaded
+      Fl_Menu_Item *m = const_cast<Fl_Menu_Item*>  (echotron_fnum->menu ());
+      int font_size = m->next(0)->labelsize();
+  
+      // Clear the whole menu and re-add everything
+      echotron_fnum->clear();
+  
+      // Add the default
+      echotron_fnum->menu(menu_echotron_fnum);
+  
+      // Set the font size for the first item, others will follow
+      m = const_cast<Fl_Menu_Item*>  (echotron_fnum->menu ());
+      m->next(0)->labelsize(font_size);
+  
+      // Re scan the User Directory and reload user vector
+      m_process->load_echotron_vector();
+  
+      // Add user files from vector to menu
+      add_user_files();} {}
+  }
+}

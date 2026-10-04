@@ -1,0 +1,71 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0308
+header_name {.h}
+code_name {.cxx}
+widget_class RandomEditGui {open selected
+  xywh {1065 115 240 320} type Double resizable
+  code0 {\#include "rakarrack.h"}
+  class Fl_Double_Window visible
+} {
+  Fl_Box Fondo14 {
+    xywh {0 1 240 319}
+  }
+  Fl_Check_Button random_params {
+    label {随机参数}
+    callback {m_parent->set_parameters_random((int) o->value());}
+    tooltip {随机按钮将随机设置全部效果参数} xywh {10 233 115 20} down_box DOWN_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  Fl_Check_Button random_all_active {
+    label {始终激活}
+    callback {m_parent->set_all_random_active((int) o->value());}
+    tooltip {将所有随机生成的效果设为激活} xywh {10 257 115 20} down_box DOWN_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  Fl_Check_Button random_current {
+    label {使用当前激活}
+    callback {m_parent->set_random_current((int) o->value());}
+    tooltip {仅使用主机架上已激活的效果器} xywh {10 278 115 20} down_box DOWN_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  Fl_Counter random_max {
+    label {最大激活效果数}
+    callback {m_parent->set_max_random((int) o->value());}
+    xywh {10 299 46 15} type Simple labelsize 10 labelcolor 7 align 8 minimum 1 maximum 10 step 1 value 6 textsize 9
+    code0 {o->set_text_offset(-1);}
+    class RKR_Counter
+  }
+  decl {RKRGUI* m_parent;} {private local
+  }
+  decl {RKR* m_process;} {private local
+  }
+  Fl_Scroll RandomScroll {
+    label {排除效果器} open
+    xywh {13 25 215 185} type VERTICAL_ALWAYS labelcolor 7
+    class RKR_Scroll
+  } {}
+  Function {initialize(RKR * _rkr, RKRGUI *_rgui)} {open return_type void
+  } {
+    code {m_process = _rkr;
+m_parent = _rgui;
+make_effect_scroller();} {}
+  }
+  Function {make_effect_scroller()} {open private return_type void
+  } {
+    code {RandomScroll->clear();
+  
+    RandomScroll->begin();
+    
+    for (intptr_t i = 0; i < EFX_NUMBER_EFFECTS; ++i)
+    {
+        RKR_Check_Button *b = new RKR_Check_Button(15, (i * 20) + 22, 100, 20,
+             m_process->efx_names[m_parent->Busca_Eff(i)].Nom);
+
+        intptr_t ud = i + UD_random_edit;
+        b->user_data((void *) ud);
+        b->callback((Fl_Callback *)m_parent->Set_effect);
+    }
+    
+    RandomScroll->end();} {}
+  }
+}

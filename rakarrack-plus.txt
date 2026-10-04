@@ -1,0 +1,362 @@
+
+Effect Name                     | Rakarrack-plus | Rakarrack     | RakarrackPlus.lv2 |   rkr.lv2         |      Notes       
+-------------------------------- ---------------- --------------- ------------------- -------------------
+
+AlienWah
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    LFO L/R Delay  (St.df)      |    0 to 127    |   0 to 127    |   0 to 127        |      -64 to 63    |  STDL - rkrlv2
+    Left/Right Cross (L/R.Cr)   |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |  LRCR - Left/Right Crossover
+    Added Delay to MIDI control
+---Done---
+
+Analog Phaser
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    Added slider for Randomness
+    Added Random to MIDI control
+---Done---
+
+Arpie
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    LFO L/R Delay  (LRdl.)      |    0 to 127    |   0 to 127    |   0 to 127        |      -64 to 63    |  LR_DELAY -  Left/Right Delay Offset
+    Left/Right Cross (L/R.Cr)   |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |  LRCr - Left/Right Crossover
+    Added Default LV2 preset 'Tremolo'
+---Done---
+
+Cabinet
+    Wet/Dry                     |                |    none       |                   |       none        |
+    Added Gain to MIDI control
+
+Chorus
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    LFO L/R Delay  (St.df)      |    0 to 127    |   0 to 127    |   0 to 127        |      -64 to 63    |  WIDTH
+    Left/Right Cross (L/R.Cr)   |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |  LRCR - Left/Right Crossover
+    Added Delay to MIDI control
+    panning??
+---Done---
+
+Coil Crafter
+    Wet/Dry                     |                |    none       |                   |       none        |
+---Done---
+FIXME Help .png
+
+CompBand
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+
+Compressor
+    Wet/Dry                     |                |    none       |                   |       none        |
+    Added LV2 limiter preset
+---Done---
+
+Convolotron
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+---Done---
+
+Derelict (newdist)
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    Left/Right Cross (L/R.Cr)   |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |  LRCr
+    Set default LV2 to rakarrack
+---Done---
+
+DistBand (MBDist)
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    Pan                         |   -64 to 63    |  -64 to 64    |  -64 to 63        |      -64 to 63    |
+    Left/Right Cross (L/R.Cr)   |    0 to 127    |  -64 to 64    |   0 to 127        |       0 to 127    |  LRCr
+    Fixed Cross 1 & 2, L/M/H Gains for MC
+---Done---
+
+Distortion
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    Left/Right Cross (L/R.Cr)   |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |  LRCr
+    panning?
+---Done---
+
+Dual Flange
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 64    |   0 to 127        |       0 to 127    |
+    Added LV2 Preset Dual Flange 2 - Done
+    Fixed Depth and Width MC ranges.
+---Done---
+
+Echo
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    Left/Right Cross (L/R.Cr)   |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |  LRCr
+    L/R Delay Offset (LRdl)     |    0 to 127    |   0 to 127    |   0 to 127        |      -64 to 63    |  LR_DELAY - Left/Right Delay Offset
+    Added Reverse, Delay, L/R Delay, Damp to MIDI control.
+---Done---
+
+Echotron
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 64    |   0 to 127        |       0 to 127    |
+    LFO L/R Delay  (St.df)      |    0 to 127    |   0 to 127    |   0 to 127        |      -64 to 64    |  STDF - LFO L/R Delay
+    Added LV2 preset Soft - Done
+---Done---
+
+Echoverse (RBEcho)
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    L/R Delay Offset (LRdl)     |    0 to 127    |   0 to 127    |   0 to 127        |      -64 to 63    |  LR_DELAY - Left/Right Delay Offset
+    Angle                       |   -64 to 64    |  -64 to 64    |   -64 to 64       |      -64 to 63    |  ANGLE
+    Added LV2 default Echo 4 - Done
+---Done---
+
+EQ
+    Wet/Dry                     |                |    none       |                   |       none        |
+---Done---
+
+Exciter
+    Wet/Dry                     |                |    none       |                   |       none        |
+    Fixed LPF MC range.
+---Done---
+
+Expander
+    Wet/Dry                     |                |    none       |                   |       none        |
+    Added LV2 default Another as preset - done
+    Fixed A. Time & R. Time MC ranges.
+---Done---
+
+Flanger
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |      CHORUS       |
+    Left/Right Cross (L/R.Cr)   |    0 to 127    |  -64 to 63    |   0 to 127        |       --------    |  
+    Added missing Delay to MIDI control
+---Done---
+
+Harmonizer
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    Add MIDI to LV2 - Done - MIDI version added
+    Added Gain, F. Gain, Filter Q, SELECT to MIDI control
+---Done---
+
+Infinity
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    Add LV2 default - plain as preset - done
+    Added missing Filter Band level 1 - 8 to MIDI control
+    Added override class to make handle() work for Fl_Value_Input, right click MIDI control.
+---Done---
+
+Looper
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |  -------------    |      ----------   |
+    Added Tempo to MIDI control
+
+MusicalDelay
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    Left/Right Cross (L/R.Cr)   |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |  LRC  - Left/Right Crossover
+    Gain 1                      |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    Gain 2                      |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    Added Tempo, Damp to MIDI control
+---Done---
+
+MuTroMojo   (RyanWah)
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    LFO L/R Delay  (St.df)      |                |  -64 to 63    |                   |      -64 to 63    |  STDL - LFO L/R Delay
+    Added LV2 default - wah fever as preset - done
+    Added Random, Stereo Df, S. Freq to MIDI control. (New items exposed by LV2)
+---Done---
+
+NoiseGate
+    Wet/Dry                     |                |    none       |                   |       none        |
+    Added MIDI control
+---Done---
+
+Opticaltrem
+    Wet/Dry                     |                |    none       |                   |       none        |
+    LFO L/R Delay  (St.df)      |    0 to 127    |   0 to 127    |   0 to 127        |      -64 to 63    |  STDF - LFO L/R Delay
+    Added LV2 default - slow as preset - done
+---Done---
+
+Overdrive
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |     DISTORTION    |
+    Left/Right Cross (L/R.Cr)   |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |  LRCr
+---Done---
+
+Pan
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    LFO L/R Delay  (St.df)      |    0 to 127    |   0 to 127    |   0 to 127        |      -64 to 63    |  STDL - LFO L/R Delay
+    Added E. Stereo to MIDI control
+---Done---
+
+Parametric EQ
+    Wet/Dry                     |                |    none       |                   |       none        |
+    Mid Frequency (Mid F.)      |   800 to 8000  |  800 to 8000  |    800 to 8000    |   80 to 8000      |  MFREQ
+    Fixed High F. MC range.
+---Done---
+
+Phaser
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    Left/Right Cross (L/R.Cr)   |   -64 to 63    |  -64 to 63    |     -64 to 63     |      -64 to 64    |  LRCR
+---Done---
+
+Reverb
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    Added Time, I. Del, Del. E/R, R. Size, Damping to MIDI control
+---Done---
+
+Reverbtron
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 64    |   0 to 127        |       0 to 127    |
+    Added Diffusion, LPF to MIDI control
+---Done---
+
+Ring
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 64    |   0 to 127        |       0 to 127    |
+    Left/Right Cross (L/R.Cr)   |   -64 to 64    |  -64 to 64    |  -64 to 64        |       0 to 127    |  LRCr
+    Fixed panning
+---Done---
+
+Sequence
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 64    |   0 to 127        |       0 to 127    |
+    Added LV2 default as preset - Sequence 11 - done
+    Make Range a pop up menu like LV2 - done
+---Done---
+
+ShelfBoost
+    Wet/Dry                     |                |     none      |                   |         none      |
+---Done---
+FIXME the Distortion 1 does not work for rakarrack, but does for LV2 - Limiter....
+
+
+Shifter
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    Added LV2 default as preset - Shifter 6 - done
+    Fixed Decay, Threshold MC ranges.
+---Done---
+
+Shuffle
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 64    |   0 to 127        |       0 to 127    |
+    Added LV2 default as preset - Shuffle 4 - done
+---Done---
+
+StereoHarm
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    Left/Right Cross (L/R.Cr)   |    0 to 127    |  -64 to 64    |   0 to 127        |       0 to 127    |  LRC - Left/Right Crossover
+    Gain L                      |   -64 to 64    |  -64 to 64    |    -64 to 64      |      -64 to 63    |  GAINL -  Left Gain
+    Added SELECT to MIDI control
+---Done---
+    Added MIDI LV2 version
+
+
+StompBox
+    Wet/Dry                     |                |     none      |                   |          none     |
+    Add StompBox Fuzz preset Gnasty to presets - done
+    Added rakarrack default to LV2 and as preset - Amp 1 - done
+    Added LV2 default to rakarrack and as preset - Amp 2 - done
+    Removed StompBox Fuzz
+---Done---
+
+
+Sustainer
+    Wet/Dry                     |                |     none      |                   |          none     |
+---Done---
+
+Synthfilter
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    LFO L/R Delay  (St.df)      |    0 to 127    |   0 to 127    |   0 to 127        |      -64 to 63    |  STDL - LFO L/R Delay
+    Added LV2 Default Lazy Wahble to presets - done
+    Added Random to MIDI control
+---Done---
+
+
+Valve
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    Left/Right Cross (L/R.Cr)   |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |  LRCr - Left/Right Crossover
+    Added LV2 Default Valve 4 to presets - done
+---Done---
+
+VaryBand    (MBVvol)
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    LFO L/R Delay  (St.df)   1  |    0 to 127    |   0 to 127    |   0 to 127        |      -64 to 63    |  STDL1 - LFO L/R Delay 1
+    LFO L/R Delay  (St.df)   2  |    0 to 127    |   0 to 127    |   0 to 127        |      -64 to 63    |  STDL2 - LFO L/R Delay 2
+    Added LV2 default Vary 4 to presets - done
+---Done---
+
+Vibe
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 64    |   0 to 127        |       0 to 128    |
+    LFO L/R Delay  (St.df)      |    0 to 127    |   0 to 127    |   0 to 127        |      -64 to 63    |  STDL - LFO L/R Delay
+    Left/Right Cross (L/R.Cr)   |    0 to 128    |  -64 to 64    |   0 to 128        |       0 to 128    |  LRCR - Left/Right Crossover
+    Added LV2 Default Vibe 9 to presets - done
+    Fixed Pan MC
+---Done---
+
+Vocoder
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 64    |   0 to 127        |       0 to 127    |
+    Added LV2 default Vocoder 5 to presets - done
+---Done---
+
+WahWah  (DynamicFilter.C)
+    Wet/Dry ---> Dry/Wet        |    0 to 127    |  -64 to 63    |   0 to 127        |       0 to 127    |
+    LFO L/R Delay  (St.df)      |    0 to 127    |   0 to 127    |   0 to 127        |      -64 to 63    |  WIDTH - LFO L/R Delay
+    Added menu "MODE" - "Filter Type" Selection for rakarrack - done
+    panning?
+---Done---
+
+
+___________________________________________________________________________________________________________________________________
+
+Presets that use Dual_Flange:                                                                         Bank        Original      RackPlus
+                                                                                                                            (127 - (Original + 64)
+Backward Tumble.carxp:135:   <URI>https://github.com/Stazed/rakarrack-plus#Dual_Flange</URI>            2           -15             78
+Warm Chorus.carxp:249:   <URI>https://github.com/Stazed/rakarrack-plus#Dual_Flange</URI>                2           -15             78
+Noise Synth.carxp:440:   <URI>https://github.com/Stazed/rakarrack-plus#Dual_Flange</URI>                1           -15             78
+Stereo Ecstasy.carxp:359:   <URI>https://github.com/Stazed/rakarrack-plus#Dual_Flange</URI>             3           -15             78
+Jazz Bright Chorus.carxp:119:   <URI>https://github.com/Stazed/rakarrack-plus#Dual_Flange</URI>         3           -13             76    
+Clean Smack Back.carxp:170:   <URI>https://github.com/Stazed/rakarrack-plus#Dual_Flange</URI>           2           -32             95
+PongChor.carxp:205:   <URI>https://github.com/Stazed/rakarrack-plus#Dual_Flange</URI>                   3           -13             76
+Helicopter.carxp:456:   <URI>https://github.com/Stazed/rakarrack-plus#Dual_Flange</URI>                 3             0             63
+Dark Alley.carxp:214:   <URI>https://github.com/Stazed/rakarrack-plus#Dual_Flange</URI>                 1           -32             95
+Reverse delay ambience.carxp:205:   <URI>https://github.com/Stazed/rakarrack-plus#Dual_Flange</URI>     3           -13             76
+Succulent Clean.carxp:240:   <URI>https://github.com/Stazed/rakarrack-plus#Dual_Flange</URI>            1           -40            103   
+D Flange.carxp:84:   <URI>https://github.com/Stazed/rakarrack-plus#Dual_Flange</URI>                    1           -32             95
+
+Preset that use Ring:
+
+AutoYiYa.carxp:275:   <URI>https://github.com/Stazed/rakarrack-plus#Ring</URI>                          3           -64            127
+Talk to me.carxp:361:   <URI>https://github.com/Stazed/rakarrack-plus#Ring</URI>                        3           -45            108     
+Envelope YaYa.carxp:275:   <URI>https://github.com/Stazed/rakarrack-plus#Ring</URI>                     3           -64            127
+C Melody.carxp:12:   <URI>https://github.com/Stazed/rakarrack-plus#Ring</URI>                           3            50             13 
+Go with Him.carxp:12:   <URI>https://github.com/Stazed/rakarrack-plus#Ring</URI>                        1           -64            127
+RandYa.carxp:361:   <URI>https://github.com/Stazed/rakarrack-plus#Ring</URI>                            3           -32             95
+AutoYa.carxp:361:   <URI>https://github.com/Stazed/rakarrack-plus#Ring</URI>                            3           -50            113 
+Mono Arpeg.carxp:119:   <URI>https://github.com/Stazed/rakarrack-plus#Ring</URI>                        2           -42            105
+
+
+Presets that need fixes:
+
+Bank 3: Oxygenated - Parametric EQ - Mid F. (704 vs 800 min) - High F. (5896 vs 6000 min)
+
+Above Fixed...
+-----------------------------------------------------------------------------------------------------------
+
+Crash causes:   un-initialized variables.
+                invalid buffer (arrays) reads.
+                rakarrack  parameter changes that delete lfos, etc, used by out when it is running in separate thread.
+
+-----------------------------------------------------------------------------------------------------------
+
+LV2 hard coded sample/quality settings:
+
+Distortion/Overdrive/DistBand/Derelict/StompBox:
+    wave_res    = 2
+    wave_upq    = 4
+    wave_dnq    = 2
+
+Vocoder:
+    bands       = 32
+    DS          = 5
+    uq          = 4
+    dq          = 2
+
+Reverbtron:
+    DS          = 5
+    uq          = 4
+    dq          = 2
+
+Sequence/Shifter:
+    DS          = 4
+    uq          = 5
+    dq          = 4
+
+Harmonizer/StereoHarmonizer
+    Quality     = 4
+    DS          = 5
+    uq          = 4
+    dq          = 2
+
+Convolotron:
+    DS          = 6
+    uq          = 4
+    dq          = 2

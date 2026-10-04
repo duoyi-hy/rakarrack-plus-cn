@@ -1,0 +1,233 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0304
+header_name {.h}
+code_name {.cxx}
+decl {\#include "RKR_Light_Button.h"} {public global
+}
+
+decl {\#include "RKR_Check_Button.h"} {public global
+}
+
+decl {\#include "RKR_Choice.h"} {public global
+}
+
+decl {\#include "RKR_GUI_Effect.h"} {public global
+}
+
+widget_class ShifterGui {open selected
+  xywh {1550 57 155 180} type Double box UP_BOX color 0 selection_color 0 align 112
+  code0 {\#include "RKR_Slider.h"}
+  code1 {\#include "../process.h"}
+  code2 {\#include "rakarrack.h"}
+  class RKR_Gui_Effect visible position_relative
+} {
+  Fl_Light_Button shifter_activar {
+    label 开
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Multi_On_Off);
+ o->value(m_process->EFX_Active[EFX_SHIFTER]);
+ return;
+}
+m_process->EFX_Active[EFX_SHIFTER]=(int)o->value();
+if((int) o->value()==0)
+m_process->Rack_Effects[EFX_SHIFTER]->cleanup();
+m_parent->findpos(EFX_SHIFTER,(int)o->value(),o);}
+    xywh {5 4 34 18} shortcut 0x30 color 62 selection_color 1 labelsize 10 when 1
+    code0 {activate_effect = o;}
+    class RKR_Light_Button
+  }
+  Fl_Choice shifter_preset {
+    label 预置
+    user_data UD_PRESET_SHIFTER
+    callback {long long ud= (long long) v;
+if((ud==0)||(ud==UD_PRESET_SHIFTER))
+    m_process->Rack_Effects[EFX_SHIFTER]->setpreset((int)o->value());
+
+for (int i = 0; i < m_process->EFX_Param_Size[EFX_SHIFTER]; i++)
+{
+    parameter_refresh(i);
+};}
+    xywh {77 4 76 18} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 when 6 textsize 10 textcolor 7
+    code0 {preset_choice = o;}
+    class RKR_Choice
+  } {
+    MenuItem {} {
+      label 快
+      xywh {10 10 45 26} labelsize 10
+    }
+    MenuItem {} {
+      label {缓慢上扫}
+      xywh {42 42 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {缓慢下扫}
+      xywh {42 42 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 合唱
+      xywh {0 0 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {触发合唱}
+      xywh {0 0 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {移调 6}
+      xywh {10 10 36 21} labelsize 10
+    }
+  }
+  Fl_Value_Slider shifter_WD {
+    label {干湿比}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Shifter_DryWet);
+ return;
+}
+m_process->Rack_Effects[EFX_SHIFTER]->changepar(Shifter_DryWet,Dry_Wet((int)(o->value())));}
+    xywh {56 30 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider shifter_int {
+    label 音程
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Shifter_Interval);
+ return;
+}
+m_process->EFX_Active[EFX_SHIFTER]=0;
+m_process->Rack_Effects[EFX_SHIFTER]->changepar(Shifter_Interval,(int)o->value());
+if((int)shifter_activar->value())m_process->EFX_Active[EFX_SHIFTER]=1;}
+    xywh {56 43 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 12 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider shifter_gain {
+    label 增益
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Shifter_Gain);
+ return;
+}
+m_process->Rack_Effects[EFX_SHIFTER]->changepar(Shifter_Gain,(int)(o->value()+64));}
+    xywh {56 58 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -64 maximum 63 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider shifter_pan {
+    label 声像
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Shifter_Pan);
+ return;
+}
+m_process->Rack_Effects[EFX_SHIFTER]->changepar(Shifter_Pan,(int)(o->value()+64));}
+    xywh {56 71 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -64 maximum 63 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider shifter_attack {
+    label 起音
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Shifter_Attack);
+ return;
+}
+m_process->Rack_Effects[EFX_SHIFTER]->changepar(Shifter_Attack,(int)o->value());}
+    xywh {56 88 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 1 maximum 2000 step 1 value 100 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider shifter_decay {
+    label 衰减
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Shifter_Decay);
+ return;
+}
+m_process->Rack_Effects[EFX_SHIFTER]->changepar(Shifter_Decay,(int)o->value());}
+    xywh {56 101 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 1 maximum 2000 step 1 value 100 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider shifter_thre {
+    label 阈值
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Shifter_Threshold);
+ return;
+}
+m_process->Rack_Effects[EFX_SHIFTER]->changepar(Shifter_Threshold,(int)o->value());}
+    tooltip 阈值 xywh {56 114 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -70 maximum 20 step 1 value 20 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Check_Button shifter_ud {
+    label 下
+    callback {m_process->Rack_Effects[EFX_SHIFTER]->changepar(Shifter_Shift,(int)o->value())}
+    xywh {51 128 49 14} down_box BORDER_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  Fl_Value_Slider shifter_whammy {
+    label Whammy
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Shifter_Whammy);
+ return;
+}
+m_process->Rack_Effects[EFX_SHIFTER]->changepar(Shifter_Whammy,(int)o->value());}
+    xywh {56 145 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Choice shifter_mode {
+    label 模式
+    callback {m_process->Rack_Effects[EFX_SHIFTER]->changepar(Shifter_Mode,(int)o->value())}
+    xywh {43 165 78 13} down_box BORDER_BOX labelsize 9 labelcolor 7 textsize 9 textcolor 7
+    code0 {o->set_label_offset(-1);}
+    code1 {o->set_text_offset(-1);}
+    class RKR_Choice
+  } {
+    MenuItem {} {
+      label 触发
+      xywh {10 10 36 21} labelsize 9
+    }
+    MenuItem {} {
+      label Whammy
+      xywh {0 0 36 21} labelsize 9
+    }
+    MenuItem {} {
+      label 滑音
+      xywh {10 10 36 21} labelsize 9
+    }
+  }
+  Function {parameter_refresh(int index)} {return_type void
+  } {
+    code {switch (index)
+    {
+    case Shifter_DryWet:
+        shifter_WD->value(Dry_Wet(m_process->Rack_Effects[EFX_SHIFTER]->getpar(Shifter_DryWet)));
+        break;
+    case Shifter_Pan:
+        shifter_pan->value(m_process->Rack_Effects[EFX_SHIFTER]->getpar(Shifter_Pan)-64);
+        break;
+    case Shifter_Gain:
+        shifter_gain->value(m_process->Rack_Effects[EFX_SHIFTER]->getpar(Shifter_Gain)-64);
+        break;
+    case Shifter_Attack:
+        shifter_attack->value(m_process->Rack_Effects[EFX_SHIFTER]->getpar(Shifter_Attack));
+        break;
+    case Shifter_Decay:
+        shifter_decay->value(m_process->Rack_Effects[EFX_SHIFTER]->getpar(Shifter_Decay));
+        break;
+    case Shifter_Threshold:
+        shifter_thre->value(m_process->Rack_Effects[EFX_SHIFTER]->getpar(Shifter_Threshold));
+        break;
+    case Shifter_Interval:
+        shifter_int->value(m_process->Rack_Effects[EFX_SHIFTER]->getpar(Shifter_Interval));
+        break;
+    case Shifter_Shift:
+        shifter_ud->value(m_process->Rack_Effects[EFX_SHIFTER]->getpar(Shifter_Shift));
+        break;
+    case Shifter_Mode:
+        shifter_mode->value(m_process->Rack_Effects[EFX_SHIFTER]->getpar(Shifter_Mode));
+        break;
+    case Shifter_Whammy:
+        shifter_whammy->value(m_process->Rack_Effects[EFX_SHIFTER]->getpar(Shifter_Whammy));
+        break;
+    }} {}
+  }
+}

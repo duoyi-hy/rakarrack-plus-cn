@@ -1,0 +1,71 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0304
+header_name {.h}
+code_name {.cxx}
+widget_class AboutWindowGui {
+  label {About Rakarrack-Plus} open selected
+  xywh {1474 56 375 280} type Double
+  code0 {\#include "rakarrack.h"}
+  code1 {this->m_parent = NULL;}
+  class Fl_Double_Window visible
+} {
+  Function {initialize(RKRGUI *_rgui )} {open C return_type void
+  } {
+    code {m_parent= _rgui;} {}
+  }
+  Fl_Box AB_Title {
+    label {Rakarrack +}
+    xywh {56 4 259 41} labelfont 1 labelsize 40 labelcolor 7
+  }
+  Fl_Box AB_SubTitle {
+    label {音频效果}
+    xywh {121 39 130 22} labelfont 1 labelsize 16 labelcolor 7
+  }
+  Fl_Box About_Version {
+    xywh {69 60 233 15} labelsize 12 labelcolor 7 align 16
+  }
+  Fl_Box AB_url {
+    label {https://github.com/Stazed/rakarrack-plus}
+    xywh {30 77 314 22} labelfont 1 labelsize 13 labelcolor 6
+  }
+  Fl_Box AB_Authors {
+    label {Copyright Josep Andreu, Ryan Billing, Douglas McClendon, Arnout Engelen <2007 - 2010>}
+    xywh {20 96 345 26} labelfont 1 labelsize 8 labelcolor 7 align 128
+  }
+  Fl_Box AB_A1 {
+    label {Code of some effects and structure based on ZynAddSubFx by Paul Nasca Octavian}
+    xywh {44 125 281 26} labelfont 1 labelsize 8 labelcolor 7 align 128
+  }
+  Fl_Box AB_A2 {
+    label {Code of Tuner taken from tuneit by Mario Lang}
+    xywh {66 172 240 15} labelfont 1 labelsize 8 labelcolor 7
+  }
+  Fl_Box AB_A3 {
+    label {Code of Compressor based in ArtsCompresor by Matthias Kretz & Stefan Westerfeld}
+    xywh {84 185 219 24} labelfont 1 labelsize 8 labelcolor 7 align 128
+  }
+  Fl_Box AB_A4 {
+    label {Code of some effects based on swh-plugins LADSPA by Steve Harris}
+    xywh {64 151 250 20} labelfont 1 labelsize 8 labelcolor 7 align 128
+  }
+  Fl_Box AB_A5 {
+    label {LV2 Plugins (From rkrlv2) by Spencer Jackson}
+    xywh {74 208 250 20} labelfont 1 labelsize 8 labelcolor 7 align 128
+  }
+  Fl_Box AB_A6 {
+    label {Rakarrack + modifications by Stazed}
+    xywh {84 224 250 20} labelfont 1 labelsize 8 labelcolor 7 align 128
+  }
+  Fl_Button {} {
+    label LICENSE
+    callback {m_parent->show_lic();}
+    xywh {48 252 92 16} labelsize 10
+  }
+  Fl_Button {} {
+    label 确定
+    callback {hide();}
+    xywh {239 252 92 16} labelsize 10
+  }
+  decl {RKRGUI* m_parent} {private local
+  }
+}

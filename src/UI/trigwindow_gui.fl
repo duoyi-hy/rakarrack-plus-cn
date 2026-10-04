@@ -1,0 +1,88 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0304
+header_name {.h}
+code_name {.cxx}
+decl {\#include "RKR_Choice.h"} {public global
+}
+
+decl {\#include "RKR_Value_Input.h"} {public global
+}
+
+widget_class TrigWindowGui {open
+  xywh {786 255 200 180} type Double resizable
+  code0 {\#include "rakarrack.h"}
+  code1 {this->m_process = NULL;}
+  class Fl_Double_Window visible
+} {
+  Function {initialize(RKR *_rkr)} {open C return_type void
+  } {
+    code {m_process = _rkr;} {}
+  }
+  Fl_Box Fondo5 {
+    xywh {0 1 200 180}
+  }
+  Fl_Box ACI_LABEL {
+    label {模拟控制}
+    xywh {34 8 135 24} labelfont 1 labelcolor 7
+    class RKR_Box
+  }
+  Fl_Slider aux_vu {
+    xywh {172 18 16 144} type {Vert Fill} box NO_BOX color 178 selection_color 90 align 80 when 0 minimum 15 maximum -48 step 1 value -48
+    class NewVum
+  }
+  Fl_Choice aux_source {
+    label 源
+    callback {m_process->Aux_Source = (int) o->value();}
+    xywh {100 37 50 17} down_box BORDER_BOX labelsize 10 labelcolor 7 textsize 10 textcolor 7
+    class RKR_Choice
+  } {
+    MenuItem {} {
+      label 辅助
+      xywh {40 40 45 26} labelsize 10
+    }
+    MenuItem {} {
+      label L
+      xywh {40 40 45 26} labelsize 10
+    }
+    MenuItem {} {
+      label R
+      xywh {30 30 36 21} labelsize 10
+    }
+  }
+  Fl_Value_Slider aux_gain {
+    label 增益
+    callback {m_process->Aux_Gain = (int)o->value();}
+    xywh {56 59 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 1 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider aux_thres {
+    label 阈值
+    callback {m_process->Aux_Threshold = (int) o->value();}
+    xywh {55 75 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -70 maximum 20 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Input aux_midi {
+    label {MIDI 控制}
+    callback {if(o->value()> 127) o->value(127);
+if(o->value()< 1) o->value(1);
+m_process->Aux_MIDI = (int)o->value();} selected
+    xywh {111 96 32 24} labelcolor 7 minimum 1 maximum 127 step 1 value 1
+    code0 {o->set_text_offset(4);}
+    code1 {o->set_label_offset(4);}
+    class RKR_Value_Input
+  }
+  Fl_Value_Slider aux_min {
+    label 最小
+    callback {m_process->Aux_Minimum = (int) o->value();}
+    xywh {56 130 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider aux_max {
+    label 最大
+    callback {m_process->Aux_Maximum = (int) o->value();}
+    xywh {56 150 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 value 127 textcolor 7
+    class RKR_Slider
+  }
+  decl {RKR* m_process} {private local
+  }
+}

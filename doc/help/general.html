@@ -1,0 +1,1081 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+<!-- This file was originally generated from OpenOffice, but is now maintained 
+  by hand. It is used for both the in-application help and the online help.
+
+  When making updates to this file, make sure you also update the online 
+  version with:
+  
+   scp help.html raboofje,rakarrack@web.sourceforge.net:htdocs
+-->
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8"><title>Rakarrack-plus Help
+  General</title>
+  <meta name="AUTHOR" content="Josep Andreu">
+  <meta name="CREATED" content="0;0">
+  <meta name="CHANGED" content="20100112;22402500">
+  <meta name="DESCRIPTION" content="rakarrack-plus help in html file"></head>
+  <body dir="ltr" style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" lang="en-US">
+      <h3>General</h3>
+      <p><a href="#cmd">Command line options</a> <a href="#screen">The Main Screen</a> 
+      <a href="#conn">Connecting</a> <a href="#aux">Aux Input</a>
+      <a href="#pyb">Presets &amp; banks</a> 
+      <a href="#settings">Preferences</a> <a href="#scuts">Shortcuts</a> 
+      <a href="#session">Session Support</a>
+
+<p>RAKARRACK-PLUS is a multi-effect processor for guitar players but the
+signal processing engine allows a full range of parameter adjustment
+making it suitable for almost any audio processing task.
+Forty-seven effects are included in this version: Arpie, Cabinet, Chorus,
+CoilCrafter, CompBand, Compressor, Convolotron, Derelict, DistBand, Distortion,
+Dual Flange, EQ, Echo, Echotron, Echoverse, Exciter, Expander, Flanger,
+Harmonizer, Infinity, Looper, MuTroMojo, MusicalDelay, Noise Gate, Opticaltrem,
+Overdrive, Pan, Parametric EQ, Phaser, Reverb, Reverbtron, Ring, Sequence,
+ShelfBoost, Shifter, Shuffle, StereoHarm, StompBox, Sustainer, Synthfilter,
+Valve, VaryBand, Vibe, Vocoder, WahWah .</p>
+<p>Ten can be used simultaneously on a chain.</p> 
+<p>Also Rakarrack-plus has a Tuner and a monophonic MIDI
+Converter and other features like resampling and Tap Tempo.</p> 
+<p>Rakarrack-plus can be managed externally by MIDI. The program receives Program Change and parameters 
+can be controlled from Control Change MIDI messages.</p>
+
+<p>The above effects and the MIDIConverter are included as LV2 plugins with the package. In
+addition, the Harmonizer and StereoHarm LV2s have extra versions for both MIDI control and
+non-MIDI control.</p>
+
+<p>One of the most important things of RAKARRACK-PLUS is that everything
+works on a single mouse click. All the effect parameters are on the
+screen.</p>
+
+<p>The effects are processed on a chain, the chain order processing
+is fully configurable by the user for each preset. The preset saves
+all the effects parameters. These presets can be grouped into banks
+to manage more efficiently. Saving a preset is as easy as typing a
+name.</p>
+
+<p>Rakarrack-plus is capable of generating high volume output. It has Gain
+controls in general and some of the effects allow high gain
+adjustments. Use these gains with caution because they can produce
+unwanted effects. However, a limiter is applied to the final output
+which prevents signal level from increasing beyond 0dB. Bear this in
+mind, for high gains triggering limiting in the output will initiate
+high-ratio hard-knee compression. This is better than hard clipping
+distortion, but the audio effect can be undesirable.</p>
+
+<p align="left">Rakarrack-plus is a JACK application, Dave Phillips wrote
+some good articles in their blog on how to use Linux audio with jack.
+If you don't know about jack, or you have problems running rakarrack-plus,
+please read this series of articles:</p>
+
+<p align="left"><a href="http://www.linuxjournal.com/node/1000244">Troubleshooting
+Linux Audio, Part 1</a></p>
+
+<p align="left"><a href="http://www.linuxjournal.com/node/1000254">Troubleshooting
+Linux Audio, Part 2</a></p>
+
+<p align="left"><a href="http://www.linuxjournal.com/node/1000262">Troubleshooting
+Linux Audio, Part 3a</a></p>
+
+<p align="left"><a href="http://www.linuxjournal.com/node/1000295">Troubleshooting
+Linux Audio, Part 3b</a></p>
+<h3>INSTALL</h3>
+
+<p>Please read the INSTALL, README and PACKAGERS.README files provided
+with rakarrack-plus. You will find there a  list of required dependency
+packages and detailed configuration options.</p>
+
+
+
+<h3>Warning</h3>
+
+
+<p>From 0.5.0 version we have included resampling and the convolotron
+effect. The quality and settings of resampling must be set with
+extreme care, because they use a lot of CPU resources. In fact most
+computers can't afford the "Best" resampling quality if the amount of
+resampling is "x4" or greater. The resampling process makes each effect use
+more CPU resources because they need to process more samples. If you combine the
+wrong settings with convolotron or harmonizer effects that also use a lot CPU resources the results can be
+unpredictable. Wrong settings can hang up your computer. You have been warned.
+</p>
+
+<p>Of course resampling increases the sound quality. The way to set up
+is start with the worst resampling settings, amount = "x2" and
+Quality "Linear". The jack load CPU value is displayed in the
+status bar in the preset block. If you want more accurate CPU usage
+values use top, htop or
+other CPU monitors. Then increase the values assuming that the next
+step in quality could use double the CPU versus the current set. That is not
+exact in the lower resampling quality levels, but is more accurate in the high levels.
+Experiment to find a good balance between amount and quality settings to obtain the best
+sound that your computer can afford. Don't forget that each effect also uses more
+CPU with resampling. The best result is to set the resampling settings
+using a preset that has five or six effects.
+</p>
+
+<p>Convolotron has a "Safe Mode" parameter, that "magically" limits the
+length of the Impulse Response file read. This is safe because it limits
+the CPU usage. The maximum length is calculated reading the bogomips and
+is not dynamic and does not measure other tasks that your computer may be
+performing. We have been careful to calculate this maximum value, but
+if you use resampling, this "safe" value can be invalid. It may cause,
+depending of the Impulse Response file read, the convolotron effect to
+have no sound. This can happen if the value is less than 5 ms.</p>
+
+<p>Increasing the length parameter will obtain a better convolotron sound.
+If you unset the "Safe Mode" you can set the length to a desired value without
+the limit, but do so with extreme care. Check the jack load CPU in the status
+bar or use a CPU monitor to see what your computer can afford. 
+Do so with small steps and check the CPU usage, or you may hang up your computer.
+You have been warned.</p>
+
+<p><b>About Clipping and limiting.</b></p>
+
+<p>Rakarrack-plus includes an output limiter to help you keep the signal at or below
+maximum recording levels.  There are two indicator lights along the top of
+the display to indicate when limiting and clipping is active.</p>
+
+<p><b>Lmt</b>   Limit.  This is the compressor part of the limiting function.  This
+lets you know when the Rakarrack-plus output limiter is automatically reducing volume
+because the signal level is too high.</p>
+
+<p><b>Clip</b>  The output limiter is clipping the peaks of the signal.  Usually the
+attack of dynamics are clipped for short periods of time before the
+compressor catches up with the high signal level.  When the signal level is
+extremely high, the peaks will always be clipped.  This is indicated with a
+red flashing light.</p>
+
+<p>Both clip and Lmt mean the same thing to you as the user:  Turn down the
+output until the lights don't blink, or if they blink, very very
+infrequently.  Any time the lights blink, there is some distortion on the
+output, and it is probably unwanted distortion.  It will be noticeably
+audible distortion if the lights blink frequently, or for long periods of
+time.</p>
+
+<p>This is not an arbitrary limit.  This is at the limit where the input to a
+recording program such as Ardour or Qtractor will be too hot.  If it was not
+clipping in Rakarrack-plus, it would be clipping in Ardour, and would be worse
+sounding.  Most sound cards will physically clip on the hardware output at
+these levels.  The full range in Rakarrack-plus will produce a full range signal
+swing.</p>
+
+
+
+
+
+
+
+<p><a href="general.html">General</a></p>
+<p><a href="help.html">Table of Contents</a></p>
+
+
+<h3><a name="cmd"></a>Command Line Options</h3>
+
+<table style="background-color: rgb(251, 251, 251);" cellpadding="2" cellspacing="2">
+
+  <tbody>
+    <tr>
+      <th style="width: 150px;">
+      <p align="left">Short Format</p>
+      </th>
+      <th style="width: 150px;">
+      <p align="left">Long Format</p>
+      </th>
+      <th>
+      <p> </p>
+      <br>
+</th>
+    </tr>
+    <tr>
+      <td>
+      <p>-h</p>
+      </td>
+      <td>
+      <p>--help</p>
+      </td>
+      <td>
+      <p>Shows the command line options and exits.</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <p>-n</p>
+      </td>
+      <td>
+      <p>--no-gui</p>
+      </td>
+      <td>
+      <p>Start the application without GUI</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <p>-l file</p>
+      </td>
+      <td>
+      <p>--load=file</p>
+      </td>
+      <td>
+      <p>Load file single Preset</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <p>-p #</p>
+      </td>
+      <td>
+      <p>--preset=#</p>
+      </td>
+      <td>
+      <p>Set Preset number #</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <p>-b file</p>
+      </td>
+      <td>
+      <p>--bank=file</p>
+      </td>
+      <td>
+      <p>Load a file Bank</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <p>-x </p>
+      </td>
+      <td>
+      <p>--dump-preset-names</p>
+      </td>
+      <td>
+      <p>Dump Bank preset names</p>
+      </td>
+    </tr>
+<!--    <tr>
+      <td>
+      <p>-u uuid </p>
+      </td>
+      <td>
+      <p>--session=#</p>
+      </td>
+      <td>
+      <p>set jack session uuid</p>
+      </td>
+    </tr> -->
+    <tr>
+      <td>
+      <p>-j Name</p>
+      </td>
+      <td>
+      <p>--jack-client-name=Name</p>
+      </td>
+      <td>
+      <p>set alternate jack/alsa name: default=rakarrack-plus</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Examples:</h4>
+
+<p>rakarrack-plus -l mypreset.rkr     Starts Rakarrack-plus and
+loads the preset file mypreset.rkr</p>
+
+<p>rakarrack-plus -n -b mybank.rkrb    Starts Rakarrack-plus
+without the GUI and loads the bank file mybank.rkrb</p>
+
+
+<p><a href="general.html">General</a></p>
+<p><a href="help.html">Table of Contents</a></p>
+
+
+<h3><a name="screen"></a>The Main Screen</h3>
+
+<p><img src="imagenes/screen.png" alt="rakarrack Main Screen" align="bottom" border="1" height="420" width="640"></p>
+
+
+<p><a href="general.html">General</a></p>
+<p><a href="help.html">Table of Contents</a></p>
+
+
+<h3><a name="conn"></a>Connecting</h3>
+
+<p>The connections shown in the screenshot correspond to a
+motherboard sound card. The guitar is connected to the input line.
+Obviously this configuration can vary depending of your sound card.
+Rakarrack-plus has two inputs to allow use of stereo devices. The
+screenshot shows the connection of a guitar, usually mono aural.</p>
+
+<p><img src="imagenes/jack_conections.jpg" alt="rakarrack Qjackctl Connect" align="bottom" border="1" height="313" vspace="10" width="562"></p>
+
+<h3><a name="aux"></a>Aux Input</h3>
+<p>The "aux" audio input is used by the <a href="effects.html#Vocoder">Vocoder</a> effect for voice input. Also it is set as the default input for the <a href="aci.html">Analog Control Interface (ACI)</a>.</p>
+
+<h3><a name="pyb"></a>Presets &amp; Banks</h3>
+
+<p>The state of the rack can be saved to a file at any
+time, either pressing the "Export" button or via the menu
+File-&gt;Export Preset. The export file is a text file that can
+be shared and imported from other users. Rakarrack-plus default extension
+is .rkr, but this is not required. These single preset text files do
+not have to be kept in the User directory to be used.</p>
+
+<p>Set the preset name here:</p>
+
+<p><img src="imagenes/preset_name1.png" alt="rakarrack Preset Box"></p>
+
+<p>If the user modifies any preset bank, The "compare"
+button allows you to compare the sound of the current state of
+rakarrack-plus with the original bank preset from which it departed.</p>
+
+<p>You can use banks to store groups of presets. Sixty presets can be
+saved on a bank. To include a preset in a bank you must first indicate
+the name of the preset on the main screen, open the bank window and click
+on a empty slot with the right mouse button. To retrieve a preset
+stored in a bank, you must open the window of banks and click the left mouse
+button on the preset desired. You can also use the Preset selector on
+the main window.</p>
+
+<p>To save a preset in a bank:</p>
+
+<ul>
+
+  <li>
+    <p>Put descriptive name to the preset</p>
+  </li>
+  <li>
+    <p>Open the bank window (B)</p>
+  </li>
+  <li>
+    <p>Press the <b>right mouse button</b> in a empty place OR</p>
+  </li>
+  <li>
+    <p>Press the <b>right mouse button</b> on an existing preset if
+you wish to overwrite it.</p>
+  </li>
+</ul>
+
+<p>To retrieve a preset from a bank:</p>
+
+<ul>
+
+  <li>
+    <p>Open the bank window (B)</p>
+  </li>
+  <li>
+    <p>Click the <b>left mouse button</b> on the preset</p>
+  </li>
+</ul>
+
+<p>To swap presets in the window:</p>
+
+<ul>
+
+  <li>
+    <p>Open the bank window (B)</p>
+  </li>
+  <li>
+    <p>Click the <b>left mouse button</b> on the preset, drag and drop on
+    the preset you want to swap</p>
+  </li>
+</ul>
+
+
+
+<p>When rakarrack-plus starts it will load the last bank used from the previous session
+unless you specify another bank on the <a href="#cmd">command line</a>.
+You can also load/save any bank from the menu File. By default, the
+installation included banks are installed with root privileges and cannot be overwritten.
+They are installed in the data directory selected during the configure process,
+normally in "/usr/share/rakarrack-plus" or "/usr/local/share/rakarrack-plus".
+These banks, Default.rkrb, Extra.rkrb and Extra1.rkrb should be copied to another
+file and placed in the user directory location if you wish to modify them.
+The banks contain default presets developed by <a href="#autores">the
+development team and some friends</a> who have contributed in this
+facet.</p>
+
+<p> The "1", "2", "3", "U" buttons are for fast bank loading. These buttons
+load the Default.rkrb, Extra.rkrb, Extra1.rkrb and the user setting defined bank
+set in <a href="#bprefs">User preferences</a>.</p>
+<p>In addition three addition special effects banks are also included and can
+    be selected from the bank window "User Banks" choice menu.</p>
+
+<p><b>Random</b></p>
+<p>The "Random" button generates a random preset. Right mouse button
+on the random button will show a configure window. You can adjust how the random button
+will generate a preset. By default the random button will select from all rack effects
+and randomly choose an individual effect preset. Also the number of active effects will
+be randomly determined to a maximum of six. These settings can be changed from the 
+random configure window. You can choose to have all parameters of the rack effect
+to be set randomly, and exclude any effect from the selection process. In addition,
+the number of chosen effects can be set, as well as whether they all should be active
+or randomly set as active.</p>
+<p>You can also set the parameters to any individual rack effect randomly by right
+    mouse button on the effect name from the main window rack.</p>
+<p><b>CAUTION!!!</b></p>
+<p>When setting any parameters randomly or using the random button,
+    you should always set your speaker volume to minimum or off before setting.
+    Then apply sound to Rakarrack-plus and watch the output volume meter.
+    Setting parameters randomly can result in feedback as well as other issues
+    that will maximize the volume!!!</p>
+
+<p><b>Bank Window</b><p/>
+<p><img src="imagenes/bank_mgmt.jpg" alt="rakarrack Bank Window" align="bottom" border="1" height="500" width="640"></p>
+
+<p>At the top of the Bank window, the title bar shows the loaded bank.
+Click on the individual preset buttons or use the preset counter in the Preset
+section to change the preset. The hot keys '+' and '-' can also be used to cycle
+through the presets.</p>
+
+<p>Presets marked with (*) use the Select mode in the
+Harmonizer effect. This means you need to play a monophonic melody in
+the Key/Chord selected. The harmonizer recognizes what note you play
+and creates a second voice in the Key/Chord selected.</p>
+
+<p><b>Save Bank</b></p>
+<p>Save the currently selected bank showing on the bank window. Ctrl-S can be 
+used for the keyboard shortcut. You cannot save the default program banks, so if
+you want to save any changes to the default banks, use File/Save. All user 
+banks MUST be saved in the user directory <a href="#bprefs">User preferences</a>.
+See "User Banks" below for recommended file saving naming for MIDI bank select.
+Upon successful saving a brief message will display above the bank presets
+indicating the file has been saved and the name and path</p>
+
+<p><b>New Bank</b><p/>
+<p>Select button for clearing the bank presets buttons for new user banks.</p>
+
+<p><b>R</b></p>
+<p>Reload the User Banks. <b>WARNING:</b> This will re-load the currently active bank.
+You will not be prompted for any modified changes. All modifications to the currently
+active bank will be lost! Select this button to refresh the "User Banks" choice list
+and update all user banks for any changes made since the program started. Useful if
+there have been changes to the user banks outside the current program instance. For
+example, from a second rakarrack-plus instance.</p>
+
+<p><b>MIDI Program Select</b></p>
+<p>The number in [XX] brackets preceeding the label is the MIDI program change
+    number that must be sent to select the indicated preset.</p>
+
+<p><b>User Banks</b></p>
+<p> The "User Banks" choice displays the available user banks that are in the
+directory specified by <a href="#bprefs">User Directory</a> in User preferences.</p>
+<p>User banks are loaded on program start by scan of the user directory. The files
+are selected by .rkrb extension and will appear in the choice display in alpha
+numeric order. The first six CC 0 Bank Select parameters are reserved for
+the program provided default banks. From CC 0, parameters 6~127 can be used
+for user banks. For best results, files could be named using CC parameter value (PV).</p>
+
+    <p>For example:</p>
+  <ul>
+      <li>
+          <p> PV_06_Mybank.rkrb</p>
+      </li>
+      <li>
+          <p> PV_07_Another.rkrb</p>
+      </li>
+  </ul>
+
+<p><b>MIDI Bank Select</b></p>
+<p>The number in [XX] brackets preceding the bank label is the MIDI CC 0,
+    Bank Selection parameter value to send for MIDI bank select.</p>
+
+
+<p><a href="general.html">General</a></p>
+<p><a href="help.html">Table of Contents</a></p>
+
+<h3><a name="settings"></a>Preferences (Settings)</h3>
+<h2>Look Preferences</h2>
+<p><img src="imagenes/settings.jpg" alt="rakarrack Settings Window"></p>
+<p><b>Colors</b></p>
+<p>From the Settings Look tab window you can configure
+different aspects of the application. The colors of the four elements
+on the screen, <b>background, buttons, labels and leds can be adjusted.</b></p>
+
+<p><img src="imagenes/thema1b.jpg" alt="rakarrack buttons color" align="bottom" border="1" height="213" width="219">    
+<img src="imagenes/thema2b.jpg" alt="rakarrack background color" align="bottom" border="1" height="214" width="219">   
+<img src="imagenes/thema3b.jpg" alt="rakarrack leds color" align="bottom" border="1" height="215" width="218"></p>
+<p><b>Scheme</b></p>
+
+<p>Also you can select the following schemes of widget
+decoration, X11, fltk, gtk+, plastic and Gleam. The following is a small example of fltk and
+plastic schemes.</p>
+
+<p>
+<img src="imagenes/schema1b.jpg" alt="rakarrack schema fltk" align="bottom" border="1" height="216" width="214">
+<img src="imagenes/schema2b.jpg" alt="rakarrack schema gtk+" align="bottom" border="1" height="216" width="214">
+</p>
+
+<p><b>Font</b></p>
+<p>Select the label font for the entire program. You can alpha search as well as
+use the up and down arrows. The Font type will automatically change on each selection</p>
+<p><b>Font Size</b></p>
+<p>Increase/Decrease the font size of all windows.  Beginning with
+Rakarrack-plus the fonts are now auto resized. You likely will
+not need to adjust the font sizes unless you choose an extra large
+or small font type.</p>
+
+<p><b>Enable Background Image</b></p>
+<p>Choose between enabling the background image or using the background color choice.</p>
+
+<p><b>Background Image</b></p>
+<p>You can select a PNG background image with the 'Browse' button.
+Some background images are distributed with the package. They are
+installed in the data directory selected during configuration,
+normally in "/usr/share/rakarrack-plus" or "/usr/local/share/rakarrack-plus".</p>
+
+<p><b>Set Main Window Scalable</b></p>
+<p>Check this button if you want the main window to resize according to the
+default width X height scale. This may give better results for font resizing 
+in some cases. Un-check to allow full resize capability.
+
+<p><b>Reset</b></p>
+Select the Reset button to revert all 'Look' items to the defaults.
+
+<p>The Skin save/load menu options located in the main
+menu, save or restore the rakarrack-plus look. If you have made a nice look
+and you want to share, please send this file and the background picture
+to any of the rakarrack-plus team members and it will be included on the website.</p>
+
+<p><a href="general.html">General</a></p>
+<p><a href="help.html">Table of Contents</a></p>
+
+
+<h2>Audio Preferences</h2>
+
+<p><img alt="Settings Audio" src="imagenes/settings1.jpg"></p>
+
+<p><b>Fx On at start</b></p>
+<p>This option sets the FX On at the start. By default it
+is Off.</p>
+<p><b>Filter Input DC Offset</b></p>
+<p>Input DC Removal. Removes constant offset from input signal.  If you
+experience strange behavior with compressor or distortion, or if you see
+output signal even when no sound is going in, enable it.  A "cheapo"
+sound card or microphone inputs can be sources of this problem.</p>
+<p><b>Preserve Gain/Master</b></p>
+<p>The Input Gain and Master Volume are stored in the preset and applied
+when the preset is loaded.  If this option is enabled, the Input Level and
+Master Volume will not be modified when the preset changes.</p>
+
+<p><b>Update Tap Tempo</b></p>
+<p>If enabled, the Tempo parameter on any selected preset will be updated with the
+Tap Tempo value/settings. By default, the saved Tempo settings from the preset are
+used.</p>
+
+<p><b>Limiter before Output Volume</b></p>
+<p> Rakarrack-plus uses an invisible end chain Limiter to limit the output signal
+level. This option puts the limiter before the Output Volume slider.</p>
+<p>The Limiter is a hard-knee compressor with a fast attack time followed by
+peak clipping.  It is best to leave this as default since it will have no
+effect unless the final output signal is high enough to clip on the input of
+Ardour (or other recording program).  Reasons you may wish to put this in
+front of the volume control are as follows:</p>
+<p>1) It produces a nice overdrive when driven by something "hot" like
+ShelfBoost.  Then you can overdrive it and use output the volume to bring the signal
+level down to a reasonable recording level.</p>
+</p>2) If you need a hard limiter to set the maximum to a certain level, this
+may prove to be a useful tool.</p>
+<p><b>+6dB Final Limiter</b></p>
+<p>This option add 6 dB to the final chain Limiter output signal.</p>
+
+<p><b>Master Upsampling</b></p>
+<p>Enable upsampling using libsamplerate. This is the master upsampling that
+will affect all sound processing. With this enabled, Rakarrack-plus will
+process the effects with a higher sample rate than received from the
+sound card.  The master upsample parameters will take effect the next time you
+launch rakarrack-plus. Enabling upsampling in Rakarrack-plus will use a lot more computer
+CPU resources, and will result in very professional sounding effects.
+Take care to adjust all the upsampling settings in small
+increments because you can hang your computer if your main processor can not
+handle the resampling parameters.  Each level of libsamplerate quality uses
+more and more resources, and of course each effect uses more CPU resources
+because it needs to process a higher amount of data in the same amount of
+time.  We highly recommend to start with Linear quality and amount "x2" and
+check your CPU usage with "top", and then increase the amount/quality as
+desired.</p>
+
+<p><b>Amount</b></p>
+<p>Amount of resampling (x2, x3, x4, x5, x6). This is a multiple of your Jack
+samplerate.</p>
+
+<p><b>About Resampling Quality</b></p>
+<p>Here is the summary:</p>
+<p><b>Best</b>  Best sinc interpolation.</p>
+<p><b>Medium</b>  Reduced Bandwidth sinc interpolation.</p>
+<p><b>Fastest</b>  Fastest sinc interpolation.</p>
+<p><b>Linear</b>  Linear interpolation, not band-limited.</p>
+<p><b>Zero Order</b>  Blazingly fast, but does not interpolate.</p>
+
+<p>The only difference between Best, Medium, and Fastest is the bandwidth. 
+"Fastest" limits to 80% of the maximum bandwidth, but the interpolation
+quality is equal to Best sinc interpolation.  As a general rule, you can
+often save some processing requirement by using a lower quality upsampling
+setting (Linear, or Zero Order), but it is important to use high quality
+downsampling if any of the effects you use add higher harmonics not present
+at the input (distortion, Arpie, Harmonizer).</p>
+
+<p>If using Linear or Zero Order resampling it is advisable to use a low-pass
+filter on the input (like CoilCrafter or MuTroMojo), then again as the last
+in line.  The filter will perform interpolation before the signal is
+processed.</p>
+
+<p>Resampling has two uses: </p>
+<p>1)  Improve the "richness" of filters & Equalizers.  This will by nature
+improve the accuracy of the EQ's while making filter effects such as Chorus,
+Flanger or Phaser sound more natural.</p>
+<p>2)  Reduce the amount of aliasing effect produced by nonlinear distortion. 
+      Aliasing:  A digital signal cannot represent any frequency higher than
+      1/2 the sampling rate.  Any frequencies introduced to the digital
+      system higher than 1/2 sample rate are folded back (aliased) into the
+      0 to 1/2 sample rate range.  Generally aliased frequencies are not
+      musically related to the original tone, and are often the cause of the
+      harsh "digital distortion" sound.</p>
+      
+<p>When you use a Distortion effect (StompBox, Valve, Overdrive, etc.)
+      the nonlinear function used in waveshaping produces harmonics that are
+      not found in the original signal.  Many of these harmonics are
+      significantly higher than 20kHz, and even go to several hundred kHz. 
+      The solution is upsampling.  If you increase the samplerate to several
+      times the original, then the "headroom" you have available to
+      represent these high frequency harmonic components increases.  Since
+      the harmonics decrease in amplitude as frequency increases, then there
+      comes a point where the aliasing of these frequencies is
+      inaudible.</p> 
+      
+      <p>The caveat is downsampling.  If you upsample then create these higher
+      harmonics, you have to filter this out of the signal before you
+      downsample.  The sinc interpolation settings are band-limiting by
+      nature, and this is what you want if you regularly use distortion. 
+      The process of sinc interpolation removes any frequencies higher than
+      1/2 the target samplerate before resampling. It is better to use 2x
+      upsampling with linear up and fastest sinc down than to use 4x linear or
+      zero order up/down with distortion.  A downsampling process that is
+      not band limited to 1/2 target sample rate will defeat the purpose of
+      upsampling.  If your CPU can handle it, the best is 6x upsampling with
+      fastest sinc for up and down.</p> 
+      
+      <p>Unless you really need the 16kHz to 20kHz range in your instrument,
+      don't use Medium or Best.  Indeed these improve bandwidth, but the
+      transient filter response is worse with increasing interpolation
+      quality.  Particularly for dynamic or percussive instruments,
+      "Fastest" sinc interpolation is the highest quality you can use.</p>
+      
+      <p>If your CPU can't handle the high quality interpolation, you can put
+      MuTroMojo on the end of the FX chain and balance between filter
+      cut-off frequency and stages to get good rejection at 16-20kHz.</p> 
+      
+      <p>Finally, it is mathematically proven that sinc interpolation with
+      infinite length will PERFECTLY reconstruct the original analog input
+      signal in the case of infinite upsampling.  This will also perfectly
+      reproduce what the signal would be if sampled at the higher samplerate
+      (since infinite upsampling is impossible).  Another impossible thing
+      is an infinitely long sinc function.  Sinc interpolation uses a
+      Windowed Sinc function of a length where the imperfections introduced
+      by truncation create errors of magnitude less than the anticipated
+      noise floor.  Based on this theory, many high end CD players use up to
+      128x oversampling in the digital-to-analog conversion process.</p>
+      
+      <p>For somebody who doesn't understand mathematics, this means that you
+      don't get ugly distortions by downsampling, say to 16kHz, then back to
+      48000.  You only lose bandwidth.  Downsampling to 16kHz then back to
+      48kHz is no worse than applying a low-pass filter at 6.4kHz (80% of
+      16kHz/2) for fastest sinc, while you will gain some bandwidth nearing
+      8kHz for Best quality sinc.  Most amp cabinet responses tend to roll
+      off near 5kHz or 6 kHz.  For reverb, this is not much different than
+      increasing the "damp" parameter.  Limiting bandwidth near 6.4kHz means
+      you don't lose as much quality as you would think from what seems such
+      an abysmally low samplerate while it is amazing how little CPU usage
+      is required to use Reverbtron and Convolotron with internal samplerate
+      set this low.  If you use linear or zero order, all bets are off --
+      unless you apply band limiting filtering elsewhere, or know for a fact
+      that the input signal does not have any harmonics above 8kHz. 
+      Incidentally, you can probably get some amazingly high quality bass +
+      bass cabinet sounds with Convolotron set to 16kHz internal
+      samplerate.</p>
+      
+
+
+<p><b>Up Sampling Quality</b></p>
+
+<p>Upsampling quality, select the libsamplerate quality
+for the upsampling procedure.</p>
+
+<p><b>Down Sampling Quality</b></p>
+<p>Downsampling quality, select the libsamplerate quality for the downsampling procedure.</p>
+
+<p><b>Looper Size Seconds</b></p>
+<p>Is the size in seconds of the buffer for the Looper effect. The memory is
+allocated when Rakarrack-plus starts, so you will need to restart Rakarrack-plus for
+this to take effect.  If you do not plan to use the Looper, then make this a
+small number so Rakarrack-plus does not hog memory you are not going to use.</p>
+
+<p><b>Looper Metronome Volume</b></p>
+<p>This is to adjust the Looper Metronome Volume</p>
+
+<p><b>Tuner Calibration A440</b></p>
+<p> Here you can calibrate the Tuner, this also calibrates the MIDI
+Converter, Ring and Harmonizer recognize note functions.</p>
+<p><b>Recognize Note Trigger</b></p>
+<p>This is the trigger for the Recognize Note function used by Harmonizer,
+StereoHarm and Ring. The default value is ".6" but better results may be
+achieved if you reduce this value. The note recognition also depends on the
+input signal level. A balance between this value and the input signal level
+is necessary to achieve the best results.</p>
+
+<p><b>Recognize Note Optimization</b></p>
+<p>This option filters the data sent to the Recognize Note functions to
+the specified frequency range of various instruments</p>
+
+<p><a href="general.html">General</a></p>
+<p><a href="help.html">Table of Contents</a></p>
+
+<h2>Quality Preferences</h2>
+<p><img alt="Settings Quality" src="imagenes/settings6.jpg"></p>
+
+<p>All settings on the Quality tab are now immediate. There is no
+longer a need to restart Rakarrack-plus for the settings to take affect.
+The process of changing the quality settings is NOT real-time safe.
+For this reason, all effect processing must be bypassed briefly during
+the quality change. If a sound is being played during the change you
+will hear the unprocessed sound for a brief moment. After the quality
+change, all effect settings will be resumed with the change.
+
+
+<p><b>Harmonizer, Sequence, StereoHarm and Shifter Quality</b></p>
+<p>Selects the quality of the audio engine, used by Harmonizer,
+Shifter and Sequence effects. The available values are "4,8,16,32"
+and the default value is "4". Incrementing the quality increments
+the CPU usage by this effect. Take special care if you are
+using resampling also.</p>
+
+<p><b> Harmonizer, Reverbtron, Convolotron, Sequence, Shifter, Vocoder and
+StereoHarm Downsample</b></p>
+<p> Here you can select the sample rate that each effect uses internally.
+This can make it possible to use effects with higher CPU demand simply by
+trading bandwidth.  For example, if you are resampling at 2x or 3x (master
+resample setting), you will need to limit the sample rate of some effects in
+order to be able to use certain presets. Of course that may reduce the sound
+quality, but certainly you can find a good balance between CPU power and
+quality.   Keep the "About Resampling Quality" information in mind when
+deciding what to select. </p> 
+
+<p><b>Whaveshape Resampling</b></p>
+<p> Distortion, Overdrive, Derelict, DistBand and StompBox effects use the
+waveshape internal class to saturate the signal. This process produces aliasing.
+Here you can resample in order to eliminate the aliasing which will increase CPU 
+usage. Notice that this resample is multiplied by the normal resampling.
+For example, if master resampling is 2x, and you select 2x for Waveshape,
+then Waveshape internal resampling will be 4x jack sample rate.
+The balance you need to find is between the number of resampling
+operations, quality of resampling, and resampling amount.  For example, if
+you are only using Stompbox and maybe reverb in a preset, then it may be
+better to set 4x fast sinc interpolation for master resample than to use
+Waveshape resampling.  If you are using other effects, and some higher CPU
+effects, then it may be better to use 2x master resample with linear
+up/down, then 2x Waveshaper resample with linear up, fastest sinc down.</p>
+
+
+<p><a href="general.html">General</a></p>
+<p><a href="help.html">Table of Contents</a></p>
+
+<h2><a name="midi"></a>MIDI Preferences</h2>
+<p><img alt="Settings MIDI" src="imagenes/settings2.jpg"></p>
+
+<p><b>Auto Connect MIDI In</b></p>
+<p>Check this box if you want to auto connect the ALSA
+rakarrack-plus MIDI IN to another device when the program starts. Use the scroll
+window to select the device you wish to connect with. The devices selected will
+auto connect to MIDI IN when rakarrack-plus is first started. Connections made when
+rakarrack-plus is running will be immediate and set as startup connections.
+If you wish to make connections that are not auto connected on start, use
+Qjackctl, Patchage, or other utilities to do so.</p>
+
+<p><b>Midi Channels</b></p>
+<p>Specify the MIDI Receive Channel for rakarrack-plus. There are also specific channels
+to receive the MIDI Chords for the Harmonizer and Stereo Harmonizer.</p>
+
+<h4><a name="midi-imp"></a>MIDI Implementation</h4>
+<p>The MIDI Implementation radio buttons select how
+rakarrack-plus interprets the incoming MIDI Control messages. By default rakarrack-plus
+uses the <a href="midiic.html">MIDI Implementation Chart</a>.
+If the MIDI Learn button is checked, the default
+tables will be ignored and the user created tables from <a href="midilearn.html">MIDI Learn</a> will be
+used. In order to access the MIDI learn window you must first check the
+box for "MIDI Learn".</p>
+
+<h4><a name="midi-auto"></a>Auto Assign MIDI Learn</h4>
+<p>If you enable this option you will not see the <a href="midilearn.html">MIDI Learn</a> window when
+you right click over a MIDI controllable effect parameter. The incoming MIDI
+control message will be assigned "automatically".
+
+<p><b>MIDI Program Change Table</b></p>
+<p>Use the scroll table to select the Bank/Preset you want when a MIDI Program change
+message is received (0~127). If the option is disabled rakarrack-plus will only
+recognize program change (1~60) in the current bank. Use the Save and Load
+buttons for saving and loading multiple user defined program change tables.
+You can also use MIDI CC 32 (Bank Select (fine)) for selecting the table with MIDI.
+All program change tables must be placed in the User directory to be used.
+These tables are selected by .rmt extension and will be sorted alpha-numeric
+for MIDI CC 32 selection. For best results, the file name should be based on
+the CC 32 parameter value Ex: PG_00_My_Table.rmt, PG_01_Another_Table.rmt.</p>
+
+
+<p><a href="general.html">General</a></p>
+<p><a href="help.html">Table of Contents</a></p>
+
+<h2>Jack Preferences</h2>
+<p><img alt="Settings Jack" src="imagenes/settings3.jpg"></p>
+
+<p><b>Jack auto connection ports</b></p>
+<p>Select the "Auto Connect Out" box if you want to automatically connect the rakarrack-plus Output.</p>
+<p>Select the "Auto Connect In" box if you want to automatically connect the rakarrack-plus Input.</p>
+<p>Select the ports to be connected by left mouse click on the ports listed.
+    Shift click for multiple ports.</p>
+<p>If you select a single Input port, it will be connected to the both rakarrack-plus Input Ports.</p>
+
+<p><a href="general.html">General</a></p>
+<p><a href="help.html">Table of Contents</a></p>
+
+
+<h2>Misc Preferences</h2>
+<p><img alt="Settings Misc" src="imagenes/settings4.jpg"></p>
+
+<p><b>Disable Warning</b></p>
+<p>Check this box to disable warning and error messages.</p>
+
+<p><b>Tap Tempo Timeout</b></p>
+<p>Check this box to enable the Tap Tempo timeout. If it is enabled, the tap tempo
+will shut off if no (tap) input is received for 8 seconds after the last signal.</p>
+
+<p><b>Enable Tooltips</b></p>
+<p>Check this box to enable rakarrack-plus tooltips.</p>
+
+<p><b>Focus Delay</b></p>
+<p>Set the delay time to automatically focus of the widget under the mouse pointer.
+The mouse focus setting is disabled by default.</p>
+
+<p><b>NSM Single State</b></p>
+<p>Check this box if you want NSM session to always save the last state of the active preset.
+This will save all changes to effects including MIDI control changes. The default behavior
+will not save changes to the active preset as the changes are assumed to be for live 
+performance reasons. This check box is de-activated when not in NSM mode.</p>
+
+<p><a href="general.html">General</a></p>
+<p><a href="help.html">Table of Contents</a></p>
+
+<h2><a name="bprefs"></a>User Preferences</h2>
+<p><img alt="Settings Bank" src="imagenes/settings5.jpg"></p>
+<p><b>User Directory</b></p>
+<p>Specify the directory where rakarrack-plus should look for user files. 
+The following user files MUST be placed in the user directory or the program
+will generate an error message, and the file cannot be used:</p>
+<ul>
+    <li> <p>User Banks</p></li>
+    <li> <p>Convolotron .wav files</p></li>
+    <li> <p>Echotron .dly files</p></li>
+    <li> <p>Reverbtron .rvb files</p></li>
+    <li> <p>Program change tables</p></li>
+</ul>
+<p><b>Bank Filename</b></p>
+<p>Specify the file for the bank file to be loaded and associated to the "U"
+button. This file MUST be located in the user directory.</p>
+
+<p><b>Author</b></p>
+<p>Here you can define a nickname to be used for new presets that are created.
+The development team intends to create banks of effects created by users.
+These presets should assume the same license with which this program is released
+(GPL version 2 or higher) and suggest carrying an identification in the form First Name
+Last Name (nick). Of course you have to give a descriptive name to
+your preset. If you have a good preset and want to share or want it to
+be included in future versions, send it to this address
+<a href="https://github.com/Stazed/rakarrack-plus">https://github.com/Stazed/rakarrack-plus</a></p>
+
+
+<p><a href="general.html">General</a></p>
+<p><a href="help.html">Table of Contents</a></p>
+
+
+<h3><a name="scuts"></a>Shortcuts</h3>
+
+<p>The following keyboard shortcuts are available from the main rakarrack-plus window.</p>
+
+<table style="background-color: rgb(251, 251, 251);" border="1" cellpadding="2" cellspacing="2">
+
+  <tbody>
+    <tr>
+      <th>Key</th>
+      <th>Function</th>
+    </tr>
+    <tr>
+      <td> R </td>
+      <td> Rakarrack-plus Master On/Off </td>
+    </tr>
+    <tr>
+      <td>T</td>
+      <td> Tuner On/Off </td>
+    </tr>
+    <tr>
+      <td> M </td>
+      <td> MIDI Converter On/Off </td>
+    </tr>
+    <tr>
+      <td> M </td>
+      <td> Metronome On/Off </td>
+    </tr>
+    <tr>
+      <td> H </td>
+      <td> Tap Tempo On/Off </td>
+    </tr>
+    <tr>
+      <td> I </td>
+      <td> Import Preset </td>
+    </tr>
+    <tr>
+      <td> E </td>
+      <td> Export Preset </td>
+    </tr>
+    <tr>
+      <td> Ctrl+S </td>
+      <td> Save Bank File </td>
+    </tr>
+    <tr>
+      <td> B </td>
+      <td> Show/Hide the Bank Window </td>
+    </tr>
+    <tr>
+      <td> G </td>
+      <td> Tap Tempo set </td>
+    </tr>
+    <tr>
+      <td> L </td>
+      <td> Open the MIDI Learn Window </td>
+    </tr>
+    <tr>
+      <td> J </td>
+      <td> Open the Settings Window </td>
+    </tr>
+    <tr>
+      <td> O </td>
+      <td> Open the Order window </td>
+    </tr>
+    <tr>
+      <td> N </td>
+      <td> New preset </td>
+    </tr>
+    <tr>
+      <td> P </td>
+      <td> Compare </td>
+    </tr>
+    <tr>
+      <td> + </td>
+      <td> Next Preset </td>
+    </tr>
+    <tr>
+      <td> - </td>
+      <td> Previous Preset </td>
+    </tr>
+    <tr>
+      <td> F1 </td>
+      <td> Open the Help window </td>
+    </tr>
+    <tr>
+      <td> F2 </td>
+      <td> Decrease the Output Volume</td>
+    </tr>
+    <tr>
+      <td> F3 </td>
+      <td> Increase the Output Volume</td>
+    </tr>
+    <tr>
+      <td> F5 </td>
+      <td> Looper Play</td>
+    </tr>
+    <tr>
+      <td> F6 </td>
+      <td> Looper Stop</td>
+    </tr>
+    <tr>
+      <td> F7 </td>
+      <td> Random Preset selection</td>
+    </tr>
+    <tr>
+      <td> F8 </td>
+      <td> Switch between Midi Converter & Metronome</td>
+    </tr>
+    <tr>
+      <td> F9 </td>
+      <td> Hide/Show unused Effects</td>
+    </tr>
+    <tr>
+    <tr>
+      <td> F10 </td>
+      <td> +10 dB Booster </td>
+    </tr>
+    <tr>
+      <td> F12 </td>
+      <td> Toggle Full Screen </td>
+    </tr>
+    <tr>
+      <td> Insert </td>
+      <td> Add user preset </td>
+    </tr>
+    <tr>
+      <td> Delete </td>
+      <td> Remove user preset </td>
+    </tr>
+    <tr>
+      <td> A </td>
+      <td> Open the Analog Interface Window </td>
+    </tr>
+    <tr>
+      <td> X </td>
+      <td> Exit </td>
+    </tr>
+    <tr>
+      <td> Esc </td>
+      <td> Exit </td>
+    </tr>
+
+
+
+
+  </tbody>
+</table>
+
+<p>The effects are enabled pressing the keys (1,2,3,4,5,6,7,8,9,0).
+These keys are unrelated to the specific effects but are associated with
+the position. The key 1 triggers the effect that is in the
+first position (the first effect to the left in the first row) and so on
+until 0 (the last effect to the right in the second row).</p>
+<p>The Keyboard Up/Down - Left/Right arrows decrease/increase slider values by "1".
+Shift+(Left/Right Arrow) decrease/increase slider values by "10". Ctrl+(Left/Right
+Arrow) decrease/increase slider values by "100". You can navigate through the
+parameters from the keyboard using the Tab, Up/Down arrow and select
+with the space bar keys.</p>
+
+
+<p><a href="general.html">General</a></p>
+<p><a href="help.html">Table of Contents</a></p>
+
+<h3><a name="session"></a>Session Support</h3>
+
+<p>Rakarrack-plus supports NSM, both Non Session Manager as well as New Session
+Manager.
+For session management, the current instance Settings/Preferences are saved as well as last
+used bank and preset. In addition, gui show/hide is supported. All bank, user files,
+Program Change table and "Insert" presets are global to all instances.
+For each Rakarrack-plus instance in the NSM session you must set the User bank in
+Settings/Preferences/User to your global user bank. SIGUSR1(save) and SIGINT(quit) signals
+can also be used for session support.
+</p>
+
+<p><b>NSM Single State</b></p>
+<p>In Settings/Preferences/Misc: Check this box if you want NSM session to always save the
+last state of the active preset.
+This will save all changes to effects including MIDI control changes. The default behavior
+will not save changes to the active preset as the changes are assumed to be for live 
+performance reasons. This check box is de-activated when not in NSM mode.</p>
+
+<p><a href="general.html">General</a></p>
+<p><a href="help.html">Table of Contents</a> - <a href="effects.html">Effects</a></p>
+</body></html>

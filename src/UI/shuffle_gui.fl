@@ -1,0 +1,231 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0304
+header_name {.h}
+code_name {.cxx}
+decl {\#include "RKR_Light_Button.h"} {public global
+}
+
+decl {\#include "RKR_Check_Button.h"} {public global
+}
+
+decl {\#include "RKR_Choice.h"} {public global
+}
+
+decl {\#include "RKR_GUI_Effect.h"} {public global
+}
+
+widget_class ShuffleGui {open selected
+  xywh {1550 57 155 180} type Double box UP_BOX color 0 selection_color 0 align 112
+  code0 {\#include "RKR_Slider.h"}
+  code1 {\#include "../process.h"}
+  code2 {\#include "rakarrack.h"}
+  class RKR_Gui_Effect visible position_relative
+} {
+  Fl_Light_Button shuffle_activar {
+    label 开
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Multi_On_Off);
+ o->value(m_process->EFX_Active[EFX_SHUFFLE]);
+ return;
+}
+m_process->EFX_Active[EFX_SHUFFLE]=(int)o->value();
+if((int) o->value()==0)
+m_process->Rack_Effects[EFX_SHUFFLE]->cleanup();
+m_parent->findpos(EFX_SHUFFLE,(int)o->value(),o);}
+    xywh {5 4 34 18} shortcut 0x33 color 62 selection_color 1 labelsize 10 align 84 when 1
+    code0 {activate_effect = o;}
+    class RKR_Light_Button
+  }
+  Fl_Choice shuffle_preset {
+    label 预置
+    user_data UD_PRESET_SHUFFLE
+    callback {long long ud= (long long) v;
+if((ud==0)||(ud==UD_PRESET_SHUFFLE))
+    m_process->Rack_Effects[EFX_SHUFFLE]->setpreset((int)o->value());
+
+for (int i = 0; i < m_process->EFX_Param_Size[EFX_SHUFFLE]; i++)
+{
+    parameter_refresh(i);
+};}
+    xywh {77 4 76 18} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 when 6 textsize 10 textcolor 7
+    code0 {preset_choice = o;}
+    class RKR_Choice
+  } {
+    MenuItem {} {
+      label {洗牌 1}
+      xywh {52 52 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {洗牌 2}
+      xywh {52 52 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {洗牌 3}
+      xywh {62 62 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {洗牌 4}
+      xywh {72 72 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 移除
+      xywh {72 72 36 21} labelsize 10
+    }
+  }
+  Fl_Value_Slider shuffle_WD {
+    label {干湿比}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Shuffle_DryWet);
+ return;
+} 
+m_process->Rack_Effects[EFX_SHUFFLE]->changepar(Shuffle_DryWet,Dry_Wet((int)o->value()));}
+    xywh {56 31 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider shuffle_cross1 {
+    label {低频}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Shuffle_Freq_L);
+ return;
+} 
+m_process->Rack_Effects[EFX_SHUFFLE]->changepar(Shuffle_Freq_L,(int)o->value());}
+    xywh {56 49 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 20 maximum 1000 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider shuffle_volL {
+    label {低增益}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Shuffle_Gain_L);
+ return;
+} 
+m_process->Rack_Effects[EFX_SHUFFLE]->changepar(Shuffle_Gain_L,(int)o->value());}
+    xywh {56 64 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -64 maximum 64 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider shuffle_cross2 {
+    label {中低频率}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Shuffle_Freq_ML);
+ return;
+} 
+m_process->Rack_Effects[EFX_SHUFFLE]->changepar(Shuffle_Freq_ML,(int)o->value());}
+    tooltip {中低频率} xywh {56 79 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 400 maximum 4000 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider shuffle_volML {
+    label {中低增益}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Shuffle_Gain_ML);
+ return;
+}
+m_process->Rack_Effects[EFX_SHUFFLE]->changepar(Shuffle_Gain_ML,(int)o->value());}
+    tooltip {中低增益} xywh {56 94 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -64 maximum 64 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider shuffle_cross3 {
+    label {中高频率}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Shuffle_Freq_MH);
+ return;
+}
+m_process->Rack_Effects[EFX_SHUFFLE]->changepar(Shuffle_Freq_MH,(int)o->value());}
+    tooltip {中高频率} xywh {56 109 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 1200 maximum 8000 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider shuffle_volMH {
+    label {中高增益}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Shuffle_Gain_MH);
+ return;
+}
+m_process->Rack_Effects[EFX_SHUFFLE]->changepar(Shuffle_Gain_MH,(int)o->value());}
+    tooltip {中高增益} xywh {56 124 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -64 maximum 64 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider shuffle_cross4 {
+    label {高频}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Shuffle_Freq_H);
+ return;
+}
+m_process->Rack_Effects[EFX_SHUFFLE]->changepar(Shuffle_Freq_H,(int)o->value());}
+    tooltip {高频} xywh {56 139 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 6000 maximum 26000 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider shuffle_volH {
+    label {高增益}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Shuffle_Gain_H);
+ return;
+}
+m_process->Rack_Effects[EFX_SHUFFLE]->changepar(Shuffle_Gain_H,(int)o->value());}
+    xywh {56 154 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -64 maximum 64 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider shuffle_Q {
+    label Q
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Shuffle_Width);
+ return;
+}
+m_process->Rack_Effects[EFX_SHUFFLE]->changepar(Shuffle_Width,(int)o->value());}
+    tooltip 宽度 xywh {56 169 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -64 maximum 64 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Check_Button shuffle_E {
+    label 混响
+    callback {m_process->Rack_Effects[EFX_SHUFFLE]->changepar(Shuffle_F_Band,(int)o->value());}
+    tooltip {滤波频段 - (不勾选 = 中频: 勾选 = 边带)} xywh {2 167 40 15} down_box BORDER_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  Function {parameter_refresh(int index)} {return_type void
+  } {
+    code {switch (index)
+    {
+    case Shuffle_DryWet:
+        shuffle_WD->value(Dry_Wet(m_process->Rack_Effects[EFX_SHUFFLE]->getpar(Shuffle_DryWet)));
+        break;
+    case Shuffle_Gain_L:
+        shuffle_volL->value(m_process->Rack_Effects[EFX_SHUFFLE]->getpar(Shuffle_Gain_L));
+        break;
+    case Shuffle_Gain_ML:
+        shuffle_volML->value(m_process->Rack_Effects[EFX_SHUFFLE]->getpar(Shuffle_Gain_ML));
+        break;
+    case Shuffle_Gain_MH:
+        shuffle_volMH->value(m_process->Rack_Effects[EFX_SHUFFLE]->getpar(Shuffle_Gain_MH));
+        break;
+    case Shuffle_Gain_H:
+        shuffle_volH->value(m_process->Rack_Effects[EFX_SHUFFLE]->getpar(Shuffle_Gain_H));
+        break;
+    case Shuffle_Freq_L:
+        shuffle_cross1->value(m_process->Rack_Effects[EFX_SHUFFLE]->getpar(Shuffle_Freq_L));
+        break;
+    case Shuffle_Freq_ML:
+        shuffle_cross2->value(m_process->Rack_Effects[EFX_SHUFFLE]->getpar(Shuffle_Freq_ML));
+        break;
+    case Shuffle_Freq_MH:
+        shuffle_cross3->value(m_process->Rack_Effects[EFX_SHUFFLE]->getpar(Shuffle_Freq_MH));
+        break;
+    case Shuffle_Freq_H:
+        shuffle_cross4->value(m_process->Rack_Effects[EFX_SHUFFLE]->getpar(Shuffle_Freq_H));
+        break;
+    case Shuffle_Width:
+        shuffle_Q->value(m_process->Rack_Effects[EFX_SHUFFLE]->getpar(Shuffle_Width));
+        break;
+    case Shuffle_F_Band:
+        shuffle_E->value(m_process->Rack_Effects[EFX_SHUFFLE]->getpar(Shuffle_F_Band));
+        break;
+    }} {}
+  }
+}

@@ -1,0 +1,365 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0304
+header_name {.h}
+code_name {.cxx}
+decl {\#include "RKR_Light_Button.h"} {public global
+}
+
+decl {\#include "RKR_Box.h"} {public global
+}
+
+decl {\#include "RKR_Check_Button.h"} {public global
+}
+
+decl {\#include "RKR_Choice.h"} {public global
+}
+
+decl {\#include "RKR_GUI_Effect.h"} {public global
+}
+
+widget_class LooperGui {open selected
+  xywh {1550 57 155 180} type Double box UP_BOX color 0 selection_color 0 align 112
+  code0 {\#include "RKR_Slider.h"}
+  code1 {\#include "../process.h"}
+  code2 {\#include "rakarrack.h"}
+  class RKR_Gui_Effect visible position_relative
+} {
+  Fl_Light_Button looper_activar {
+    label 开
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Multi_On_Off);
+ o->value(m_process->EFX_Active[EFX_LOOPER]);
+ return;
+}
+m_process->EFX_Active[EFX_LOOPER]=(int)o->value();
+if((int) o->value()==0)
+m_process->Rack_Effects[EFX_LOOPER]->cleanup();
+m_parent->findpos(EFX_LOOPER,(int)o->value(),o);}
+    xywh {5 4 34 18} shortcut 0x35 color 62 selection_color 1 labelsize 10 align 84 when 1
+    code0 {activate_effect = o;}
+    class RKR_Light_Button
+  }
+  Fl_Choice looper_preset {
+    label 预置
+    user_data UD_PRESET_LOOPER
+    callback {long long ud= (long long) v;
+if((ud==0)||(ud==UD_PRESET_LOOPER))
+    m_process->Rack_Effects[EFX_LOOPER]->setpreset((int) o->value());
+    
+looper_WD->value(Dry_Wet(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_DryWet)));
+looper_play->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Play));
+looper_record->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Record));
+looper_rv->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Reverse));
+looper_ap->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_AutoPlay));
+looper_level1->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Level_1));
+looper_level2->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Level_2));
+
+looper_t1->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Track_1));
+looper_t2->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Track_2));
+looper_r1->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Rec_1));
+looper_r2->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Rec_2));
+looper_lnk->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Link));
+looper_Tempo->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Tempo));
+looper_bar->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Bar));
+looper_ms->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_M_S));}
+    xywh {77 4 76 18} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 when 6 textsize 10 textcolor 7
+    code0 {preset_choice = o;}
+    class RKR_Choice
+  } {
+    MenuItem {} {
+      label 循环录音
+      xywh {67 67 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 反向
+      xywh {0 0 36 21} labelsize 10
+    }
+  }
+  Fl_Value_Slider looper_WD {
+    label {干湿比}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Looper_DryWet);
+ return;
+}
+m_process->Rack_Effects[EFX_LOOPER]->changepar(Looper_DryWet,Dry_Wet((int)(o->value())));}
+    xywh {56 25 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider looper_level1 {
+    label {电平 1}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Looper_Level_1);
+ return;
+}
+m_process->Rack_Effects[EFX_LOOPER]->changepar(Looper_Level_1,(int)o->value());}
+    xywh {56 37 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 when 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider looper_level2 {
+    label {电平 2}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Looper_Level_2);
+ return;
+}
+m_process->Rack_Effects[EFX_LOOPER]->changepar(Looper_Level_2,(int)o->value());}
+    xywh {56 49 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 when 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider looper_Tempo {
+    label 速度
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Looper_Tempo);
+ return;
+}
+m_process->Rack_Effects[EFX_LOOPER]->changepar(Looper_Tempo,(int)o->value());}
+    xywh {56 61 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 when 4 minimum 20 maximum 380 step 1 value 100 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Choice looper_bar {
+    label {拍号}
+    callback {m_process->Rack_Effects[EFX_LOOPER]->changepar(Looper_Bar,(int)o->value());} open
+    xywh {57 73 40 15} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 when 6 textsize 10 textcolor 7
+    code0 {o->menu(m_looper_bar->get_time_sig());}
+    class RKR_Choice
+  } {}
+  Fl_Choice looper_ms {
+    label MS
+    callback {m_process->Rack_Effects[EFX_LOOPER]->changepar(Looper_M_S,(int)o->value());} open
+    xywh {121 73 29 15} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 when 6 textsize 10 textcolor 7
+    code0 {o->menu(m_looper_ms->get_metronome_sound());}
+    class RKR_Choice
+  } {}
+  Fl_Check_Button looper_rv {
+    label 反向
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Looper_Reverse);
+ return;
+}
+m_process->Rack_Effects[EFX_LOOPER]->changepar(Looper_Reverse,(int)o->value())}
+    tooltip {倒放循环} xywh {8 89 61 15} down_box BORDER_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  Fl_Check_Button looper_ap {
+    label {自动播放}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Looper_AutoPlay);
+ return;
+}
+m_process->Rack_Effects[EFX_LOOPER]->changepar(Looper_AutoPlay,(int)o->value())}
+    xywh {78 89 67 15} down_box BORDER_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  Fl_Box Box_Play {
+    label {播放/停止}
+    xywh {4 103 52 14} labelsize 10 labelcolor 7
+    code0 {o->set_label_offset(0);}
+    class RKR_Box
+  }
+  Fl_Box Box_P {
+    label 暂停
+    xywh {58 103 44 14} labelsize 10 labelcolor 7
+    code0 {o->set_label_offset(0);}
+    class RKR_Box
+  }
+  Fl_Box {} {
+    label 录音
+    xywh {109 103 44 14} labelsize 10 labelcolor 7
+    code0 {o->set_label_offset(0);}
+    class RKR_Box
+  }
+  Fl_Button looper_play {
+    label {@|>}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Looper_Play);
+ return;
+}
+m_process->Rack_Effects[EFX_LOOPER]->changepar(Looper_Play,(int)o->value());
+m_parent->update_looper();}
+    tooltip {播放 - 快捷键 'F5'} xywh {8 117 44 22} type Toggle shortcut 0xffc2
+    code0 {o->set_label_offset(4);}
+    class RKR_Button
+  }
+  Fl_Button looper_stop {
+    label {@||}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Looper_Stop);
+ return;
+}
+m_process->Rack_Effects[EFX_LOOPER]->changepar(Looper_Stop,(int)o->value());
+m_parent->update_looper();}
+    tooltip {停止 - 快捷键 'F6'} xywh {59 117 44 22} type Toggle shortcut 0xffc3
+    code0 {o->set_label_offset(4);}
+    class RKR_Button
+  }
+  Fl_Button looper_record {
+    label {@circle}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Looper_Record);
+ return;
+}
+m_process->Rack_Effects[EFX_LOOPER]->changepar(Looper_Record,(int)o->value());
+m_parent->update_looper();}
+    xywh {109 117 44 22} type Toggle labelcolor 1
+    code0 {o->set_label_offset(4);}
+    class RKR_Button
+  }
+  Fl_Box {} {
+    label 轨道
+    xywh {71 149 39 14} labelsize 10 labelcolor 7
+    code0 {o->set_label_offset(0);}
+    class RKR_Box
+  }
+  Fl_Check_Button looper_r1 {
+    label R1
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Looper_Rec_1);
+ return;
+}
+m_process->Rack_Effects[EFX_LOOPER]->changepar(Looper_Rec_1,(int)o->value())}
+    tooltip {在轨道 1 录音} xywh {8 153 15 15} down_box BORDER_BOX labelsize 10 labelcolor 7 align 1
+    class RKR_Check_Button
+  }
+  Fl_Check_Button looper_r2 {
+    label R2
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Looper_Rec_2);
+ return;
+}
+m_process->Rack_Effects[EFX_LOOPER]->changepar(Looper_Rec_2,(int)o->value())}
+    tooltip {在轨道 2 录音} xywh {27 153 15 15} down_box BORDER_BOX labelsize 10 labelcolor 7 align 1
+    class RKR_Check_Button
+  }
+  Fl_Button looper_t1 {
+    label 1
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Looper_Track_1);
+ return;
+}
+m_process->Rack_Effects[EFX_LOOPER]->changepar(Looper_Track_1,(int)o->value());
+m_parent->update_looper();}
+    tooltip {启用轨道 1 的播放、停止、录音} xywh {111 147 18 18} type Toggle labelsize 10 align 16
+    class RKR_Button
+  }
+  Fl_Button looper_t2 {
+    label 2
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Looper_Track_2);
+ return;
+}
+m_process->Rack_Effects[EFX_LOOPER]->changepar(Looper_Track_2,(int)o->value());
+m_parent->update_looper();}
+    tooltip {启用轨道 2 的播放、停止、录音} xywh {134 147 18 18} type Toggle labelsize 10 align 16
+    class RKR_Button
+  }
+  Fl_Check_Button looper_lnk {
+    label 链接
+    callback {m_process->Rack_Effects[EFX_LOOPER]->changepar(Looper_Link,(int)o->value())}
+    tooltip {链接轨道 1 和轨道 2 使用相同长度} xywh {27 167 15 15} down_box BORDER_BOX labelsize 10 labelcolor 7 align 4
+    class RKR_Check_Button
+  }
+  Fl_Button looper_clear {
+    label 清除
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Looper_Clear);
+ return;
+}
+m_process->Rack_Effects[EFX_LOOPER]->changepar(Looper_Clear,(int)o->value());
+m_parent->update_looper();}
+    tooltip {擦除选中的轨道} xywh {46 165 43 14} labelsize 10
+    class RKR_Button
+  }
+  Fl_Check_Button looper_mt {
+    label M
+    callback {m_process->Rack_Effects[EFX_LOOPER]->changepar(Looper_Metro,(int)o->value())}
+    tooltip 节拍器 xywh {93 167 27 15} down_box BORDER_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  Fl_Box L_TimePos {
+    xywh {121 166 35 14} box DOWN_BOX align 84
+    class RKR_Box
+  }
+  decl {CommonGuiMenu *m_looper_bar;} {private local
+  }
+  decl {CommonGuiMenu *m_looper_ms;} {private local
+  }
+  Function {parameter_refresh(int index)} {return_type void
+  } {
+    code {switch(index)
+    {
+    case Looper_DryWet:
+        looper_WD->value(Dry_Wet(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_DryWet)));
+        break;
+    case Looper_Level_1:
+        looper_level1->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Level_1));
+        break;
+    case Looper_Level_2:
+        looper_level2->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Level_2));
+        break;
+    case Looper_Reverse:
+        looper_rv->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Reverse));
+        break;
+    case Looper_AutoPlay:
+        looper_ap->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_AutoPlay));
+        break;
+    case Looper_Play:
+        looper_play->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Play));
+        m_parent->update_looper();
+        break;
+    case Looper_Stop:
+        looper_stop->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Stop));
+        m_parent->update_looper();
+        break;
+    case Looper_Record:
+        looper_record->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Record));
+        m_parent->update_looper();
+        break;
+    case Looper_Rec_1:
+        looper_r1->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Rec_1));
+        break;
+    case Looper_Rec_2:
+        looper_r2->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Rec_2));
+        break;
+    case Looper_Track_1:
+        looper_t1->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Track_1));
+        m_parent->update_looper();
+        break;
+    case Looper_Track_2:
+        looper_t2->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Track_2));
+        m_parent->update_looper();
+        break;
+    case Looper_Clear:
+        /* Setting the looper_clear button after MIDI control really does not work. 
+           The button for the gui is just press and release, i.e. not a toggle button.
+           Since the clear flag Pclear is set and remains set until another button such
+           as play or record gets pushed, the Pclear variable returned by getpar(4) is
+           going to show pressed (value = 1) and set the button as pressed here. And it
+           will remain in that state until restart. If pressed manually, it just does
+           unpress and release back to press.  Would be nice to show the press and release
+           with MIDI control, but it would probably have to be a timer issue and additional
+           complications for very little value. MIDI control does work, but we should not show
+           it on the gui button here with this method */
+    //    looper_clear->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Clear));
+        m_parent->update_looper();
+        break;
+    }} {}
+  }
+  Function {tap_tempo_update()} {return_type void
+  } {
+    code {looper_Tempo->value(m_process->Rack_Effects[EFX_LOOPER]->getpar(Looper_Tempo));} {}
+  }
+}

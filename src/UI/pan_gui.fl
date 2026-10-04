@@ -1,0 +1,195 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0304
+header_name {.h}
+code_name {.cxx}
+decl {\#include "RKR_Light_Button.h"} {public global
+}
+
+decl {\#include "RKR_Check_Button.h"} {public global
+}
+
+decl {\#include "RKR_Choice.h"} {public global
+}
+
+decl {\#include "RKR_GUI_Effect.h"} {public global
+}
+
+widget_class {\#include "common_gui_menu.h"} PanGui {open selected
+  xywh {1704 175 155 180} type Double box UP_BOX color 0 selection_color 0 align 112
+  code0 {\#include "RKR_Slider.h"}
+  code1 {\#include "../process.h"}
+  code2 {\#include "rakarrack.h"}
+  code3 {\#include "common_gui_menu.h"}
+  class RKR_Gui_Effect visible position_relative
+} {
+  Fl_Light_Button pan_activar {
+    label 开
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Multi_On_Off);
+ o->value(m_process->EFX_Active[EFX_PAN]);
+ return;
+}
+m_process->EFX_Active[EFX_PAN]=(int)o->value();
+if((int) o->value()==0)
+m_process->Rack_Effects[EFX_PAN]->cleanup();
+m_parent->findpos(EFX_PAN,(int)o->value(),o);}
+    xywh {5 4 34 18} shortcut 0x36 color 62 selection_color 1 labelsize 10 align 84 when 1
+    code0 {activate_effect = o;}
+    class RKR_Light_Button
+  }
+  Fl_Choice pan_preset {
+    label 预置
+    user_data UD_PRESET_PAN
+    callback {long long ud= (long long) v;
+if((ud==0)||(ud==UD_PRESET_PAN))
+    m_process->Rack_Effects[EFX_PAN]->setpreset((int) o->value());
+
+for (int i = 0; i < m_process->EFX_Param_Size[EFX_PAN]; i++)
+{
+    parameter_refresh(i);
+}}
+    xywh {77 4 76 18} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 when 6 textsize 10 textcolor 7
+    code0 {preset_choice = o;}
+    class RKR_Choice
+  } {
+    MenuItem {} {
+      label 自动声像
+      xywh {62 62 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {额外立体声}
+      xywh {62 62 36 21} labelsize 10
+    }
+  }
+  Fl_Value_Slider pan_WD {
+    label {干湿比}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Pan_DryWet);
+ return;
+} 
+m_process->Rack_Effects[EFX_PAN]->changepar(Pan_DryWet,Dry_Wet((int)(o->value())));}
+    xywh {56 29 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider pan_pan {
+    label 声像
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Pan_Pan);
+ return;
+} 
+m_process->Rack_Effects[EFX_PAN]->changepar(Pan_Pan,(int)(o->value()+64));}
+    xywh {56 44 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -64 maximum 63 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Check_Button pan_autopan {
+    label 自动声像
+    callback {m_process->Rack_Effects[EFX_PAN]->changepar(Pan_AutoPan,(int)o->value())}
+    xywh {35 56 70 18} down_box BORDER_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  Fl_Value_Slider pan_freq {
+    label 速度
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Pan_LFO_Tempo);
+ return;
+} 
+m_process->Rack_Effects[EFX_PAN]->changepar(Pan_LFO_Tempo,(int)o->value());}
+    xywh {56 73 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 1 maximum 600 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider pan_rnd {
+    label 随机
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Pan_LFO_Random);
+ return;
+} 
+m_process->Rack_Effects[EFX_PAN]->changepar(Pan_LFO_Random,(int)o->value());}
+    xywh {56 85 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Choice pan_lfotype {
+    label {LFO 波形}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Pan_LFO_Type);
+ return;
+} 
+
+m_process->Rack_Effects[EFX_PAN]->changepar(Pan_LFO_Type,(int)o->value());} open
+    xywh {78 103 72 16} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 textsize 10 textcolor 7
+    code0 {o->menu(m_lfo_menu->get_lfo_type());}
+    class RKR_Choice
+  } {}
+  Fl_Value_Slider pan_stdf {
+    label {立体声深度}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Pan_LFO_Stereo);
+ return;
+} 
+m_process->Rack_Effects[EFX_PAN]->changepar(Pan_LFO_Stereo,(int)o->value());}
+    tooltip {LFO 左右延迟} xywh {56 124 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Check_Button pan_extraon {
+    label {额外立体声}
+    callback {m_process->Rack_Effects[EFX_PAN]->changepar(Pan_Enable_Extra,(int)o->value())}
+    tooltip {启用额外立体声} xywh {35 140 82 15} down_box BORDER_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  Fl_Value_Slider pan_extra {
+    label {额.立体声}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Pan_Ex_St_Amt);
+ return;
+}
+m_process->Rack_Effects[EFX_PAN]->changepar(Pan_Ex_St_Amt,(int)o->value());}
+    tooltip {额外立体声强度} xywh {56 161 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  decl {CommonGuiMenu *m_lfo_menu;} {private local
+  }
+  Function {parameter_refresh(int index)} {return_type void
+  } {
+    code {switch (index)
+    {
+    case Pan_DryWet:
+        pan_WD->value(Dry_Wet(m_process->Rack_Effects[EFX_PAN]->getpar(Pan_DryWet)));
+        break;
+    case Pan_Pan:
+        pan_pan->value(m_process->Rack_Effects[EFX_PAN]->getpar(Pan_Pan)-64);
+        break;
+    case Pan_LFO_Tempo:
+        pan_freq->value(m_process->Rack_Effects[EFX_PAN]->getpar(Pan_LFO_Tempo));
+        break;
+    case Pan_LFO_Random:
+        pan_rnd->value(m_process->Rack_Effects[EFX_PAN]->getpar(Pan_LFO_Random));
+        break;
+    case Pan_LFO_Type:
+        pan_lfotype->value(m_process->Rack_Effects[EFX_PAN]->getpar(Pan_LFO_Type));
+        break;
+    case Pan_LFO_Stereo:
+        pan_stdf->value(m_process->Rack_Effects[EFX_PAN]->getpar(Pan_LFO_Stereo));
+        break;
+    case Pan_Ex_St_Amt:
+        pan_extra->value(m_process->Rack_Effects[EFX_PAN]->getpar(Pan_Ex_St_Amt));
+        break;
+    case Pan_AutoPan:
+        pan_autopan->value(m_process->Rack_Effects[EFX_PAN]->getpar(Pan_AutoPan));
+        break;
+    case Pan_Enable_Extra:
+        pan_extraon->value(m_process->Rack_Effects[EFX_PAN]->getpar(Pan_Enable_Extra));
+        break;
+    }} {}
+  }
+  Function {tap_tempo_update()} {return_type void
+  } {
+    code {pan_freq->value(m_process->Rack_Effects[EFX_PAN]->getpar(Pan_LFO_Tempo));} {}
+  }
+}

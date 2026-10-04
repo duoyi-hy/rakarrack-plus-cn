@@ -1,0 +1,182 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0308
+header_name {.h}
+code_name {.cxx}
+decl {\#include "RKR_Light_Button.h"} {public global
+}
+
+decl {\#include "RKR_Choice.h"} {public global
+}
+
+decl {\#include "RKR_GUI_Effect.h"} {public global
+}
+
+widget_class {\#include "newvum.h"} VocoderGui {open selected
+  xywh {1550 56 155 180} type Double box UP_BOX color 0 selection_color 0 align 112
+  code0 {\#include "RKR_Slider.h"}
+  code1 {\#include "../process.h"}
+  code2 {\#include "rakarrack.h"}
+  code3 {\#include "newvum.h"}
+  class RKR_Gui_Effect visible position_relative
+} {
+  Fl_Light_Button vo_activar {
+    label 开
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Multi_On_Off);
+ o->value(m_process->EFX_Active[EFX_VOCODER]);
+ return;
+}
+m_process->EFX_Active[EFX_VOCODER]=(int)o->value();
+if((int) o->value()==0)
+vu_vu->value(-48);
+m_parent->findpos(EFX_VOCODER,(int)o->value(),o);}
+    xywh {5 4 34 18} shortcut 0x35 color 62 selection_color 1 labelsize 10 align 84 when 1
+    code0 {activate_effect = o;}
+    class RKR_Light_Button
+  }
+  Fl_Choice vo_preset {
+    label 预置
+    user_data UD_PRESET_VOCODER
+    callback {long long ud= (long long) v;
+if((ud==0)||(ud==UD_PRESET_VOCODER))
+    m_process->Rack_Effects[EFX_VOCODER]->setpreset((int) o->value());
+
+for (int i = 0; i < m_process->EFX_Param_Size[EFX_VOCODER]; i++)
+{
+    parameter_refresh(i);
+};}
+    xywh {77 4 76 18} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 when 6 textsize 10 textcolor 7
+    code0 {preset_choice = o;}
+    class RKR_Choice
+  } {
+    MenuItem {} {
+      label {声码器 1}
+      xywh {77 77 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {声码器 2}
+      xywh {77 77 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {声码器 3}
+      xywh {77 77 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {声码器 4}
+      xywh {87 87 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {声码器 5}
+      xywh {97 97 36 21} labelsize 10
+    }
+  }
+  Fl_Value_Slider vo_WD {
+    label {干湿比}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+        {
+         m_parent->getMIDIControl(MC_Vocoder_DryWet);
+         return;
+        }
+        m_process->Rack_Effects[EFX_VOCODER]->changepar(Vocoder_DryWet,Dry_Wet((int)(o->value())));}
+    xywh {56 30 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider vo_pan {
+    label 声像
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+        {
+         m_parent->getMIDIControl(MC_Vocoder_Pan);
+         return;
+        }
+        m_process->Rack_Effects[EFX_VOCODER]->changepar(Vocoder_Pan,(int)(o->value()+64));}
+    xywh {56 50 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -64 maximum 64 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider vo_input {
+    label 输入
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+        {
+         m_parent->getMIDIControl(MC_Vocoder_Input);
+         return;
+        }
+        m_process->Rack_Effects[EFX_VOCODER]->changepar(Vocoder_Input,(int)o->value());}
+    xywh {56 70 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider vo_mu {
+    label 涂抹
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+        {
+         m_parent->getMIDIControl(MC_Vocoder_Smear);
+         return;
+        }
+        m_process->Rack_Effects[EFX_VOCODER]->changepar(Vocoder_Smear,(int)o->value());}
+    tooltip {闷化、模糊} xywh {56 90 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 1 maximum 127 step 1 value 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider vo_q {
+    label Q
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+        {
+         m_parent->getMIDIControl(MC_Vocoder_Q);
+         return;
+        }
+        m_process->Rack_Effects[EFX_VOCODER]->changepar(Vocoder_Q,(int)o->value());}
+    tooltip 谐振 xywh {56 110 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 40 maximum 170 step 1 value 120 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider vo_ring {
+    label 环形调制
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+        {
+         m_parent->getMIDIControl(MC_Vocoder_Ring);
+         return;
+        }
+        m_process->Rack_Effects[EFX_VOCODER]->changepar(Vocoder_Ring,(int)o->value());}
+    xywh {56 130 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider vo_level {
+    label 电平
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+        {
+         m_parent->getMIDIControl(MC_Vocoder_Level);
+         return;
+        }
+        m_process->Rack_Effects[EFX_VOCODER]->changepar(Vocoder_Level,(int)o->value());}
+    xywh {56 150 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Slider vu_vu {
+    xywh {7 55 11 122} type {Vert Fill} box NO_BOX color 178 selection_color 90 align 80 when 0 minimum 15 maximum -48 step 1 value -48
+    class NewVum
+  }
+  Function {parameter_refresh(int index)} {return_type void
+  } {
+    code {switch (index)
+    {
+    case Vocoder_DryWet:
+        vo_WD->value(Dry_Wet(m_process->Rack_Effects[EFX_VOCODER]->getpar(Vocoder_DryWet)));
+        break;
+    case Vocoder_Pan:
+        vo_pan->value(m_process->Rack_Effects[EFX_VOCODER]->getpar(Vocoder_Pan)-64);
+        break;
+    case Vocoder_Smear:
+        vo_mu->value(m_process->Rack_Effects[EFX_VOCODER]->getpar(Vocoder_Smear));
+        break;
+    case Vocoder_Q:
+        vo_q->value(m_process->Rack_Effects[EFX_VOCODER]->getpar(Vocoder_Q));
+        break;
+    case Vocoder_Input:
+        vo_input->value(m_process->Rack_Effects[EFX_VOCODER]->getpar(Vocoder_Input));
+        break;
+    case Vocoder_Level:
+        vo_level->value(m_process->Rack_Effects[EFX_VOCODER]->getpar(Vocoder_Level));
+        break;
+    case Vocoder_Ring:
+        vo_ring->value(m_process->Rack_Effects[EFX_VOCODER]->getpar(Vocoder_Ring));
+        break;
+    }} {}
+  }
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+<!-- This file was originally generated from OpenOffice, but is now maintained 
+  by hand. It is used for both the in-application help and the online help.
+
+  When making updates to this file, make sure you also update the online 
+  version with:
+  
+   scp help.html raboofje,rakarrack@web.sourceforge.net:htdocs
+-->
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8"><title>Rakarrack-plus Help
+  MIDI Learn</title>
+  <meta name="AUTHOR" content="Josep Andreu">
+  <meta name="CREATED" content="0;0">
+  <meta name="CHANGED" content="20100112;22402500">
+  <meta name="DESCRIPTION" content="rakarrack-plus help in html file"></head>
+  <body dir="ltr" style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" lang="en-US">
+
+
+<h2>MIDI Learn</h2>
+
+<h2><img alt="MIDI Learn window" src="imagenes/midilearn.jpg"></h2>
+
+<p>In order to access the MIDI learn window you must first check the
+box for "MIDI Learn" in <a href="general.html#midi">Settings/Preferences/MIDI</a>
+of the <a href="general.html#midi-imp">MIDI Implementation</a> section.</p>
+
+<p>The MIDI Learn window allows you to create a MIDI implementation
+table for each preset in a bank. There are two browsers,
+one at the left with all the available effect parameters,
+and another at the right with all the presets in the Bank.</p>
+
+<p> You can open this window clicking the right mouse over an effect
+parameter that can be controllable by MIDI. Also you can auto assign the
+incoming MIDI Control message "automatically" if you enable in
+<a href="general.html#midi">Settings/Preferences/MIDI</a> -
+<a href="general.html#midi-auto">Auto Assign MIDI Learn</a>.</p>
+
+<p>The radio buttons "All" and "Current" select the parameters listed in the
+browser. "Current" displays only the actual preset parameters available in
+MIDI learn.</p>
+
+<p>The most important thing here is the input box located below the
+parameter browser. The MIDI control message can be edited by selecting and dragging,
+or capturing an incoming MIDI message by clicking on the Get MIDI Message button.
+When the desired control number is selected, it must be assigned to the effect by clicking
+on the assign button. The MIDI control will then be assigned to the selected
+effect parameter on the browser.</p>
+
+<p>You can "Assign" up to 20 effects parameters for a single
+control number message. Also you can use different control
+messages to manage only one effect parameter.</p>
+<p>The "Assign to All" <b>adds</b> this
+single assignment to all the presets in the bank, preserving
+everything that you have previously assigned in all the presets.
+The "Copy to All" button that overwrites all the assignments.</p>
+
+
+<p>The grid boxes in the middle display the engaged MIDI
+control messages to the selected effect parameter on the browser, the
+Assignment for a single effect parameter can be cleared with the
+button "Clear Assignments", also you can clear all the assignments
+for this preset with the button Clear Preset".</p>
+
+<p>In the left part of the window you have the list of presets in the
+working bank, you can copy from or to the selected preset, that copy
+all the preset table of a single preset.</p>
+<p>The "Copy to All" button copy the actual preset to all the presets in the Bank.</p>
+
+
+<p>The midi learn implementation tables is saved on the preset file
+for a single preset, and in a separate file in the case of the Banks,
+the program read this bank preset file when read the normal bank file.</p>
+
+<p><a href="help.html">Table of Contents</a> -  <a href="midiconverter.html">MIDI Converter</a></p>
+</body></html>

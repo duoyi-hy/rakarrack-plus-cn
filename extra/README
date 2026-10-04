@@ -1,0 +1,8 @@
+
+Included are additional individual effect presets in the file:
+    InsertPresets.rkis
+
+To use the InsertPresets.rkis, from the main window, File/Import Inserted Presets.
+Then use the file chooser to select the InsertPresets.rkis file.
+The new individual effect presets will be listed with a * from the effect Preset menu.
+

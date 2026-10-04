@@ -1,0 +1,11 @@
+/build/
+/lv2/presets/
+lv2/__pycache__/
+/LV2_Effects/presets/
+LV2_Effects/__pycache__/
+
+# 汉化打包产物
+dist/
+stage/
+packaging/i18n/extracted.json
+packaging/i18n/extracted_short.txt

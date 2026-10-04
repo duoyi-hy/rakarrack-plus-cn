@@ -1,0 +1,330 @@
+@prefix atom: <http://lv2plug.in/ns/ext/atom#> .
+@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix state: <http://lv2plug.in/ns/ext/state#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://github.com/Stazed/rakarrack-plus#Echotron:preset:summer>
+        a pset:Preset ;
+        lv2:appliesTo <https://github.com/Stazed/rakarrack-plus#Echotron> ;
+	rdfs:label "Summer" ;
+    lv2:port [
+        lv2:symbol "DRYWET" ;
+		pset:value 63.0
+    ], [
+        lv2:symbol "DEPTH" ;
+		pset:value -19.0
+    ], [
+        lv2:symbol "WIDTH" ;
+		pset:value 34.0
+    ], [
+        lv2:symbol "LENGTH" ;
+		pset:value 4.0
+        #skip user
+    ], [
+        lv2:symbol "TEMPO" ;
+		pset:value 76.0
+    ], [
+        lv2:symbol "DAMP" ;
+		pset:value 3.0
+    ], [
+        lv2:symbol "LRC" ;
+		pset:value -23.0
+        #skip file
+    ], [
+        lv2:symbol "STDF" ;
+		pset:value 96.0
+    ], [
+        lv2:symbol "FB" ;
+		pset:value -13.0
+    ], [
+        lv2:symbol "PAN" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "MD" ;
+		pset:value 1.0
+    ], [
+        lv2:symbol "MF" ;
+		pset:value 1.0
+    ], [
+        lv2:symbol "LFOTYPE" ;
+		pset:value 1.0
+    ], [
+        lv2:symbol "AF" ;
+		pset:value 1.0
+    ] ;
+    state:state [
+		<https://github.com/Stazed/rakarrack-plus#Echotron:dlyfile> <SwingPong.dly>
+	] 
+	.
+
+<https://github.com/Stazed/rakarrack-plus#Echotron:preset:ambience>
+        a pset:Preset ;
+        lv2:appliesTo <https://github.com/Stazed/rakarrack-plus#Echotron> ;
+	rdfs:label "Ambience" ;
+    lv2:port [
+        lv2:symbol "DRYWET" ;
+		pset:value 31.0
+    ], [
+        lv2:symbol "DEPTH" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "WIDTH" ;
+		pset:value 16.0
+    ], [
+        lv2:symbol "LENGTH" ;
+		pset:value 3.0
+        #skip user
+    ], [
+        lv2:symbol "TEMPO" ;
+		pset:value 180.0
+    ], [
+        lv2:symbol "DAMP" ;
+		pset:value 50.0
+    ], [
+        lv2:symbol "LRC" ;
+		pset:value 0.0
+        #skip file
+    ], [
+        lv2:symbol "STDF" ;
+		pset:value 96.0
+    ], [
+        lv2:symbol "FB" ;
+		pset:value -4.0
+    ], [
+        lv2:symbol "PAN" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "MD" ;
+		pset:value 1.0
+    ], [
+        lv2:symbol "MF" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "LFOTYPE" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "AF" ;
+		pset:value 0.0
+    ] ;
+    state:state [
+		<https://github.com/Stazed/rakarrack-plus#Echotron:dlyfile> <Short_Delays.dly>
+	] 
+	.
+
+<https://github.com/Stazed/rakarrack-plus#Echotron:preset:arranjer>
+        a pset:Preset ;
+        lv2:appliesTo <https://github.com/Stazed/rakarrack-plus#Echotron> ;
+	rdfs:label "Arranjer" ;
+    lv2:port [
+        lv2:symbol "DRYWET" ;
+		pset:value 63.0
+    ], [
+        lv2:symbol "DEPTH" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "WIDTH" ;
+		pset:value 10.0
+    ], [
+        lv2:symbol "LENGTH" ;
+		pset:value 3.0
+        #skip user
+    ], [
+        lv2:symbol "TEMPO" ;
+		pset:value 400.0
+    ], [
+        lv2:symbol "DAMP" ;
+		pset:value 32.0
+    ], [
+        lv2:symbol "LRC" ;
+		pset:value 0.0
+        #skip file
+    ], [
+        lv2:symbol "STDF" ;
+		pset:value 96.0
+    ], [
+        lv2:symbol "FB" ;
+		pset:value -8.0
+    ], [
+        lv2:symbol "PAN" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "MD" ;
+		pset:value 1.0
+    ], [
+        lv2:symbol "MF" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "LFOTYPE" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "AF" ;
+		pset:value 0.0
+    ] ;
+    state:state [
+		<https://github.com/Stazed/rakarrack-plus#Echotron:dlyfile> <Short_Delays.dly>
+	] 
+	.
+
+<https://github.com/Stazed/rakarrack-plus#Echotron:preset:suction>
+        a pset:Preset ;
+        lv2:appliesTo <https://github.com/Stazed/rakarrack-plus#Echotron> ;
+	rdfs:label "Suction" ;
+    lv2:port [
+        lv2:symbol "DRYWET" ;
+		pset:value 127.0
+    ], [
+        lv2:symbol "DEPTH" ;
+		pset:value -17.0
+    ], [
+        lv2:symbol "WIDTH" ;
+		pset:value 28.0
+    ], [
+        lv2:symbol "LENGTH" ;
+		pset:value 8.0
+        #skip user
+    ], [
+        lv2:symbol "TEMPO" ;
+		pset:value 92.0
+    ], [
+        lv2:symbol "DAMP" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "LRC" ;
+		pset:value 0.0
+        #skip file
+    ], [
+        lv2:symbol "STDF" ;
+		pset:value 32.0
+    ], [
+        lv2:symbol "FB" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "PAN" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "MD" ;
+		pset:value 1.0
+    ], [
+        lv2:symbol "MF" ;
+		pset:value 1.0
+    ], [
+        lv2:symbol "LFOTYPE" ;
+		pset:value 1.0
+    ], [
+        lv2:symbol "AF" ;
+		pset:value 1.0
+    ] ;
+    state:state [
+		<https://github.com/Stazed/rakarrack-plus#Echotron:dlyfile> <Comb.dly>
+	] 
+	.
+
+<https://github.com/Stazed/rakarrack-plus#Echotron:preset:suctionflange>
+        a pset:Preset ;
+        lv2:appliesTo <https://github.com/Stazed/rakarrack-plus#Echotron> ;
+	rdfs:label "Suction Flange" ;
+    lv2:port [
+        lv2:symbol "DRYWET" ;
+		pset:value 63.0
+    ], [
+        lv2:symbol "DEPTH" ;
+		pset:value -28.0
+    ], [
+        lv2:symbol "WIDTH" ;
+		pset:value 93.0
+    ], [
+        lv2:symbol "LENGTH" ;
+		pset:value 8.0
+        #skip user
+    ], [
+        lv2:symbol "TEMPO" ;
+		pset:value 81.0
+    ], [
+        lv2:symbol "DAMP" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "LRC" ;
+		pset:value 0.0
+        #skip file
+    ], [
+        lv2:symbol "STDF" ;
+		pset:value 32.0
+    ], [
+        lv2:symbol "FB" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "PAN" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "MD" ;
+		pset:value 1.0
+    ], [
+        lv2:symbol "MF" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "LFOTYPE" ;
+		pset:value 1.0
+    ], [
+        lv2:symbol "AF" ;
+		pset:value 1.0
+    ] ;
+    state:state [
+		<https://github.com/Stazed/rakarrack-plus#Echotron:dlyfile> <Comb.dly>
+	] 
+	.
+<https://github.com/Stazed/rakarrack-plus#Echotron:preset:soft>
+        a pset:Preset ;
+        lv2:appliesTo <https://github.com/Stazed/rakarrack-plus#Echotron> ;
+	rdfs:label "Soft" ;
+    lv2:port [
+        lv2:symbol "DRYWET" ;
+		pset:value 63.0
+    ], [
+        lv2:symbol "DEPTH" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "WIDTH" ;
+		pset:value 41.0
+    ], [
+        lv2:symbol "LENGTH" ;
+		pset:value 4.0
+        #skip user
+    ], [
+        lv2:symbol "TEMPO" ;
+		pset:value 64.0
+    ], [
+        lv2:symbol "DAMP" ;
+		pset:value 99.0
+    ], [
+        lv2:symbol "LRC" ;
+		pset:value 20.0
+        #skip file
+    ], [
+        lv2:symbol "STDF" ;
+		pset:value 64.0
+    ], [
+        lv2:symbol "FB" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "PAN" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "MD" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "MF" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "LFOTYPE" ;
+		pset:value 0.0
+    ], [
+        lv2:symbol "AF" ;
+		pset:value 0.0
+    ] ;
+    state:state [
+		<https://github.com/Stazed/rakarrack-plus#Echotron:dlyfile> <SwingPong.dly>
+	] 
+	.

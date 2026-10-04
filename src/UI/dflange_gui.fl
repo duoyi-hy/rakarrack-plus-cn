@@ -1,0 +1,298 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0304
+header_name {.h}
+code_name {.cxx}
+decl {\#include "RKR_Light_Button.h"} {public global
+}
+
+decl {\#include "RKR_Check_Button.h"} {public global
+}
+
+decl {\#include "RKR_Choice.h"} {public global
+}
+
+decl {\#include "RKR_GUI_Effect.h"} {public global
+}
+
+widget_class {\#include "common_gui_menu.h"} DflangeGui {open selected
+  xywh {1550 57 155 180} type Double box UP_BOX color 0 selection_color 0 align 112
+  code0 {\#include "RKR_Slider.h"}
+  code1 {\#include "../process.h"}
+  code2 {\#include "rakarrack.h"}
+  code3 {\#include "common_gui_menu.h"}
+  class RKR_Gui_Effect visible position_relative
+} {
+  Fl_Light_Button dflange_activar {
+    label 开
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_Multi_On_Off);
+ o->value(m_process->EFX_Active[EFX_DUAL_FLANGE]);
+ return;
+}
+m_process->EFX_Active[EFX_DUAL_FLANGE]=(int)o->value();
+if((int) o->value()==0)
+m_process->Rack_Effects[EFX_DUAL_FLANGE]->cleanup();
+m_parent->findpos(EFX_DUAL_FLANGE,(int)o->value(),o);}
+    xywh {5 4 34 18} shortcut 0x38 color 62 selection_color 1 labelsize 10 align 84 when 1
+    code0 {activate_effect = o;}
+    class RKR_Light_Button
+  }
+  Fl_Choice dflange_preset {
+    label 预置
+    user_data UD_PRESET_DUAL_FLANGE
+    callback {long long ud= (long long) v;
+if((ud==0)||(ud==UD_PRESET_DUAL_FLANGE))
+    m_process->Rack_Effects[EFX_DUAL_FLANGE]->setpreset((int)o->value());
+
+for (int i = 0; i < m_process->EFX_Param_Size[EFX_DUAL_FLANGE]; i++)
+{
+    parameter_refresh(i);
+};}
+    xywh {77 4 76 18} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 when 6 textsize 10 textcolor 7
+    code0 {preset_choice = o;}
+    class RKR_Choice
+  } {
+    MenuItem {} {
+      label {双镶边 1}
+      xywh {72 72 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {镶边哇音}
+      xywh {72 72 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {反馈镶边}
+      xywh {72 72 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {柔和镶边}
+      xywh {82 82 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label 镶边
+      xywh {92 92 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {深邃合唱}
+      xywh {102 102 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {明亮合唱}
+      xywh {112 112 36 21} labelsize 10
+    }
+    MenuItem {} {
+      label {双镶边 2}
+      xywh {82 82 36 21} labelsize 10
+    }
+  }
+  Fl_Value_Slider dflange_WD {
+    label {干湿比}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DFlange_DryWet);
+ return;
+} 
+m_process->Rack_Effects[EFX_DUAL_FLANGE]->changepar(DFlange_DryWet,Dry_Wet((int)(o->value())));}
+    xywh {56 24 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider dflange_pan {
+    label 声像
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DFlange_Pan);
+ return;
+} 
+m_process->Rack_Effects[EFX_DUAL_FLANGE]->changepar(DFlange_Pan,(int)o->value());}
+    xywh {56 35 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -64 maximum 64 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider dflange_LR {
+    label {左右交叉}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DFlange_LR_Cross);
+ return;
+} 
+m_process->Rack_Effects[EFX_DUAL_FLANGE]->changepar(DFlange_LR_Cross,(int)o->value());}
+    xywh {56 46 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider dflange_depth {
+    label 深度
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DFlange_Depth);
+ return;
+} 
+m_process->Rack_Effects[EFX_DUAL_FLANGE]->changepar(DFlange_Depth,(int)o->value());}
+    xywh {56 57 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 20 maximum 2500 step 1 value 20 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider dflange_width {
+    label 宽度
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DFlange_Width);
+ return;
+} 
+m_process->Rack_Effects[EFX_DUAL_FLANGE]->changepar(DFlange_Width,(int)o->value());}
+    xywh {56 69 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 6000 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider dflange_offset {
+    label 偏移
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DFlange_Offset);
+ return;
+} 
+m_process->Rack_Effects[EFX_DUAL_FLANGE]->changepar(DFlange_Offset,(int)o->value());}
+    xywh {56 80 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 100 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider dflange_fb {
+    label 反馈
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DFlange_Feedback);
+ return;
+} 
+m_process->Rack_Effects[EFX_DUAL_FLANGE]->changepar(DFlange_Feedback,(int)o->value());}
+    xywh {56 91 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum -64 maximum 64 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider dflange_lpf {
+    label LPF
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DFlange_LPF);
+ return;
+} 
+m_process->Rack_Effects[EFX_DUAL_FLANGE]->changepar(DFlange_LPF,(int)o->value());}
+    xywh {56 102 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 20 maximum 20000 step 1 value 20 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Check_Button dflange_subs {
+    label 减法
+    callback {m_process->Rack_Effects[EFX_DUAL_FLANGE]->changepar(DFlange_Subtract,(int)o->value());}
+    xywh {5 113 46 15} down_box BORDER_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  Fl_Check_Button dflange_tz {
+    label {阈值归零}
+    callback {m_process->Rack_Effects[EFX_DUAL_FLANGE]->changepar(DFlange_Zero,(int)o->value());}
+    xywh {48 113 55 15} down_box BORDER_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  Fl_Check_Button dflange_intense {
+    label 强烈
+    callback {m_process->Rack_Effects[EFX_DUAL_FLANGE]->changepar(DFlange_Intense,(int)o->value());}
+    xywh {102 113 52 15} down_box BORDER_BOX labelsize 10 labelcolor 7
+    class RKR_Check_Button
+  }
+  Fl_Value_Slider dflange_freq {
+    label 速度
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DFlange_LFO_Tempo);
+ return;
+} 
+m_process->Rack_Effects[EFX_DUAL_FLANGE]->changepar(DFlange_LFO_Tempo,(int)o->value());}
+    xywh {56 128 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 minimum 1 maximum 600 step 1 value 100 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Value_Slider dflange_stdf {
+    label {立体声深度}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DFlange_LFO_Stereo);
+ return;
+} 
+m_process->Rack_Effects[EFX_DUAL_FLANGE]->changepar(DFlange_LFO_Stereo,(int)o->value());}
+    xywh {56 140 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  Fl_Choice dflange_lfotype {
+    label {LFO 波形}
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DFlange_LFO_Type);
+ return;
+} 
+
+m_process->Rack_Effects[EFX_DUAL_FLANGE]->changepar(DFlange_LFO_Type,(int)o->value());} open
+    xywh {78 153 72 15} down_box BORDER_BOX selection_color 0 labelsize 10 labelcolor 7 textsize 10 textcolor 7
+    code0 {o->menu(m_lfo_menu->get_lfo_type());}
+    class RKR_Choice
+  } {}
+  Fl_Value_Slider dflange_rnd {
+    label 随机
+    callback {if(Fl::event_button()==FL_RIGHT_MOUSE)
+{
+ m_parent->getMIDIControl(MC_DFlange_LFO_Random);
+ return;
+} 
+m_process->Rack_Effects[EFX_DUAL_FLANGE]->changepar(DFlange_LFO_Random,(int)o->value());}
+    xywh {56 170 100 10} type {Horz Knob} box FLAT_BOX color 178 selection_color 62 labelsize 10 labelcolor 7 align 4 maximum 127 step 1 textcolor 7
+    class RKR_Slider
+  }
+  decl {CommonGuiMenu *m_lfo_menu;} {private local
+  }
+  Function {parameter_refresh(int index)} {return_type void
+  } {
+    code {switch (index)
+    {
+    case DFlange_DryWet:
+        dflange_WD->value(Dry_Wet(m_process->Rack_Effects[EFX_DUAL_FLANGE]->getpar(DFlange_DryWet)));
+        break;
+    case DFlange_Pan:
+        dflange_pan->value(m_process->Rack_Effects[EFX_DUAL_FLANGE]->getpar(DFlange_Pan));
+        break;
+    case DFlange_LR_Cross:
+        dflange_LR->value(m_process->Rack_Effects[EFX_DUAL_FLANGE]->getpar(DFlange_LR_Cross));
+        break;
+    case DFlange_Depth:
+        dflange_depth->value(m_process->Rack_Effects[EFX_DUAL_FLANGE]->getpar(DFlange_Depth));
+        break;
+    case DFlange_Width:
+        dflange_width->value(m_process->Rack_Effects[EFX_DUAL_FLANGE]->getpar(DFlange_Width));
+        break;
+    case DFlange_Offset:
+        dflange_offset->value(m_process->Rack_Effects[EFX_DUAL_FLANGE]->getpar(DFlange_Offset));
+        break;
+    case DFlange_Feedback:
+        dflange_fb->value(m_process->Rack_Effects[EFX_DUAL_FLANGE]->getpar(DFlange_Feedback));
+        break;
+    case DFlange_LPF:
+        dflange_lpf->value(m_process->Rack_Effects[EFX_DUAL_FLANGE]->getpar(DFlange_LPF));
+        break;
+    case DFlange_Subtract:
+        dflange_subs->value(m_process->Rack_Effects[EFX_DUAL_FLANGE]->getpar(DFlange_Subtract));
+        break;
+    case DFlange_Zero:
+        dflange_tz->value(m_process->Rack_Effects[EFX_DUAL_FLANGE]->getpar(DFlange_Zero));
+        break;
+    case DFlange_LFO_Tempo:
+        dflange_freq->value(m_process->Rack_Effects[EFX_DUAL_FLANGE]->getpar(DFlange_LFO_Tempo));
+        break;
+    case DFlange_LFO_Stereo:
+        dflange_stdf->value(m_process->Rack_Effects[EFX_DUAL_FLANGE]->getpar(DFlange_LFO_Stereo));
+        break;
+    case DFlange_LFO_Type:
+        dflange_lfotype->value(m_process->Rack_Effects[EFX_DUAL_FLANGE]->getpar(DFlange_LFO_Type));
+        break;
+    case DFlange_LFO_Random:
+        dflange_rnd->value(m_process->Rack_Effects[EFX_DUAL_FLANGE]->getpar(DFlange_LFO_Random));
+        break;
+    case DFlange_Intense:
+        dflange_intense->value(m_process->Rack_Effects[EFX_DUAL_FLANGE]->getpar(DFlange_Intense));
+        break;
+    }} {}
+  }
+  Function {tap_tempo_update()} {return_type void
+  } {
+    code {dflange_freq->value(m_process->Rack_Effects[EFX_DUAL_FLANGE]->getpar(DFlange_LFO_Tempo));} {}
+  }
+}
